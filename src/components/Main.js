@@ -9,14 +9,16 @@ function Main() {
     console.log('posts', posts);
     function addPost(text) {
         setPosts(
-            posts.concat([
+            [...posts,
                 {
                     text,
                     date: new Date().toLocaleString(),
                     id: Date.now(),
+                    
                 }
-            ])
+            ]
         )
+        
     }
 
     return (
