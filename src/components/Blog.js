@@ -4,11 +4,14 @@ import Post from './Post';
 function Blog({posts}) {
  
     const [sortedPosts, setSortedPosts] = useState([])
-    // function sortByDate(posts) {
-  
-    // console.log('post', posts);
-    // }
-    // sortByDate(posts)
+
+    // const [likes, setLikes] = useState(0);
+
+    // const onclickHandler = (event) => {
+    //     setLikes(likes+1)
+    //     console.log("likes", likes);
+    //   }
+
     return (
         <div className='blog-container'>
             <ul className='posts'>

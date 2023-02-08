@@ -7,14 +7,15 @@ function Main() {
         []
     )
     console.log('posts', posts);
-    function addPost(text) {
+
+    function addPost(text, likes) {
         setPosts(
             [...posts,
                 {
                     text,
                     date: new Date().toLocaleString(),
                     id: Date.now(),
-                    
+                    likes,
                 }
             ]
         )
