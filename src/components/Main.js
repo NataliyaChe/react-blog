@@ -15,7 +15,7 @@ function Main() {
                     text,
                     date: new Date().toLocaleString(),
                     id: Date.now(),
-                    likes,
+                    likes: 0,
                 }
             ]
         )
