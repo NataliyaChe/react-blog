@@ -25,7 +25,7 @@ function Main() {
     return (
         <div className='main'>
             <Form onCreate={addPost}/>
-            <Blog posts={posts}/>
+            <Blog posts={posts} setPosts={setPosts}/>
         </div>
     );
 }
