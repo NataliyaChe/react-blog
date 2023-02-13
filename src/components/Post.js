@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 
-
 function Post({post, onclickHandler}) {
-  // const [likes, setLikes] = useState(0);
-
-  // const onclickHandler = () => {
-    
-  //   console.log("likes", post.likes);
-  // }
 
   return (
     <li className='post-item'>

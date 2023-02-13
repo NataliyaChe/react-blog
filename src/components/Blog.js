@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Post from './Post';
 
 function Blog({posts, setPosts}) {
@@ -12,7 +12,7 @@ function Blog({posts, setPosts}) {
             return post
         })
         setPosts(newPosts)
-      }
+    }
 
      console.log('sort post', posts);
 
@@ -29,6 +29,7 @@ function Blog({posts, setPosts}) {
                     return <Post post={post} key={post.id} onclickHandler={onclickHandler}/>
                 })}
             </ul>
+            
         </div>
     );
 }
