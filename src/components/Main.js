@@ -8,26 +8,26 @@ import Pagination from './Pagination';
 function Main() {
     const [posts, setPosts] = useState([]);
 
-    const [totalPages, setTotalPages] = useState(0);
     const postsPerPage = 5;
-    const [currentPage, setCurrentPage] = useState(1);
+    // const [currentPage, setCurrentPage] = useState(0);
+    const [firstPost, setFirstPost] = useState(0)
+    const lastPost = firstPost + postsPerPage;
+    const [paginatedPosts, setPaginatedPosts] = useState([]);
 
-    const [itemOffset, setItemOffset] = useState(0);
-    const endOffset = itemOffset + postsPerPage;
-
-    const getCurrentPage = () => {
-        return posts.slice(itemOffset, endOffset);
-        
-    }
-   
-
-    const getTotalPages = () => {
-        return Math.ceil(posts.length / postsPerPage);
-    }
     
+    const totalPages = Math.ceil(posts.length / postsPerPage);
+    // const getPaginatedPosts = () => {
+
+    // }
+    // setPaginatedPosts(posts.slice(firstPost, lastPost));
+
     const pageChangeHandler = (event) => {
-        const newOffset = (event.selected * postsPerPage) % posts.length;
-        setItemOffset(newOffset);
+        setFirstPost(event.selected * postsPerPage)
+        // const firstPost = (event.selected * postsPerPage);
+        // console.log('event', event.selected);
+        // const lastPost = firstPost + postsPerPage;
+        // setPaginatedPosts(posts.slice(firstPost, lastPost));
+        // setPaginatedPosts(posts.slice(firstPost, lastPost));   
     }
     
     function addPost(text, likes) {
@@ -41,13 +41,9 @@ function Main() {
                 }
             ]
         )
-        setTotalPages(getTotalPages());
-        setCurrentPage(getCurrentPage());
+        setPaginatedPosts(posts.slice(firstPost, lastPost));
     }
-
-    console.log('totalPages', totalPages);
-    console.log('currentPage', currentPage);
-
+    console.log('paginatedPosts', paginatedPosts);
     return (
         <div className='main'>
             <Form onCreate={addPost}/>
@@ -63,7 +59,7 @@ function Main() {
                     renderOnZeroPageCount={null}
                 />
             }
-            <Blog posts={posts} setPosts={setPosts}/>
+            <Blog posts={posts} setPosts={setPosts} paginatedPosts={paginatedPosts}/>
         </div>
     );
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post';
 
-function Blog({posts, setPosts}) {
-
+function Blog({posts, setPosts, offset}) {
+    const [currentPosts, setCurrentPosts] = useState([]);
     const onclickHandler = (event) => {
         const buttonId = event.target.dataset.id;
         const newPosts = posts.map(post => {
@@ -20,9 +20,9 @@ function Blog({posts, setPosts}) {
         <div className='blog-container'>
             <ul className='posts'>
                 {posts.sort(function(a, b) {
-                if (a.likes < b.likes) {
+                if (b.likes < a.likes) {
                     return -1}
-                if (a.likes > b.likes) {
+                if (b.likes > a.likes) {
                     return 1}
                 return new Date(b.date) - new Date(a.date);
                 }).map(post => {
