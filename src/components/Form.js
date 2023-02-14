@@ -6,7 +6,6 @@ function Form({ onCreate }) {
 
     function submitHandler(event) {
         event.preventDefault()
-
         if (value.trim()) {
             onCreate(value)
             setValue('')
@@ -26,7 +25,7 @@ function Form({ onCreate }) {
                     name='textform'
                     value={value}
                     onChange={event => setValue(event.target.value)}></textarea>
-                    
+          
                 <button className='button' type='submit'>Send post</button>
             </form>   
         </div>

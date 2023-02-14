@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
 import Form from './Form';
 import Blog from './Blog';
-import Pagination from './Pagination';
 
 function Main() {
     const [posts, setPosts] = useState([]);
@@ -22,12 +21,11 @@ function Main() {
     console.log('paginatedPosts', paginatedPosts);
     const totalPages = Math.ceil(posts.length / postsPerPage);
 
-
     const pageChangeHandler = (event) => {
         setFirstPost(event.selected * postsPerPage)  
     }
     console.log('firstPost', firstPost);
-    function addPost(text, likes) {
+    function addPost(text) {
         setPosts(
             [...posts,
                 {
@@ -39,11 +37,23 @@ function Main() {
             ]
         )
     }
+    console.log('main', posts);
+
+    const onclickHandler = (event) => {
+        const buttonId = event.target.dataset.id;
+        const newPosts = posts.map(post => {
+            if(post.id === +buttonId) {
+                post.likes += 1
+            }
+            return post
+        })
+        setPosts(newPosts)
+    }
+
     return (
         <div className='main'>
             <Form onCreate={addPost}/>
             {posts.length > 5 &&    
-                // <Pagination />
                 <ReactPaginate
                     breakLabel="..."
                     nextLabel="next >"
@@ -55,9 +65,9 @@ function Main() {
                 />
             }
             {posts.length > 5 ? (
-                <Blog posts={paginatedPosts} setPosts={setPosts} paginatedPosts={paginatedPosts}/>
+                <Blog posts={paginatedPosts} setPosts={setPosts} paginatedPosts={paginatedPosts} onclickHandler={onclickHandler}/>
             ) : (
-                <Blog posts={posts} setPosts={setPosts} paginatedPosts={paginatedPosts}/>
+                <Blog posts={posts} setPosts={setPosts} paginatedPosts={paginatedPosts} onclickHandler={onclickHandler}/>
             )} 
         </div>
     );
