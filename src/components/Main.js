@@ -11,15 +11,22 @@ function Main() {
     const postsPerPage = 5;
     const [firstPost, setFirstPost] = useState(0)
     const lastPost = firstPost + postsPerPage;
-    const paginatedPosts = (posts.slice(firstPost, lastPost));
+
+    const paginatedPosts = (posts.sort(function(a, b) {
+        if (b.likes < a.likes) {
+            return -1}
+        if (b.likes > a.likes) {
+            return 1}
+        return new Date(b.date) - new Date(a.date);
+        }).slice(firstPost, lastPost));
     console.log('paginatedPosts', paginatedPosts);
     const totalPages = Math.ceil(posts.length / postsPerPage);
-    
+
 
     const pageChangeHandler = (event) => {
         setFirstPost(event.selected * postsPerPage)  
     }
-    
+    console.log('firstPost', firstPost);
     function addPost(text, likes) {
         setPosts(
             [...posts,

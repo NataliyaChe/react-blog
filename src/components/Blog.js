@@ -18,7 +18,10 @@ function Blog({posts, setPosts}) {
     return (
         <div className='blog-container'>
             <ul className='posts'>
-                {posts.sort(function(a, b) {
+            {posts.map(post => {
+                    return <Post post={post} key={post.id} onclickHandler={onclickHandler}/>
+                })}
+                {/* {posts.sort(function(a, b) {
                 if (b.likes < a.likes) {
                     return -1}
                 if (b.likes > a.likes) {
@@ -26,7 +29,7 @@ function Blog({posts, setPosts}) {
                 return new Date(b.date) - new Date(a.date);
                 }).map(post => {
                     return <Post post={post} key={post.id} onclickHandler={onclickHandler}/>
-                })}
+                })} */}
             </ul>
             
         </div>
