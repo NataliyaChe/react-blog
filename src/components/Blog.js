@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post';
 
-function Blog({posts, setPosts, offset}) {
-    const [currentPosts, setCurrentPosts] = useState([]);
+function Blog({posts, setPosts}) {
     const onclickHandler = (event) => {
         const buttonId = event.target.dataset.id;
         const newPosts = posts.map(post => {

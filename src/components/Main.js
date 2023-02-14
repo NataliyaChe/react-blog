@@ -9,25 +9,15 @@ function Main() {
     const [posts, setPosts] = useState([]);
 
     const postsPerPage = 5;
-    // const [currentPage, setCurrentPage] = useState(0);
     const [firstPost, setFirstPost] = useState(0)
     const lastPost = firstPost + postsPerPage;
-    const [paginatedPosts, setPaginatedPosts] = useState([]);
-
-    
+    const paginatedPosts = (posts.slice(firstPost, lastPost));
+    console.log('paginatedPosts', paginatedPosts);
     const totalPages = Math.ceil(posts.length / postsPerPage);
-    // const getPaginatedPosts = () => {
-
-    // }
-    // setPaginatedPosts(posts.slice(firstPost, lastPost));
+    
 
     const pageChangeHandler = (event) => {
-        setFirstPost(event.selected * postsPerPage)
-        // const firstPost = (event.selected * postsPerPage);
-        // console.log('event', event.selected);
-        // const lastPost = firstPost + postsPerPage;
-        // setPaginatedPosts(posts.slice(firstPost, lastPost));
-        // setPaginatedPosts(posts.slice(firstPost, lastPost));   
+        setFirstPost(event.selected * postsPerPage)  
     }
     
     function addPost(text, likes) {
@@ -41,13 +31,11 @@ function Main() {
                 }
             ]
         )
-        setPaginatedPosts(posts.slice(firstPost, lastPost));
     }
-    console.log('paginatedPosts', paginatedPosts);
     return (
         <div className='main'>
             <Form onCreate={addPost}/>
-            {posts.length > 5 &&
+            {posts.length > 5 &&    
                 // <Pagination />
                 <ReactPaginate
                     breakLabel="..."
@@ -59,7 +47,11 @@ function Main() {
                     renderOnZeroPageCount={null}
                 />
             }
-            <Blog posts={posts} setPosts={setPosts} paginatedPosts={paginatedPosts}/>
+            {posts.length > 5 ? (
+                <Blog posts={paginatedPosts} setPosts={setPosts} paginatedPosts={paginatedPosts}/>
+            ) : (
+                <Blog posts={posts} setPosts={setPosts} paginatedPosts={paginatedPosts}/>
+            )} 
         </div>
     );
 }
