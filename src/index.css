@@ -47,3 +47,11 @@ code {
 .likes {
   padding-left: 20px;
 }
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
