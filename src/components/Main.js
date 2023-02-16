@@ -60,7 +60,6 @@ function Main() {
                 }
             <Blog 
                 posts={posts.length > 5 ? paginatedPosts : posts} 
-                setPosts={setPosts} 
                 paginatedPosts={paginatedPosts} 
                 onclickHandler={onclickHandler}/>
         </div>
