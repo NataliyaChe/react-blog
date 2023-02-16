@@ -10,23 +10,10 @@ function Main() {
     const [firstPost, setFirstPost] = useState(0)
     const lastPost = firstPost + postsPerPage;
 
-    // const paginatedPosts = (posts.sort(function(a, b) {
-    //     if (b.likes < a.likes) {
-    //         return -1}
-    //     if (b.likes > a.likes) {
-    //         return 1}
-    //     if (b.date > a.date) {
-    //         return 1;}
-    //     if (b.date < a.date) {
-    //         return -1;}
-    //     return 0;
-    //     }).slice(firstPost, lastPost));
-
     const paginatedPosts = (posts.sort((a, b) => (
-        b.likes - a.likes || new Date(a.date) - new Date(b.date)
+        b.likes - a.likes || b.date.localeCompare(a.date)
     )).slice(firstPost, lastPost));
-    console.log('main', posts);
-    
+
     const totalPages = Math.ceil(posts.length / postsPerPage);
 
     const pageChangeHandler = (event) => {
