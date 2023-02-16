@@ -1,36 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Form from './Form';
 import Blog from './Blog';
-import Pagination from './Pagination';
 
 function Main() {
     const [posts, setPosts] = useState([]);
 
     const postsPerPage = 5;
-    // const [currentPage, setCurrentPage] = useState(0);
     const [firstPost, setFirstPost] = useState(0)
     const lastPost = firstPost + postsPerPage;
-    const [paginatedPosts, setPaginatedPosts] = useState([]);
 
-    
+    const paginatedPosts = (posts.sort((a, b) => (
+        b.likes - a.likes || b.date.localeCompare(a.date)
+    )).slice(firstPost, lastPost));
+
     const totalPages = Math.ceil(posts.length / postsPerPage);
-    // const getPaginatedPosts = () => {
-
-    // }
-    // setPaginatedPosts(posts.slice(firstPost, lastPost));
 
     const pageChangeHandler = (event) => {
-        setFirstPost(event.selected * postsPerPage)
-        // const firstPost = (event.selected * postsPerPage);
-        // console.log('event', event.selected);
-        // const lastPost = firstPost + postsPerPage;
-        // setPaginatedPosts(posts.slice(firstPost, lastPost));
-        // setPaginatedPosts(posts.slice(firstPost, lastPost));   
+        setFirstPost(event.selected * postsPerPage)  
     }
     
-    function addPost(text, likes) {
+    function addPost(text) {
         setPosts(
             [...posts,
                 {
@@ -41,14 +31,23 @@ function Main() {
                 }
             ]
         )
-        setPaginatedPosts(posts.slice(firstPost, lastPost));
     }
-    console.log('paginatedPosts', paginatedPosts);
+
+    const onclickHandler = (event) => {
+        const buttonId = event.target.dataset.id;
+        const newPosts = posts.map(post => {
+            if(post.id === +buttonId) {
+                post.likes += 1
+            }
+            return post
+        })
+        setPosts(newPosts)
+    }
+
     return (
         <div className='main'>
             <Form onCreate={addPost}/>
-            {posts.length > 5 &&
-                // <Pagination />
+                {posts.length > 5 &&    
                 <ReactPaginate
                     breakLabel="..."
                     nextLabel="next >"
@@ -58,8 +57,10 @@ function Main() {
                     previousLabel="< previous"
                     renderOnZeroPageCount={null}
                 />
-            }
-            <Blog posts={posts} setPosts={setPosts} paginatedPosts={paginatedPosts}/>
+                }
+            <Blog 
+                posts={posts.length > 5 ? paginatedPosts : posts} 
+                onclickHandler={onclickHandler}/>
         </div>
     );
 }
