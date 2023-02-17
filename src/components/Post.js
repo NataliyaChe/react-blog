@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
 function Post({post, onclickHandler}) {
-    return (
-        <li className='post-item'>   
-            <p>{post.text}</p>
-            <p>{post.date}</p>
-            <p>{post.id}</p>
-            <button 
-                className='button' 
-                onClick={onclickHandler} 
-                data-id={post.id}>
-                Like
-            </button>
-            <span className='likes'>{post.likes}</span>   
-        </li>
-    );
+  const [isClass, setIsClass] = useState(true);
+
+  const onclickSpoiler = (event) => {
+    setIsClass(!isClass)  
+  };
+
+  return (
+    <li className='post-item'>   
+      <p>{post.text}</p>
+      <button 
+        className={`'button show-btn ${isClass ? 'show' : 'hide'}`}
+        onClick={onclickSpoiler}
+        data-id={post.id} />
+      <div className={isClass ? 'hide' : 'show'}>
+        <p>{post.date}</p>
+        <button 
+          className='button' 
+          onClick={onclickHandler} 
+          data-id={post.id}>
+          Like
+        </button>
+        <span className='likes'>{post.likes}</span>  
+        <button 
+          className='button hide-btn'
+          onClick={onclickSpoiler} />
+      </div>
+    </li>
+  );
 }
 
 export default Post;

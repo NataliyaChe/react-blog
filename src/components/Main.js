@@ -35,6 +35,7 @@ function Main() {
 
     const onclickHandler = (event) => {
         const buttonId = event.target.dataset.id;
+        console.log('button', event.target);
         const newPosts = posts.map(post => {
             if(post.id === +buttonId) {
                 post.likes += 1
