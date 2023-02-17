@@ -2,10 +2,10 @@ import React, { useRef, useState } from 'react';
 
 function Post({post, onclickHandler}) {
   const spoiler = useRef();
-  const [isClass, setIsClass] = useState(true)
+  const [isClass, setIsClass] = useState(true);
 
   const onclickShowSpoiler = (event) => {
-    setIsClass(false)    
+    setIsClass(false)  
   };
 
   const onclickHideSpoiler = (event) => {
@@ -16,7 +16,7 @@ function Post({post, onclickHandler}) {
     <li className='post-item'>   
       <p>{post.text}</p>
       <button 
-        className='button show-btn' 
+        className={`${isClass ? 'button show-btn show' : 'button show-btn hide'}`}
         onClick={onclickShowSpoiler}
         data-id={post.id} />
       <div className={isClass ? 'hide' : 'show'} ref={spoiler}>
