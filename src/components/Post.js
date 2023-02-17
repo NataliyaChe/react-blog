@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 
 function Post({post, onclickHandler}) {
-  const spoiler = useRef();
   const [isClass, setIsClass] = useState(true);
 
   const onclickSpoiler = (event) => {
