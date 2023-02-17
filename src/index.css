@@ -1,5 +1,7 @@
 body {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -54,4 +56,24 @@ code {
 
 .hide {
   display: none;
+}
+
+.hide-btn {
+  display: block;
+  margin-top: 10px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-image: url('./images/icons8-стрелка-67\ \(1\).png');
+  background-size: contain;
+}
+
+.show-btn {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-image: url('./images/icons8-стрелка-67.png');
+  background-size: contain;
 }

@@ -2,28 +2,24 @@ import React, { useRef, useState } from 'react';
 
 function Post({post, onclickHandler}) {
   const spoiler = useRef();
-  const [newClass, setNewClass] = useState(true)
-  const onclickSpoilerHandler = (event) => {
+  const [isClass, setIsClass] = useState(true)
 
-    newClass === false ? setNewClass(true) : setNewClass(false)
-    
-    // if(post.id === +spoilerId) {
-    //   // spoiler.current.className('active')
-    //   setNewClass(false)
-    // }
-    
-}
+  const onclickShowSpoiler = (event) => {
+    setIsClass(false)    
+  };
+
+  const onclickHideSpoiler = (event) => {
+    setIsClass(true)  
+  }
 
   return (
     <li className='post-item'>   
       <p>{post.text}</p>
       <button 
-        className='button' 
-        onClick={onclickSpoilerHandler}
-        data-id={post.id}>
-              Spoiler
-      </button>
-      <div className={newClass ? 'hide' : 'show'} ref={spoiler}>
+        className='button show-btn' 
+        onClick={onclickShowSpoiler}
+        data-id={post.id} />
+      <div className={isClass ? 'hide' : 'show'} ref={spoiler}>
         <p>{post.date}</p>
         <button 
           className='button' 
@@ -32,6 +28,9 @@ function Post({post, onclickHandler}) {
           Like
         </button>
         <span className='likes'>{post.likes}</span>  
+        <button 
+          className='button hide-btn'
+          onClick={onclickHideSpoiler} />
       </div>
     </li>
   );
