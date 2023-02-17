@@ -4,22 +4,18 @@ function Post({post, onclickHandler}) {
   const spoiler = useRef();
   const [isClass, setIsClass] = useState(true);
 
-  const onclickShowSpoiler = (event) => {
-    setIsClass(false)  
+  const onclickSpoiler = (event) => {
+    setIsClass(!isClass)  
   };
-
-  const onclickHideSpoiler = (event) => {
-    setIsClass(true)  
-  }
 
   return (
     <li className='post-item'>   
       <p>{post.text}</p>
       <button 
-        className={`${isClass ? 'button show-btn show' : 'button show-btn hide'}`}
-        onClick={onclickShowSpoiler}
+        className={`'button show-btn ${isClass ? 'show' : 'hide'}`}
+        onClick={onclickSpoiler}
         data-id={post.id} />
-      <div className={isClass ? 'hide' : 'show'} ref={spoiler}>
+      <div className={isClass ? 'hide' : 'show'}>
         <p>{post.date}</p>
         <button 
           className='button' 
@@ -30,7 +26,7 @@ function Post({post, onclickHandler}) {
         <span className='likes'>{post.likes}</span>  
         <button 
           className='button hide-btn'
-          onClick={onclickHideSpoiler} />
+          onClick={onclickSpoiler} />
       </div>
     </li>
   );
