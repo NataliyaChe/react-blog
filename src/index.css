@@ -92,3 +92,6 @@ code {
 .reset-btn {
   margin-left: 20px;
 }
+
+/* return  event.target.value.localeCompare(post.date)
+return post.date.localeCompare(event.target.value) */

@@ -1,32 +1,37 @@
 import React, { useState } from 'react';
 
 function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
-    const [filteredPosts, setFilteredPosts] = useState([]);
+    const [postsFromDate, setPostsFromDate] = useState([]);
+    const [postsToDate, setPostsToDate] = useState([]);
+    const [pickedDate, setPickedDate] = useState();
+    const [isClass, setIsClass] = useState(true);
     
     const getStartDate = (event) => {
-        const postsFromDate = posts.filter(post => {
-            return post.date > event.target.value
-        })
-        setFilteredPosts(postsFromDate);
+        setPostsFromDate(event.target.value)
+        setPickedDate(event.target.value)
     }
 
     const getEndDate = (event) => {
-        const postsToDate = filteredPosts.filter(post => {
-            return post.date < event.target.value
-        })
-        setFilteredPosts(postsToDate);
+        setPostsToDate(event.target.value)
+        setPickedDate(event.target.value)
     }
 
-    console.log('start input', filteredPosts);
-
     const filterHandler = (event) => {
-        setAllPosts(posts);
-        setPosts(filteredPosts);
+        if(allPosts.length === 0 && (postsFromDate.length && postsToDate.length) !== 0) {
+            const filteredPosts = posts.filter(post => {
+                return (post.date >= postsFromDate) && (post.date <= postsToDate)
+            })
+            setAllPosts(posts);
+            setPosts(filteredPosts);
+            setIsClass(!isClass);
+        }
     }
 
     const resetHandler = (event) => {
         setPosts(allPosts);
         setAllPosts([]);
+        setIsClass(!isClass);
+        setPickedDate('')
     }
 
     return (
@@ -37,14 +42,14 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
                 id="start" 
                 name="start"
                 min="2023-01-01" 
-                max="2023-03-31"
+                max={pickedDate}
                 onChange={getStartDate}/>  
             <input 
                 className='input end-input'
                 type="date" 
                 id="end" 
                 name="end"
-                min="2023-01-01" 
+                min={pickedDate}
                 max="2023-03-31"
                 onChange={getEndDate}/>  
             <button 
@@ -52,7 +57,7 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
                 onClick={filterHandler}>Filter
             </button>
             <button 
-                className='button reset-btn'
+                className={`'button reset-btn ${isClass ? 'hide' : 'show'}`}
                 onClick={resetHandler}>Reset
             </button>
         </div>

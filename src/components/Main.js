@@ -56,7 +56,8 @@ function Main() {
             id: 20120315,
             likes: 0,
         },
-    ])
+    ]);
+
     // const [posts, setPosts] = useState([]);
 
     const postsPerPage = 5;
@@ -73,35 +74,36 @@ function Main() {
         setFirstPost(event.selected * postsPerPage)  
     }
     
-    // function addPost(text) {
-    //     setPosts(
-    //         [...posts,
-    //             {
-    //                 text,
-    //                 date: new Date().toLocaleString(),
-    //                 id: Date.now(),
-    //                 likes: 0,
-    //             }
-    //         ]
-    //     )
-    // }
+    function addPost(text) {
+        setPosts(
+            [...posts,
+                {
+                    text,
+                    date: new Date().toLocaleString(),
+                    id: Date.now(),
+                    likes: 0,
+                }
+            ]
+        )
+    }
 
-    // const onclickHandler = (event) => {
-    //     const buttonId = event.target.dataset.id;
-    //     console.log('button', event.target);
-    //     const newPosts = posts.map(post => {
-    //         if(post.id === +buttonId) {
-    //             post.likes += 1
-    //         }
-    //         return post
-    //     })
-    //     setPosts(newPosts)
-    // }
+    const onclickHandler = (event) => {
+        const buttonId = event.target.dataset.id;
+        console.log('button', event.target);
+        const newPosts = posts.map(post => {
+            if(post.id === +buttonId) {
+                post.likes += 1
+            }
+            return post
+        })
+        setPosts(newPosts)
+    }
 
+    console.log('posts', posts);
     return (
         <div className='main'>
             <div className='flex-wrapper'>
-                {/* <Form onCreate={addPost}/> */}
+                <Form onCreate={addPost}/>
                 <DatePicker posts={posts} setPosts={setPosts} allPosts={allPosts} setAllPosts={setAllPosts}/>
             </div>
             {posts.length > 5 &&    
@@ -118,7 +120,7 @@ function Main() {
             <Blog 
                 // posts={posts.length > 5 ? paginatedPosts : posts} 
                 // onclickHandler={onclickHandler}/>
-                posts={posts.length > 5 ? paginatedPosts : posts} />
+                posts={posts.length > 5 ? paginatedPosts : posts} onclickHandler={onclickHandler}/>
         </div>
     );
 }
