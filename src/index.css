@@ -77,3 +77,18 @@ code {
   background-image: url('./images/icons8-стрелка-67.png');
   background-size: contain;
 }
+
+.flex-wrapper {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.input {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.reset-btn {
+  margin-left: 20px;
+}
