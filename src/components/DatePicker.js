@@ -1,25 +1,35 @@
 import React, { useState } from 'react';
 
 function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
-    const [postsFromDate, setPostsFromDate] = useState([]);
-    const [postsToDate, setPostsToDate] = useState([]);
-    const [pickedDate, setPickedDate] = useState();
+    const [postsFromDate, setPostsFromDate] = useState(0);
+    const [postsToDate, setPostsToDate] = useState(0);
+    const [pickedDate, setPickedDate] = useState(0);
     const [isClass, setIsClass] = useState(true);
     
     const getStartDate = (event) => {
-        setPostsFromDate(event.target.value)
         setPickedDate(event.target.value)
+        const startDate = Date.parse(event.target.value)
+        setPostsFromDate(startDate)
+        console.log('postsFromDate', postsFromDate);
+        console.log('startDate', startDate);
+        console.log('pickedDate', pickedDate);
     }
 
     const getEndDate = (event) => {
-        setPostsToDate(event.target.value)
         setPickedDate(event.target.value)
+        const endDate = Date.parse(event.target.value)
+        setPostsToDate(endDate)
+        console.log('postsToDate', postsToDate);
+        console.log('endDate', endDate);
+        console.log('pickedDate', pickedDate);
     }
 
     const filterHandler = (event) => {
-        if(allPosts.length === 0 && (postsFromDate.length && postsToDate.length) !== 0) {
+        console.log('postsFromDate', postsFromDate);
+        console.log('postsToDate', postsToDate);
+        if(allPosts.length === 0 && (postsFromDate && postsToDate) !== 0) {
             const filteredPosts = posts.filter(post => {
-                return (post.date >= postsFromDate) && (post.date <= postsToDate)
+                return (post.id >= postsFromDate) && (post.id <= postsToDate)
             })
             setAllPosts(posts);
             setPosts(filteredPosts);
