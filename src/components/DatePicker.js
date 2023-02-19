@@ -29,7 +29,8 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
         console.log('postsToDate', postsToDate);
         if(allPosts.length === 0 && (postsFromDate && postsToDate) !== 0) {
             const filteredPosts = posts.filter(post => {
-                return (post.id >= postsFromDate) && (post.id <= postsToDate)
+                return (post.date >= postsFromDate) && (Date.parse(post.date) <= postsToDate)
+                // return (post.id >= postsFromDate) && (post.id <= postsToDate)
             })
             setAllPosts(posts);
             setPosts(filteredPosts);
