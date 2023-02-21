@@ -10,49 +10,49 @@ function Main() {
     const [posts, setPosts] = useState([
         {
             text: 'first post',
-            date: new Date(2023, 0, 2, 1, 10, 6).toLocaleString(),
+            date: new Date(2023, 0, 2, 1, 10, 6),
             id: 1672614606000,
             likes: 0,
         },
         {
             text: 'second post',
-            date: new Date(2023, 0, 15, 11, 10, 7).toLocaleString(),
+            date: new Date(2023, 0, 15, 11, 10, 7),
             id: 1673773807000,
             likes: 0,
         },
         {
             text: 'third post',
-            date: new Date(2023, 0, 25, 11, 10, 10).toLocaleString(),
+            date: new Date(2023, 0, 25, 11, 10, 10),
             id: 1674637810000,
             likes: 0,
         },
         {
             text: 'fourth post',
-            date: new Date(2023, 0, 30, 11, 10, 2).toLocaleString(),
+            date: new Date(2023, 0, 30, 11, 10, 2),
             id: 1675069802000,
             likes: 0,
         },
         {
             text: 'fifth post',
-            date: new Date(2023, 1, 2, 11, 10, 3).toLocaleString(),
+            date: new Date(2023, 1, 2, 11, 10, 3),
             id: 1675329003000,
             likes: 0,
         },
         {
             text: 'sixth post',
-            date: new Date(2023, 1, 6, 11, 10, 15).toLocaleString(),
+            date: new Date(2023, 1, 6, 11, 10, 15),
             id: 1675674615000,
             likes: 0,
         },
         {
             text: 'seventh post',
-            date: new Date(2023, 1, 10, 11, 10, 20).toLocaleString(),
+            date: new Date(2023, 1, 10, 11, 10, 20),
             id: 1676020220000,
             likes: 0,
         },
         {
             text: 'eighth post',
-            date: new Date(2023, 1, 18, 11, 10, 8).toLocaleString(),
+            date: new Date(2023, 1, 18, 11, 10, 8),
             id: 1676711408000,
             likes: 0,
         },
@@ -65,7 +65,7 @@ function Main() {
     const lastPost = firstPost + postsPerPage;
 
     const paginatedPosts = (posts.sort((a, b) => (
-        b.likes - a.likes || b.date.localeCompare(a.date)
+        b.likes - a.likes || b.date - a.date
     )).slice(firstPost, lastPost));
 
     const totalPages = Math.ceil(posts.length / postsPerPage);
@@ -79,7 +79,7 @@ function Main() {
             [...posts,
                 {
                     text,
-                    date: new Date().toLocaleString(),
+                    date: new Date(),
                     id: Date.now(),
                     likes: 0,
                 }

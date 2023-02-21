@@ -94,4 +94,5 @@ code {
 }
 
 /* return  event.target.value.localeCompare(post.date)
-return post.date.localeCompare(event.target.value) */
+return post.date.localeCompare(event.target.value) 
+date: new Date(2023, 0, 2, 1, 10, 6).toLocaleString(),*/

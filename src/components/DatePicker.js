@@ -8,12 +8,13 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
     const [isOpen, setIsOpen] = useState(true);
     
     const getStartDate = (event) => {
-        setPickedStartDate(0)
+        // setPickedStartDate(0)
         setPickedStartDate(event.target.value)
         const start = Date.parse(event.target.value)
         setStartDate(start)
+        // setStartDate(event.target.value)
         console.log('postsFromDate', startDate);
-        console.log('startDate', start);
+        console.log('startDate', event.target.value);
         console.log('pickedDate', pickedStartDate);
     }
 
@@ -21,8 +22,9 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
         setPickedEndDate(event.target.value)
         const end = Date.parse(event.target.value)
         setEndDate(end)
+        // setEndDate(event.target.value)
         console.log('postsToDate', endDate);
-        console.log('endDate', end);
+        console.log('endDate', event.target.value);
         console.log('pickedDate', pickedEndDate);
     }
 
