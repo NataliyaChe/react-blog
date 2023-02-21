@@ -1,48 +1,51 @@
 import React, { useState } from 'react';
 
 function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
-    const [postsFromDate, setPostsFromDate] = useState(0);
-    const [postsToDate, setPostsToDate] = useState(0);
-    const [pickedDate, setPickedDate] = useState(0);
-    const [isClass, setIsClass] = useState(true);
+    const [startDate, setStartDate] = useState(0);
+    const [endDate, setEndDate] = useState(0);
+    const [pickedStartDate, setPickedStartDate] = useState(0);
+    const [pickedEndDate, setPickedEndDate] = useState(0);
+    const [isOpen, setIsOpen] = useState(true);
     
     const getStartDate = (event) => {
-        setPickedDate(event.target.value)
-        const startDate = Date.parse(event.target.value)
-        setPostsFromDate(startDate)
-        console.log('postsFromDate', postsFromDate);
-        console.log('startDate', startDate);
-        console.log('pickedDate', pickedDate);
+        setPickedStartDate(0)
+        setPickedStartDate(event.target.value)
+        const start = Date.parse(event.target.value)
+        setStartDate(start)
+        console.log('postsFromDate', startDate);
+        console.log('startDate', start);
+        console.log('pickedDate', pickedStartDate);
     }
 
     const getEndDate = (event) => {
-        setPickedDate(event.target.value)
-        const endDate = Date.parse(event.target.value)
-        setPostsToDate(endDate)
-        console.log('postsToDate', postsToDate);
-        console.log('endDate', endDate);
-        console.log('pickedDate', pickedDate);
+        setPickedEndDate(event.target.value)
+        const end = Date.parse(event.target.value)
+        setEndDate(end)
+        console.log('postsToDate', endDate);
+        console.log('endDate', end);
+        console.log('pickedDate', pickedEndDate);
     }
 
     const filterHandler = (event) => {
-        console.log('postsFromDate', postsFromDate);
-        console.log('postsToDate', postsToDate);
-        if(allPosts.length === 0 && (postsFromDate && postsToDate) !== 0) {
+        console.log('postsFromDate', startDate);
+        console.log('postsToDate', endDate);
+        if(allPosts.length === 0 && (startDate && endDate) !== 0) {
             const filteredPosts = posts.filter(post => {
-                return (post.date >= postsFromDate) && (Date.parse(post.date) <= postsToDate)
+                return (post.date >= startDate) && (Date.parse(post.date) <= endDate)
                 // return (post.id >= postsFromDate) && (post.id <= postsToDate)
             })
             setAllPosts(posts);
             setPosts(filteredPosts);
-            setIsClass(!isClass);
+            setIsOpen(!isOpen);
         }
     }
 
     const resetHandler = (event) => {
         setPosts(allPosts);
         setAllPosts([]);
-        setIsClass(!isClass);
-        setPickedDate('')
+        setIsOpen(!isOpen);
+        setPickedStartDate(0)
+        setPickedEndDate(0)
     }
 
     return (
@@ -53,14 +56,14 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
                 id="start" 
                 name="start"
                 min="2023-01-01" 
-                max={pickedDate}
+                max={pickedEndDate}
                 onChange={getStartDate}/>  
             <input 
                 className='input end-input'
                 type="date" 
                 id="end" 
                 name="end"
-                min={pickedDate}
+                min={pickedStartDate}
                 max="2023-03-31"
                 onChange={getEndDate}/>  
             <button 
@@ -68,7 +71,7 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
                 onClick={filterHandler}>Filter
             </button>
             <button 
-                className={`'button reset-btn ${isClass ? 'hide' : 'show'}`}
+                className={`'button reset-btn ${isOpen ? 'hide' : 'show'}`}
                 onClick={resetHandler}>Reset
             </button>
         </div>
