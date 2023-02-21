@@ -8,33 +8,24 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
     const [isOpen, setIsOpen] = useState(true);
     
     const getStartDate = (event) => {
-        // setPickedStartDate(0)
+        setPickedStartDate(0)
         setPickedStartDate(event.target.value)
         const start = Date.parse(event.target.value)
         setStartDate(start)
-        // setStartDate(event.target.value)
-        console.log('postsFromDate', startDate);
-        console.log('startDate', event.target.value);
-        console.log('pickedDate', pickedStartDate);
     }
 
     const getEndDate = (event) => {
+        setPickedEndDate(0)
         setPickedEndDate(event.target.value)
         const end = Date.parse(event.target.value)
         setEndDate(end)
-        // setEndDate(event.target.value)
-        console.log('postsToDate', endDate);
-        console.log('endDate', event.target.value);
-        console.log('pickedDate', pickedEndDate);
     }
 
     const filterHandler = (event) => {
-        console.log('postsFromDate', startDate);
-        console.log('postsToDate', endDate);
+        const fullEndDate = endDate + 86400000
         if(allPosts.length === 0 && (startDate && endDate) !== 0) {
             const filteredPosts = posts.filter(post => {
-                return (post.date >= startDate) && (Date.parse(post.date) <= endDate)
-                // return (post.id >= postsFromDate) && (post.id <= postsToDate)
+                return (post.date >= startDate) && (post.date <= fullEndDate)
             })
             setAllPosts(posts);
             setPosts(filteredPosts);
