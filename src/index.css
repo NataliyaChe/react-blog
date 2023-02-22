@@ -77,3 +77,22 @@ code {
   background-image: url('./images/icons8-стрелка-67.png');
   background-size: contain;
 }
+
+.flex-wrapper {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.input {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.reset-btn {
+  margin-left: 20px;
+}
+
+/* return  event.target.value.localeCompare(post.date)
+return post.date.localeCompare(event.target.value) 
+date: new Date(2023, 0, 2, 1, 10, 6).toLocaleString(),*/

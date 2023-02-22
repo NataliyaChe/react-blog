@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 function Post({post, onclickHandler}) {
   const [isClass, setIsClass] = useState(true);
@@ -15,7 +15,7 @@ function Post({post, onclickHandler}) {
         onClick={onclickSpoiler}
         data-id={post.id} />
       <div className={isClass ? 'hide' : 'show'}>
-        <p>{post.date}</p>
+        <p>{post.date.toLocaleString()}</p>
         <button 
           className='button' 
           onClick={onclickHandler} 
