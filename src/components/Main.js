@@ -9,16 +9,13 @@ function Main() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        console.log('posts.length', posts.length);
         const fetchPosts = async () => {
-
           const data = await fetch(`http://localhost:3004/posts`)
           const posts = await data.json();
           setPosts(posts)
         }
         fetchPosts()
-      }, [posts.length]);
-      console.log('data', posts);
+    }, []);
 
     const postsPerPage = 5;
     const [firstPost, setFirstPost] = useState(0)
@@ -35,27 +32,25 @@ function Main() {
     }
     
     function addPost(text) {
+        console.log('test', text);
+        const post = {
+            text,
+            date: new Date(),
+            id: Date.now(),
+            likes: 0,
+        }
+        
+        fetch(`http://localhost:3004/posts`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(post)
+        })
         setPosts(
-            [...posts,
-                {
-                    text,
-                    date: new Date(),
-                    id: Date.now(),
-                    likes: 0,
-                }
-            ]
-        )
+            [...posts, post]
+        ) 
+        console.log('set posts', posts);
     }
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            const data = await fetch(`http://localhost:3004/posts`, {
-                method: 'POST',
-                body: JSON.stringify(posts)
-            })
-        }
-        fetchPosts()
-    }, [posts])
 
     const onclickHandler = (event) => {
         const buttonId = event.target.dataset.id;
