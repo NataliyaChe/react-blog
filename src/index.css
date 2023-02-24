@@ -39,6 +39,7 @@ code {
 }
 
 .post-item {
+  position: relative;
   max-width: 600px;
   padding: 10px;
   border: 2px solid teal;
@@ -93,19 +94,8 @@ code {
   margin-left: 20px;
 }
 
-/* return  event.target.value.localeCompare(post.date)
-return post.date.localeCompare(event.target.value) 
-date: new Date(2023, 0, 2, 1, 10, 6).toLocaleString(),
-
- {
-      "text": "second post",
-      "date": "new Date(2023, 0, 15, 11, 10, 7)",
-      "id": 1673773807000,
-      "likes": 0
-    },
-    {
-      "text": "first post",
-      "date": "new Date(2023, 0, 2, 1, 10, 6)",
-      "id": 1672614606000,
-      "likes": 0
-    }*/
+.delete-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px
+}

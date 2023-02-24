@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Post({post, onclickHandler}) {
+function Post({post, onclickHandler, onclickDelete}) {
   const [isClass, setIsClass] = useState(true);
 
   const onclickSpoiler = (event) => {
@@ -13,7 +13,8 @@ function Post({post, onclickHandler}) {
       <button 
         className={`'button show-btn ${isClass ? 'show' : 'hide'}`}
         onClick={onclickSpoiler}
-        data-id={post.id} />
+        data-id={post.id} 
+      />
       <div className={isClass ? 'hide' : 'show'}>
         <p>{post.date.toLocaleString()}</p>
         <button 
@@ -25,8 +26,15 @@ function Post({post, onclickHandler}) {
         <span className='likes'>{post.likes}</span>  
         <button 
           className='button hide-btn'
-          onClick={onclickSpoiler} />
+          onClick={onclickSpoiler} 
+        />
       </div>
+      <button 
+        className='button delete-btn'
+        onClick={onclickDelete}
+        data-id={post.id}>
+        Delete
+      </button>  
     </li>
   );
 }

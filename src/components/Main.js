@@ -9,7 +9,9 @@ function Main() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
+
         const fetchPosts = async () => {
+
           const data = await fetch(`http://localhost:3004/posts`)
           const posts = await data.json();
           setPosts(posts)
@@ -22,7 +24,7 @@ function Main() {
     const lastPost = firstPost + postsPerPage;
 
     const paginatedPosts = (posts.sort((a, b) => (
-        b.likes - a.likes || b.date - a.date
+        b.likes - a.likes || String(b.date).localeCompare(String(a.date))
     )).slice(firstPost, lastPost));
 
     const totalPages = Math.ceil(posts.length / postsPerPage);
@@ -32,7 +34,6 @@ function Main() {
     }
     
     function addPost(text) {
-        console.log('test', text);
         const post = {
             text,
             date: new Date(),
@@ -48,7 +49,6 @@ function Main() {
         setPosts(
             [...posts, post]
         ) 
-        console.log('set posts', posts);
     }
 
 
@@ -62,6 +62,17 @@ function Main() {
             return post
         })
         setPosts(newPosts)
+    }
+
+    const onclickDelete = (event) => {
+        const postId = +event.target.dataset.id;
+        const filteredPosts = posts.filter(post => {
+            return post.id !== postId;
+        })
+        setPosts(filteredPosts);
+        fetch(`http://localhost:3004/posts/${postId}`, {
+            method: 'DELETE'
+        })
     }
 
     return (
@@ -83,7 +94,9 @@ function Main() {
             }
             <Blog 
                 posts={posts.length > 5 ? paginatedPosts : posts} 
-                onclickHandler={onclickHandler}/>
+                onclickHandler={onclickHandler}
+                onclickDelete={onclickDelete}
+            />
         </div>
     );
 }

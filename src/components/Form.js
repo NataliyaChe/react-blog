@@ -25,7 +25,7 @@ function Form({ onCreate }) {
                     name='textform'
                     value={value}
                     onChange={event => setValue(event.target.value)}>         
-                </textarea>
+                </textarea>                
                 <button className='button' type='submit'>Send post</button>
             </form>   
         </div>
