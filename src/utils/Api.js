@@ -1,24 +1,24 @@
-const apiMethods = {
-    getMethod(link, state) {
-        const fetchPosts = async () => {
+const link = `http://localhost:3004/posts`;
+
+const api = {
+    async get() {
+        
             const data = await fetch(link)
-            const posts = await data.json();
-            state(posts)
-        }
-        fetchPosts()
+            return await data.json();
+            
     },
-    postMethod(link, item) {
+    post(newPost) {
         fetch(link, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(item)
+            body: JSON.stringify(newPost)
         })
     },
-    deleteMethod(link) {
-        fetch(link, {
+    delete(params) {
+        fetch(link+`/${params}`, {
             method: 'DELETE'
         })
     }
 }
 
-export default apiMethods;
+export default api;

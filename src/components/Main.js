@@ -3,14 +3,24 @@ import ReactPaginate from 'react-paginate';
 import Form from './Form';
 import Blog from './Blog';
 import DatePicker from './DatePicker';
-import apiMethods from '../utils/Api'
+import api from '../utils/Api'
 
 function Main() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
 
+    // useEffect(() => {
+    //     api.get(`http://localhost:3004/posts`, setPosts)
+    // }, []);
+
     useEffect(() => {
-        apiMethods.getMethod(`http://localhost:3004/posts`, setPosts)
+
+        const fetchPosts = async () => {
+
+          const posts = await api.get()
+          setPosts(posts)
+        }
+        fetchPosts()
     }, []);
 
     const postsPerPage = 5;
@@ -35,7 +45,7 @@ function Main() {
             likes: 0,
         }
         
-        apiMethods.postMethod(`http://localhost:3004/posts`, post)
+        api.post(post)
         setPosts(
             [...posts, post]
         ) 
@@ -60,7 +70,7 @@ function Main() {
             return post.id !== postId;
         })
         setPosts(filteredPosts);
-        apiMethods.deleteMethod(`http://localhost:3004/posts/${postId}`)
+        api.delete(postId)
     }
 
     return (
