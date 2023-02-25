@@ -1,5 +1,6 @@
 import React from 'react';
 import Post from './Post';
+import apiMethods from '../utils/Api'
 
 function Blog({posts, onclickHandler, onclickDelete}) {
 

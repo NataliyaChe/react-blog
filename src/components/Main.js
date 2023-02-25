@@ -3,20 +3,14 @@ import ReactPaginate from 'react-paginate';
 import Form from './Form';
 import Blog from './Blog';
 import DatePicker from './DatePicker';
+import apiMethods from '../utils/Api'
 
 function Main() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-
-        const fetchPosts = async () => {
-
-          const data = await fetch(`http://localhost:3004/posts`)
-          const posts = await data.json();
-          setPosts(posts)
-        }
-        fetchPosts()
+        apiMethods.getMethod(`http://localhost:3004/posts`, setPosts)
     }, []);
 
     const postsPerPage = 5;
@@ -41,11 +35,7 @@ function Main() {
             likes: 0,
         }
         
-        fetch(`http://localhost:3004/posts`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(post)
-        })
+        apiMethods.postMethod(`http://localhost:3004/posts`, post)
         setPosts(
             [...posts, post]
         ) 
@@ -70,9 +60,7 @@ function Main() {
             return post.id !== postId;
         })
         setPosts(filteredPosts);
-        fetch(`http://localhost:3004/posts/${postId}`, {
-            method: 'DELETE'
-        })
+        apiMethods.deleteMethod(`http://localhost:3004/posts/${postId}`)
     }
 
     return (

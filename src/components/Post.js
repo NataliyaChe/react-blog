@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import apiMethods from '../utils/Api'
 
 function Post({post, onclickHandler, onclickDelete}) {
   const [isClass, setIsClass] = useState(true);
