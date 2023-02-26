@@ -9,6 +9,7 @@ import Api from '../utils/Api'
 function Main() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
+    const api = new Api();
 
     // useEffect(() => {
     //     api.get(`http://localhost:3004/posts`, setPosts)
@@ -18,7 +19,7 @@ function Main() {
 
         const fetchPosts = async () => {
 
-          const posts = await new Api().get()
+          const posts = await api.get()
           setPosts(posts)
         }
         fetchPosts()
@@ -46,7 +47,7 @@ function Main() {
             likes: 0,
         }
         
-        new Api().post(post)
+        api.post(post)
         setPosts(
             [...posts, post]
         ) 
@@ -71,7 +72,7 @@ function Main() {
             return post.id !== postId;
         })
         setPosts(filteredPosts);
-        new Api().delete(postId)
+        api.delete(postId)
     }
 
     return (
