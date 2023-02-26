@@ -3,7 +3,8 @@ import ReactPaginate from 'react-paginate';
 import Form from './Form';
 import Blog from './Blog';
 import DatePicker from './DatePicker';
-import api from '../utils/Api'
+// import api from '../utils/Api'
+import Api from '../utils/Api'
 
 function Main() {
     const [allPosts, setAllPosts] = useState([]);
@@ -17,7 +18,7 @@ function Main() {
 
         const fetchPosts = async () => {
 
-          const posts = await api.get()
+          const posts = await new Api().get()
           setPosts(posts)
         }
         fetchPosts()
@@ -45,7 +46,7 @@ function Main() {
             likes: 0,
         }
         
-        api.post(post)
+        new Api().post(post)
         setPosts(
             [...posts, post]
         ) 
@@ -70,7 +71,7 @@ function Main() {
             return post.id !== postId;
         })
         setPosts(filteredPosts);
-        api.delete(postId)
+        new Api().delete(postId)
     }
 
     return (
