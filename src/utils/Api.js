@@ -1,4 +1,4 @@
-const link = `http://localhost:3004/posts`;
+const link = 'http://localhost:3004/posts';
 
 const api = {
     async get() {
@@ -15,7 +15,7 @@ const api = {
         })
     },
     delete(params) {
-        fetch(link+`/${params}`, {
+        fetch(`${link}/${params}`, {
             method: 'DELETE'
         })
     }
