@@ -22,18 +22,26 @@ code {
 }
 
 .form {
-  max-width: 500px;
+  max-width: 550px;
   display: flex;
   flex-direction: column;
+  padding: 20px 40px;
 }
 
 .form-field {
   margin-bottom: 20px;
 }
 
-.button {
-  max-width: 100px;
+.button, .reset-btn {
+  max-width: 150px;
   padding: 10px 14px;
+  background-color: teal;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  color: FloralWhite;
+  margin-top: 20px;
 }
 
 .posts {
@@ -103,8 +111,41 @@ code {
 }
 
 .header {
-  height: 200px;
+  height: 100px;
   background: teal;
-  padding: 0;
+  padding: 20px;
   margin: 0;
+}
+
+.link {
+  text-decoration: none;
+  font-size: 22px;
+  color: azure;
+  font-weight: 500;
+  margin: 15px;
+}
+
+.link:hover {
+  color: tomato;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  color: teal;
+}
+
+.label {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.inp {
+  padding: 10px 14px;
+  margin-bottom: 25px;
+  max-width: 500px;
+}
+
+.error-text {
+  display: none;
 }
