@@ -1,71 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import Form from './Form';
 import Blog from './Blog';
 import DatePicker from './DatePicker';
+// import api from '../utils/Api'
+import Api from '../utils/Api'
 
 function Main() {
     const [allPosts, setAllPosts] = useState([]);
+    const [posts, setPosts] = useState([]);
+    const api = new Api();
 
-    const [posts, setPosts] = useState([
-        {
-            text: 'first post',
-            date: new Date(2023, 0, 2, 1, 10, 6),
-            id: 1672614606000,
-            likes: 0,
-        },
-        {
-            text: 'second post',
-            date: new Date(2023, 0, 15, 11, 10, 7),
-            id: 1673773807000,
-            likes: 0,
-        },
-        {
-            text: 'third post',
-            date: new Date(2023, 0, 25, 11, 10, 10),
-            id: 1674637810000,
-            likes: 0,
-        },
-        {
-            text: 'fourth post',
-            date: new Date(2023, 0, 30, 11, 10, 2),
-            id: 1675069802000,
-            likes: 0,
-        },
-        {
-            text: 'fifth post',
-            date: new Date(2023, 1, 2, 11, 10, 3),
-            id: 1675329003000,
-            likes: 0,
-        },
-        {
-            text: 'sixth post',
-            date: new Date(2023, 1, 6, 11, 10, 15),
-            id: 1675674615000,
-            likes: 0,
-        },
-        {
-            text: 'seventh post',
-            date: new Date(2023, 1, 10, 11, 10, 20),
-            id: 1676020220000,
-            likes: 0,
-        },
-        {
-            text: 'eighth post',
-            date: new Date(2023, 1, 18, 11, 10, 8),
-            id: 1676711408000,
-            likes: 0,
-        },
-    ]);
+    // useEffect(() => {
+    //     api.get(`http://localhost:3004/posts`, setPosts)
+    // }, []);
 
-    // const [posts, setPosts] = useState([]);
+    useEffect(() => {
+
+        const fetchPosts = async () => {
+
+          const posts = await api.get()
+          setPosts(posts)
+        }
+        fetchPosts()
+    }, []);
 
     const postsPerPage = 5;
     const [firstPost, setFirstPost] = useState(0)
     const lastPost = firstPost + postsPerPage;
 
     const paginatedPosts = (posts.sort((a, b) => (
-        b.likes - a.likes || b.date - a.date
+        b.likes - a.likes || String(b.date).localeCompare(String(a.date))
     )).slice(firstPost, lastPost));
 
     const totalPages = Math.ceil(posts.length / postsPerPage);
@@ -75,17 +40,19 @@ function Main() {
     }
     
     function addPost(text) {
+        const post = {
+            text,
+            date: new Date(),
+            id: Date.now(),
+            likes: 0,
+        }
+        
+        api.post(post)
         setPosts(
-            [...posts,
-                {
-                    text,
-                    date: new Date(),
-                    id: Date.now(),
-                    likes: 0,
-                }
-            ]
-        )
+            [...posts, post]
+        ) 
     }
+
 
     const onclickHandler = (event) => {
         const buttonId = event.target.dataset.id;
@@ -99,7 +66,15 @@ function Main() {
         setPosts(newPosts)
     }
 
-    console.log('posts', posts);
+    const onclickDelete = (event) => {
+        const postId = +event.target.dataset.id;
+        const filteredPosts = posts.filter(post => {
+            return post.id !== postId;
+        })
+        setPosts(filteredPosts);
+        api.delete(postId)
+    }
+
     return (
         <div className='main'>
             <div className='flex-wrapper'>
@@ -118,9 +93,10 @@ function Main() {
             />
             }
             <Blog 
-                // posts={posts.length > 5 ? paginatedPosts : posts} 
-                // onclickHandler={onclickHandler}/>
-                posts={posts.length > 5 ? paginatedPosts : posts} onclickHandler={onclickHandler}/>
+                posts={posts.length > 5 ? paginatedPosts : posts} 
+                onclickHandler={onclickHandler}
+                onclickDelete={onclickDelete}
+            />
         </div>
     );
 }

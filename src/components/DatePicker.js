@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { ONE_DAY_IN_MS } from '../constants';
 
 function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
-    const [startDate, setStartDate] = useState(0);
-    const [endDate, setEndDate] = useState(0);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
     const [isOpen, setIsOpen] = useState(true);
     
     const getStartDate = (event) => {
@@ -15,9 +15,9 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
     }
 
     const filterHandler = (event) => {
-        if(allPosts.length === 0 && (startDate && endDate) !== 0) {
+        if(!allPosts.length && startDate && endDate) {
             const filteredPosts = posts.filter(post => {
-                return (post.date >= new Date(startDate)) && (post.date <= Date.parse(new Date(endDate))+ONE_DAY_IN_MS)
+                return (Date.parse(post.date) >= Date.parse(new Date(startDate))) && (Date.parse(post.date) <= Date.parse(new Date(endDate))+ONE_DAY_IN_MS)
             })
             setAllPosts(posts);
             setPosts(filteredPosts);

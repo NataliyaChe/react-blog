@@ -14,7 +14,7 @@ function Form({ onCreate }) {
     return (
         <div className='form-container'>
             <form className='form' onSubmit={submitHandler}>
-                <p className='form-title'>Write new post:</p>
+                <p className='form-title title'>Write new post:</p>
                 <textarea 
                     className='form-field' 
                     placeholder='Type something...' 
@@ -25,7 +25,7 @@ function Form({ onCreate }) {
                     name='textform'
                     value={value}
                     onChange={event => setValue(event.target.value)}>         
-                </textarea>
+                </textarea>                
                 <button className='button' type='submit'>Send post</button>
             </form>   
         </div>

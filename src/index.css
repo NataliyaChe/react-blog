@@ -1,3 +1,5 @@
+
+
 body {
   margin: 0;
   padding: 0;
@@ -39,6 +41,7 @@ code {
 }
 
 .post-item {
+  position: relative;
   max-width: 600px;
   padding: 10px;
   border: 2px solid teal;
@@ -93,6 +96,15 @@ code {
   margin-left: 20px;
 }
 
-/* return  event.target.value.localeCompare(post.date)
-return post.date.localeCompare(event.target.value) 
-date: new Date(2023, 0, 2, 1, 10, 6).toLocaleString(),*/
+.delete-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px
+}
+
+.header {
+  height: 200px;
+  background: teal;
+  padding: 0;
+  margin: 0;
+}
