@@ -14,7 +14,7 @@ function Form({ onCreate }) {
     return (
         <div className='form-container'>
             <form className='form' onSubmit={submitHandler}>
-                <p className='form-title'>Write new post:</p>
+                <p className='form-title title'>Write new post:</p>
                 <textarea 
                     className='form-field' 
                     placeholder='Type something...' 
