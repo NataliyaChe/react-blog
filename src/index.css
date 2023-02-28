@@ -135,7 +135,7 @@ code {
   color: teal;
 }
 
-.label {
+.label, .error-text {
   font-weight: 500;
   margin-bottom: 10px;
 }
@@ -147,5 +147,5 @@ code {
 }
 
 .error-text {
-  display: none;
+  color: tomato;
 }

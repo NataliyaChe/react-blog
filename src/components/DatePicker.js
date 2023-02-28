@@ -54,7 +54,7 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
                 onClick={filterHandler}>Filter
             </button>
             <button 
-                className={`'button reset-btn ${isOpen ? 'hide' : 'show'}`}
+                className={`button reset-btn ${isOpen ? 'hide' : 'show'}`}
                 onClick={resetHandler}>Reset
             </button>
         </div>

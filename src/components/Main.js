@@ -8,7 +8,7 @@ import Api from '../utils/Api'
 function Main() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
-    const api = new Api();
+    const api = new Api('http://localhost:3004/posts');
 
     // useEffect(() => {
     //     api.get(`http://localhost:3004/posts`, setPosts)

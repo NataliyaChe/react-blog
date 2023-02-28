@@ -1,9 +1,9 @@
 
 
 class Api {
-    link = 'http://localhost:3004/posts';
-    constructor() {
-        
+    // link = 'http://localhost:3004/posts';
+    constructor(link) {
+        this.link = link
     }
     async get() {
         
