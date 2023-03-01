@@ -3,17 +3,16 @@ import Api from '../utils/Api'
 
 function Registration() {
     const [users, setUsers] = useState([]);
-    const [login, setLogin] = useState('');
-    const [email, setEmail] = useState('');
-    const [rptPassword, setRptPassword] = useState('');
-    const [password, setPassword] = useState('');
-    const [isError, setIsError] = useState(false);
     const api = new Api('http://localhost:3004/users');
-    const [isErrorEmail, setIsErrorEmail] = useState(false);
-    const [isErrorLogin, setIsErrorLogin] = useState(false);
-    const [isWrongEmail, setIsWrongEmail] = useState(false);
-    const [isErrorPassword, setIsErrorPassword] = useState(false);
+    const [newUser, setNewUser] = useState({
+        name: '',
+        email: '',
+        password: '',
+        password_rpt: '',
+    }); 
 
+    const [isError, setIsError] = useState({})
+    
     useEffect(() => {
         const fetchUsers = async () => {
           const users = await api.get()
@@ -22,100 +21,75 @@ function Registration() {
         fetchUsers()
     }, []);
 
+    const validateForm = () => {
+        const error = {}
+
+        if(newUser.name === '') {
+            error.name = 'Enter login!'
+        } else if (!/^[a-zA-Z]+$/.test(newUser.name)) {
+            error.name = 'Invalid login!'
+        }
+
+        if(newUser.email === '') {
+            error.email = 'Enter email!'
+        } else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(newUser.email)) {
+            error.email = 'Invalid email!'
+        } else if (users.find(user => user.email === newUser.email)) {
+            error.email = 'Email already registered!'
+        }
+
+        if(newUser.password === '' || newUser.password_rpt === '') {
+            error.password = 'Enter Password and Confirm password!'
+        } else if (newUser.password.length < 6) {
+            error.password = 'Password need 6 or more characters!'
+        } else if (newUser.password !== newUser.password_rpt) {
+            error.password = 'Check password!'
+        }
+
+        setIsError({...error});
+        console.log(Object.keys(error));
+        return Object.keys(error).length < 1
+    }
+
+    const getData = (event) => {
+        setNewUser(() => ({
+            ...newUser,
+            [event.target.name]: event.target.value
+        }))
+    }
+
     console.log('users start', users);
-
-    const getLogin = (event) => {
-        setLogin(event.target.value);
-        if(!/^[a-zA-Z]+$/.test(login)) {
-            setIsErrorLogin(true);
-            setIsError(true);
-        } else {
-            setIsErrorLogin(false);
-            // setIsError(false);
-        }
-    }
-
-    const getEmail = (event) => {
-        setEmail(event.target.value);
-        if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
-            setIsErrorEmail(true);
-            setIsError(true);
-        } else {
-            setIsErrorEmail(false);
-            // setIsError(false);
-        }
-    }
-
-    const getPassword = (event) => {
-        setPassword(event.target.value)
-    }
-
-    const checkPassword = (event) => {
-        setRptPassword(event.target.value);  
-        // if(password !== rptPassword) {
-        //     setIsErrorPassword(true);
-        //     setIsError(true);
-        // } else {
-        //     setIsErrorPassword(false);
-        //     // setIsError(false);
-        // }
-    }
-
-    // function findEmail() {
-    //     const userEmail = users.find(user => user.email === email)
-    //     console.log('userEmail', userEmail, email);
-    // }
     const submitRegistration = (event) => {
         event.preventDefault();
-
-        // if(!/^[a-zA-Z]+$/.test(login)) {
-        //     setIsErrorLogin(true);
-        //     setIsError(true);
-        // } else {
-        //     setIsErrorLogin(false);
-        //     // setIsError(false);
-        // }
-        console.log('login error', isError);
-        // if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
-        //     setIsErrorEmail(true);
-        //     setIsError(true);
-        // } else {
-        //     setIsErrorEmail(false);
-        //     // setIsError(false);
-        // }
-        console.log('email error', isError);
-        if(password !== rptPassword) {
-            setIsErrorPassword(true);
-            setIsError(true);
-        } else {
-            setIsErrorPassword(false);
-            // setIsError(false);
-        }
-        console.log('password error', isError);
-        // const userEmail = users.find(user => user.email === email)
-        //     if(userEmail) {
-        //         setIsError(true)
-        //         // setIsWrongEmail(true)
-        //     } else {
-        //         // setIsError(false);
-        //         setIsWrongEmail(false)
-        //     }
-            console.log('find error', isError);
-        if(!isError) {
-            const user = {
-                login,
-                email,
-                password,
-                id: Date.now()
-            }
-
-            api.post(user)
+        console.log(newUser)
+        console.log('keys', validateForm())
+        const isValid = validateForm()
+        
+        if(isValid) {
+            delete newUser.password_rpt;
+            newUser.id = Date.now()
+            console.log('newUser', newUser);
+            api.post(newUser)
             setUsers(
-                [...users, user]
+                [...users, newUser]
             ) 
-            console.log('users', users);
-            event.target.reset()
         }
+        
+        // if(!isError) {
+        //     const user = {
+        //         login,
+        //         email,
+        //         password,
+        //         id: Date.now()
+        //     }
+
+            // api.post(newUser)
+            // setUsers(
+            //     [...users, newUser]
+            // ) 
+        //     console.log('users', users);
+        //     event.target.reset()
+        // }
     
         console.log('submit');
     }
@@ -124,33 +98,32 @@ function Registration() {
         <div className='container'>
             <form className='form' onSubmit={submitRegistration}>
                 <h1 className='title'>Register</h1>
-                <label className={`name_lbl label ${isErrorLogin ? 'hide' : 'show'}`} htmlFor='name'>
+                <label className='name_lbl label' htmlFor='name'>
                     Login
                 </label>
-                <span className={`error-name error-text ${isErrorLogin ? 'show' : 'hide'}`}>
-                    Enter login!
-                </span>
                 <input className='name inp' 
                     type='text' 
                     placeholder='Your Name' 
                     name='name'
-                    onChange={getLogin} 
-                    required/>
-                <label className={`email_lbl label ${isErrorEmail ? 'hide' : 'show'} ${isWrongEmail ? 'hide' : 'show'}`} htmlFor='email'>
+                    value={newUser.name}
+                    onChange={getData} 
+                    />
+                <span className='error-name error-text'>
+                    {isError.name}
+                </span>
+                <label className='email_lbl label' htmlFor='email'>
                     Email
                 </label>
-                <span className={`error-email error-text ${isErrorEmail ? 'show' : 'hide'}`}>
-                    Enter email!
-                </span>
-                <span className={`wrong-email error-text ${isWrongEmail ? 'show' : 'hide'}`}>
-                    Этот имейл уже существует!
-                </span>
                 <input className='email inp' 
                     type='text' 
                     placeholder='Your Email' 
                     name='email'
-                    onChange={getEmail} 
+                    value={newUser.email}
+                    onChange={getData} 
                     />
+                <span className='error-email error-text'>
+                    {isError.email}
+                </span>
                 <label className='label' htmlFor='password'>
                     Password
                 </label>
@@ -158,17 +131,19 @@ function Registration() {
                     type='password' 
                     placeholder='Password' 
                     name='password' 
-                    onChange={getPassword}
+                    value={newUser.password}
+                    onChange={getData}
                     />
-                <label className={`password_lbl label ${isErrorPassword ? 'hide' : 'show'}`} htmlFor='password_rpt'>Repeat Password</label>
-                <span className={`error-password error-text ${isErrorPassword ? 'show' : 'hide'}`}>
-                    Check password!
+                <span className='error-password error-text'>
+                    {isError.password}
                 </span>
+                <label className='password_lbl label' htmlFor='password_rpt'>Confirm Password</label>
                 <input className='password_rpt inp' 
                     type='password' 
                     placeholder='Repeat Password' 
                     name='password_rpt' 
-                    onChange={checkPassword}
+                    // value={newUser.password_rpt}
+                    onChange={getData}
                     />
                 <button className='submit_btn button' type='submit'>
                     Register
