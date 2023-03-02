@@ -47,7 +47,6 @@ function Registration() {
         }
 
         setIsError({...error});
-        console.log(Object.keys(error));
         return Object.keys(error).length < 1
     }
 
@@ -58,11 +57,8 @@ function Registration() {
         }))
     }
 
-    console.log('users start', users);
     const submitRegistration = (event) => {
         event.preventDefault();
-        console.log(newUser)
-        console.log('keys', validateForm())
         const isValid = validateForm()
         
         if(isValid) {
@@ -74,24 +70,6 @@ function Registration() {
                 [...users, newUser]
             ) 
         }
-        
-        // if(!isError) {
-        //     const user = {
-        //         login,
-        //         email,
-        //         password,
-        //         id: Date.now()
-        //     }
-
-            // api.post(newUser)
-            // setUsers(
-            //     [...users, newUser]
-            // ) 
-        //     console.log('users', users);
-        //     event.target.reset()
-        // }
-    
-        console.log('submit');
     }
 
     return (
