@@ -152,3 +152,18 @@ code {
   margin-bottom: 10px;
   color: tomato;
 }
+
+.input-error {
+  border-color: #e63946;
+}
+
+.error {
+  color: #e63946;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+}
+
+.disabled-btn {
+  cursor: not-allowed;
+  background: rgba(#1d3557, 0.8);
+}
