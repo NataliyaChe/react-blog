@@ -3,13 +3,12 @@ import ReactPaginate from 'react-paginate';
 import Form from './Form';
 import Blog from './Blog';
 import DatePicker from './DatePicker';
-// import api from '../utils/Api'
 import Api from '../utils/Api'
 
 function Main() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
-    const api = new Api();
+    const api = new Api('http://localhost:3004/posts');
 
     // useEffect(() => {
     //     api.get(`http://localhost:3004/posts`, setPosts)
@@ -45,6 +44,7 @@ function Main() {
             date: new Date(),
             id: Date.now(),
             likes: 0,
+            userId: 0
         }
         
         api.post(post)
