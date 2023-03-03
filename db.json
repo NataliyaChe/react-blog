@@ -48,6 +48,18 @@
       "email": "max@ok.ua",
       "password": "qwe",
       "id": 1677584806834
+    },
+    {
+      "name": "Ichi",
+      "email": "ichi@ok.ua",
+      "password": "123456",
+      "id": 1677850781827
+    },
+    {
+      "name": "Andriy",
+      "email": "andriy@ok.ua",
+      "password": "123456",
+      "id": 1677851580663
     }
   ]
 }
