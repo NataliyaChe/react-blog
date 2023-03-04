@@ -15,12 +15,15 @@ function Registration() {
         fetchUsers()
     }, []);
 
-    
-    // Yup.addMethod(Yup.string, "isValidEmail", isValidEmail);
+    Yup.addMethod(Yup.string, 'checkEmail', function(message) {
+        return this.test('checkEmail', message, function (value) { 
+            return !users.find(user => user.email === value)
+          });
+    })
 
     const signInSchema = Yup.object().shape({
         username: Yup.string().matches(/^[a-zA-Z]+$/, 'Invalid Login').required("Login is required"),
-        email: Yup.string().email('Invalid Email').required("Email is required"),
+        email: Yup.string().email('Invalid Email').checkEmail('Email already exist').required("Email is required"),
         password: Yup.string()
           .required("Password is required")
           .min(4, "Password is too short - should be 4 chars min"),
@@ -34,19 +37,7 @@ function Registration() {
         password_rpt: ''
       };
 
-    //   .notOneOf([users.find(user => user.email === Yup.ref('email'))], 'Check Confirm password')
     
-      
-    //   const submitForm = (values) => {
-    //     console.log(values);
-    //     delete values.password_rpt;
-    //         values.id = Date.now()
-    //         console.log('newUser', values);
-    //         api.post(values)
-    //         setUsers(
-    //             [...users, values]
-    //         ) 
-    //   };
     
     console.log('users', users);
 
@@ -57,6 +48,13 @@ function Registration() {
             validationSchema={signInSchema}
             onSubmit={(values) => {
                 console.log(values);
+                delete values.password_rpt;
+                values.id = Date.now()
+                console.log('newUser', values);
+                api.post(values)
+                setUsers(
+                    [...users, values]
+                ) 
               }}>
                 {(formik) => {
                     const {
