@@ -11,6 +11,12 @@ class Api {
         return await data.json();
         
     }
+    async getEmail(params) {
+        
+        const data = await fetch(`${this.link}?email=${params}`)
+        return await data.json();
+        
+    }
     post(newPost) {
         fetch(this.link, {
             method: 'POST',

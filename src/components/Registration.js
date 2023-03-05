@@ -15,9 +15,28 @@ function Registration() {
         fetchUsers()
     }, []);
 
+    // Yup.addMethod(Yup.string, 'checkEmail', function(message) {
+    //     return this.test('checkEmail', message, function (value) { 
+    //         return !users.find(user => user.email === value)
+    //       });
+    // })
+
+    // Yup.addMethod(Yup.string, 'checkEmail', function(message) {
+    //     return this.test('checkEmail', message, function (value) {
+    //         let  existEmail
+    //         const fetchEmail = async () => { 
+    //         existEmail = await api.getEmail(value)
+    //         console.log('email exist', existEmail);
+    //         } 
+    //         fetchEmail()
+    //         return existEmail
+    //       });
+    // })
+
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
-        return this.test('checkEmail', message, function (value) { 
-            return !users.find(user => user.email === value)
+        return this.test('checkEmail', message, async function (value) {
+            const matchEmail = await api.getEmail(value)
+            return matchEmail.length === 0
           });
     })
 
@@ -47,14 +66,17 @@ function Registration() {
             initialValues={initialValues}
             validationSchema={signInSchema}
             onSubmit={(values) => {
-                console.log(values);
-                delete values.password_rpt;
-                values.id = Date.now()
-                console.log('newUser', values);
-                api.post(values)
+                const newUser = {
+                    login: values.username,
+                    email: values.email,
+                    password: values.password,
+                    id: Date.now()
+                }
+                api.post(newUser)
                 setUsers(
-                    [...users, values]
-                ) 
+                    [...users, newUser]
+                );
+                window.location.href = './login'; 
               }}>
                 {(formik) => {
                     const {
@@ -122,6 +144,11 @@ function Registration() {
                             >
                                 Register
                             </button>
+                            <div className="container signin">
+                                <p >
+                                    <a className="link login-link" href="./login">Already registered? Sign in</a>
+                                </p>
+                            </div>
                         </Form>
                     )
                 }}
