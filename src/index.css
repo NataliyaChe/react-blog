@@ -152,11 +152,11 @@ code {
 }
 
 .input-error {
-  border-color: #e63946;
+  border-color: tomato;
 }
 
 .error {
-  color: #e63946;
+  color: tomato;
   font-size: 1rem;
   margin-top: 0.3rem;
 }
@@ -164,4 +164,12 @@ code {
 .disabled-btn {
   cursor: not-allowed;
   background: rgba(#1d3557, 0.8);
+}
+
+.login-link {
+  color: black;
+}
+
+.login-link:hover {
+  color: tomato
 }

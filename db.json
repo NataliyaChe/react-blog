@@ -60,6 +60,42 @@
       "email": "andriy@ok.ua",
       "password": "123456",
       "id": 1677851580663
+    },
+    {
+      "username": "Jo",
+      "email": "jo@ok.ua",
+      "password": "123456",
+      "id": 1677946659886
+    },
+    {
+      "username": "Kenny",
+      "email": "kenny@ok.ua",
+      "password": "12345",
+      "id": 1677956054644
+    },
+    {
+      "login": "Maar",
+      "email": "maar@wok.ua",
+      "password": "1234",
+      "id": 1677959778391
+    },
+    {
+      "login": "Kaoru",
+      "email": "kaoru@ok.ua",
+      "password": "1234",
+      "id": 1677960024075
+    },
+    {
+      "login": "Lavi",
+      "email": "lavi@ok.ua",
+      "password": "1234",
+      "id": 1677960080684
+    },
+    {
+      "login": "Neko",
+      "email": "neko@ok.ua",
+      "password": "1234",
+      "id": 1678024618887
     }
   ]
 }

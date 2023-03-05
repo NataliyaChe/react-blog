@@ -1,38 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Api from '../utils/Api';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function Login() {
-    const [users, setUsers] = useState([]);
-    const api = new Api();
+    const api = new Api('http://localhost:3004/users');
+    const [matchUser, setMatchUser] = useState({})
+    
+    Yup.addMethod(Yup.string, 'checkEmail', function(message) {
+        return this.test('checkEmail', message, async function (value) {
+            const user = await api.getUserByEmail(value)
+            console.log('user[0]', user[0]);
+            setMatchUser(user[0])
+            return user.length
+          });
+    })
 
-    const submitLogin = (event) => {
-        event.preventDefault()
-        console.log('submit');
-    }
+    Yup.addMethod(Yup.string, 'checkPassword', function(message) {
+        return this.test('checkPassword', message, async function (value) {
+            return matchUser.password === value
+          });
+    })
+
+    const signInSchema = Yup.object().shape({
+        email: Yup.string().email('Invalid Email').checkEmail('Email not found').required("Email is required"),
+        password: Yup.string()
+          .required("Password is required")
+          .min(4, "Password is too short - should be 4 chars min")
+          .checkPassword('Wrong password'),
+    });
+
+    const initialValues = {
+        email: '',
+        password: ''
+    };
 
     return (
-        <div className='container'>
-            <form className='form' onSubmit={submitLogin}>
-                <h1 className='title'>Sign in</h1>
-                <label className='email_lbl label' htmlFor='email'>Email</label>
-                <span className='error-email error-text'>Enter email!</span>
-                <span className='wrong-email error-text'>
-                    Такого имейла не существует!
-                </span>
-                <input className='email inp' 
-                    type='text' 
-                    placeholder='Your Email' 
-                    name='email' 
-                    required/>
-                <label className='password_lbl label' htmlFor='password'>Password</label>
-                <span className='wrong-pass error-text'>Wrong password</span>
-                <input className='password inp' 
-                    type='password' 
-                    placeholder='Password' 
-                    name='password' 
-                    required/>
-                <button className='signin_btn button' type='submit'>Sign in</button>
-            </form>
+    <div className='container'>
+            <Formik
+            initialValues={initialValues}
+            validationSchema={signInSchema}
+            onSubmit={() => {
+                window.location.href = './'; 
+              }}>
+                {(formik) => {
+                    const {
+                        errors,
+                        touched,
+                        isValid,
+                        dirty
+                    } = formik;
+                    return (
+                        <Form className='form'>
+                            <h1 className='title'>Login</h1>
+                            <label className='email_lbl label' htmlFor='email'>
+                                Email
+                            </label>
+                            <Field 
+                                type='email' 
+                                id='email'
+                                placeholder='Your Email' 
+                                name='email'
+                                className={`email inp ${errors.email && touched.email ? "input-error" : null}`}
+                            />
+                            <ErrorMessage name='email' component='span'     className="error" />
+                            <label className='label' htmlFor='password'>
+                                Password
+                            </label>
+                            <Field 
+                                type='password' 
+                                placeholder='Password' 
+                                name='password' 
+                                id='password'
+                                className={`password inp ${errors.password && touched.password ? "input-error" : null}`}
+                            />
+                            <ErrorMessage name='password' component='span'  className="error" />
+                            <button type='submit'
+                                className={`submit_btn button ${!(dirty && isValid) ? "disabled-btn" : ""}
+                                disabled=${!(dirty && isValid)}`}
+                            >
+                                Sign in
+                            </button> 
+                        </Form>
+                    );
+                }}   
+            </Formik>
         </div>
     );
 }

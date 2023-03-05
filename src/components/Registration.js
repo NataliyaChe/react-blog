@@ -4,16 +4,16 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 function Registration() {
-    const [users, setUsers] = useState([]);
+    // const [users, setUsers] = useState([]);
     const api = new Api('http://localhost:3004/users');
     
-    useEffect(() => {
-        const fetchUsers = async () => {
-          const users = await api.get()
-          setUsers(users)
-        }
-        fetchUsers()
-    }, []);
+    // useEffect(() => {
+    //     const fetchUsers = async () => {
+    //       const users = await api.get()
+    //       setUsers(users)
+    //     }
+    //     fetchUsers()
+    // }, []);
 
     // Yup.addMethod(Yup.string, 'checkEmail', function(message) {
     //     return this.test('checkEmail', message, function (value) { 
@@ -21,22 +21,10 @@ function Registration() {
     //       });
     // })
 
-    // Yup.addMethod(Yup.string, 'checkEmail', function(message) {
-    //     return this.test('checkEmail', message, function (value) {
-    //         let  existEmail
-    //         const fetchEmail = async () => { 
-    //         existEmail = await api.getEmail(value)
-    //         console.log('email exist', existEmail);
-    //         } 
-    //         fetchEmail()
-    //         return existEmail
-    //       });
-    // })
-
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
-            const matchEmail = await api.getEmail(value)
-            return matchEmail.length === 0
+            const user = await api.getUserByEmail(value)
+            return !user.length
           });
     })
 
@@ -56,10 +44,6 @@ function Registration() {
         password_rpt: ''
       };
 
-    
-    
-    console.log('users', users);
-
     return (
         <div className='container'>
             <Formik
@@ -73,9 +57,9 @@ function Registration() {
                     id: Date.now()
                 }
                 api.post(newUser)
-                setUsers(
-                    [...users, newUser]
-                );
+                // setUsers(
+                //     [...users, newUser]
+                // );
                 window.location.href = './login'; 
               }}>
                 {(formik) => {
@@ -151,8 +135,7 @@ function Registration() {
                             </div>
                         </Form>
                     )
-                }}
-                
+                }}        
             </Formik>
         </div>
     );
