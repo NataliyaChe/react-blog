@@ -13,7 +13,7 @@ function Main() {
     const matchUser = JSON.parse(localStorage.getItem('matchUser'));
 
     if(matchUser === null) {
-        window.location.href = './registration'; 
+        window.location.href = './login'; 
     }
 
     useEffect(() => {
@@ -76,7 +76,7 @@ function Main() {
 
     const onclickSingOut = (event) => {
         localStorage.removeItem('matchUser');
-        window.location.href = './registration'; 
+        window.location.href = './login'; 
     }
 
     return (

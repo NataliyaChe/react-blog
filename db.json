@@ -55,6 +55,13 @@
       "id": 1678041065446,
       "likes": 0,
       "userId": 1677584744456
+    },
+    {
+      "text": "meow-meow-meow",
+      "date": "2023-03-05T20:46:50.070Z",
+      "id": 1678049210070,
+      "likes": 0,
+      "userId": 1677584744456
     }
   ],
   "comments": [],
@@ -88,6 +95,12 @@
       "email": "gintoki@ok.ua",
       "password": "1234",
       "id": 1678042868272
+    },
+    {
+      "login": "Maar",
+      "email": "maar@ok.ua",
+      "password": "1234",
+      "id": 1678049098251
     }
   ]
 }
