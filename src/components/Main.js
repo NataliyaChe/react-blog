@@ -12,9 +12,9 @@ function Main() {
     
     const matchUser = JSON.parse(localStorage.getItem('matchUser'));
 
-    // if(matchUser === null) {
-    //     window.location.href = './registration'; 
-    // }
+    if(matchUser === null) {
+        window.location.href = './registration'; 
+    }
 
     useEffect(() => {
         const fetchPosts = async () => { 
