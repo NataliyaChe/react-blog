@@ -14,10 +14,10 @@ code {
     monospace;
 }
 
-.wrapper {
+/* .wrapper {
   padding: 20px;
   margin: 0 auto;
-}
+} */
 
 .form {
   max-width: 550px;
@@ -26,9 +26,9 @@ code {
   padding: 20px 40px;
 }
 
-.form-field {
+/* .form-field {
   margin-bottom: 20px;
-}
+} */
 
 .button, .reset-btn {
   max-width: 150px;
@@ -85,6 +85,19 @@ code {
   border: none;
   background-image: url('./images/icons8-стрелка-67.png');
   background-size: contain;
+}
+
+.title-wrapper {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin: 20px 40px;
+}
+
+.main-title {
+  font-size: 36px;
+  color: teal;
+  padding-top: 10px;
 }
 
 .flex-wrapper {

@@ -4,22 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 function Registration() {
-    // const [users, setUsers] = useState([]);
     const api = new Api('http://localhost:3004/users');
-    
-    // useEffect(() => {
-    //     const fetchUsers = async () => {
-    //       const users = await api.get()
-    //       setUsers(users)
-    //     }
-    //     fetchUsers()
-    // }, []);
-
-    // Yup.addMethod(Yup.string, 'checkEmail', function(message) {
-    //     return this.test('checkEmail', message, function (value) { 
-    //         return !users.find(user => user.email === value)
-    //       });
-    // })
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
@@ -57,9 +42,6 @@ function Registration() {
                     id: Date.now()
                 }
                 api.post(newUser)
-                // setUsers(
-                //     [...users, newUser]
-                // );
                 window.location.href = './login'; 
               }}>
                 {(formik) => {

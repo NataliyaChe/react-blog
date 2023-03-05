@@ -9,19 +9,19 @@ function Main() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
     const api = new Api('http://localhost:3004/posts');
+    
+    const matchUser = JSON.parse(localStorage.getItem('matchUser'));
 
-    // useEffect(() => {
-    //     api.get(`http://localhost:3004/posts`, setPosts)
-    // }, []);
+    // if(matchUser === null) {
+    //     window.location.href = './registration'; 
+    // }
 
     useEffect(() => {
-
-        const fetchPosts = async () => {
-
-          const posts = await api.get()
-          setPosts(posts)
-        }
-        fetchPosts()
+        const fetchPosts = async () => { 
+            const posts = await api.getPostsByUser(matchUser.id)
+            setPosts(posts)
+         }
+            fetchPosts()
     }, []);
 
     const postsPerPage = 5;
@@ -44,7 +44,7 @@ function Main() {
             date: new Date(),
             id: Date.now(),
             likes: 0,
-            userId: 0
+            userId: matchUser.id
         }
         
         api.post(post)
@@ -52,7 +52,6 @@ function Main() {
             [...posts, post]
         ) 
     }
-
 
     const onclickHandler = (event) => {
         const buttonId = event.target.dataset.id;
@@ -75,8 +74,17 @@ function Main() {
         api.delete(postId)
     }
 
+    const onclickSingOut = (event) => {
+        localStorage.removeItem('matchUser');
+        window.location.href = './registration'; 
+    }
+
     return (
         <div className='main'>
+            <div className='title-wrapper'>
+                <h1 className='main-title'>Hello {matchUser.login}!</h1>
+                <button className='button' onClick={onclickSingOut}>Sign out</button>
+            </div>
             <div className='flex-wrapper'>
                 <Form onCreate={addPost}/>
                 <DatePicker posts={posts} setPosts={setPosts} allPosts={allPosts} setAllPosts={setAllPosts}/>

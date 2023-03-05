@@ -5,55 +5,77 @@
       "date": "2023-02-27T18:01:13.113Z",
       "id": 1677520873113,
       "likes": 0,
-      "userId": 0
+      "userId": 1677584368997
     },
     {
       "text": "second post",
       "date": "2023-02-27T18:01:18.555Z",
       "id": 1677520878555,
       "likes": 0,
-      "userId": 0
+      "userId": 1677584744456
     },
     {
       "text": "third post",
       "date": "2023-02-27T18:01:25.406Z",
       "id": 1677520885406,
       "likes": 0,
-      "userId": 0
+      "userId": 1677584368997
     },
     {
       "text": "fourth post",
       "date": "2023-02-28T11:35:26.275Z",
       "id": 1677584126275,
       "likes": 0,
-      "userId": 0
+      "userId": 1677584806834
+    },
+    {
+      "text": "new post",
+      "date": "2023-03-05T18:26:07.777Z",
+      "id": 1678040767777,
+      "likes": 0,
+      "userId": 1677584368997
+    },
+    {
+      "text": "another new post\n",
+      "date": "2023-03-05T18:26:57.217Z",
+      "id": 1678040817217,
+      "likes": 0,
+      "userId": 1677584368997
+    },
+    {
+      "text": "meow",
+      "date": "2023-03-05T18:30:57.434Z",
+      "id": 1678041057434,
+      "likes": 0,
+      "userId": 1677584744456
+    },
+    {
+      "text": "meow-meow",
+      "date": "2023-03-05T18:31:05.446Z",
+      "id": 1678041065446,
+      "likes": 0,
+      "userId": 1677584744456
     }
   ],
   "comments": [],
   "users": [
     {
       "login": "Nata",
-      "email": "nata@ok.ds",
+      "email": "nata@ok.ua",
       "password": "qwer",
       "id": 1677584368997
     },
     {
       "login": "Tilda",
-      "email": "tilda@ok.ds",
+      "email": "tilda@ok.ua",
       "password": "qwer",
       "id": 1677584744456
     },
     {
       "login": "Max",
       "email": "max@ok.ua",
-      "password": "qwe",
+      "password": "qwer",
       "id": 1677584806834
-    },
-    {
-      "name": "Ichi",
-      "email": "ichi@ok.ua",
-      "password": "123456",
-      "id": 1677850781827
     },
     {
       "name": "Andriy",
@@ -62,40 +84,10 @@
       "id": 1677851580663
     },
     {
-      "username": "Jo",
-      "email": "jo@ok.ua",
-      "password": "123456",
-      "id": 1677946659886
-    },
-    {
-      "username": "Kenny",
-      "email": "kenny@ok.ua",
-      "password": "12345",
-      "id": 1677956054644
-    },
-    {
-      "login": "Maar",
-      "email": "maar@wok.ua",
+      "login": "Gintoki",
+      "email": "gintoki@ok.ua",
       "password": "1234",
-      "id": 1677959778391
-    },
-    {
-      "login": "Kaoru",
-      "email": "kaoru@ok.ua",
-      "password": "1234",
-      "id": 1677960024075
-    },
-    {
-      "login": "Lavi",
-      "email": "lavi@ok.ua",
-      "password": "1234",
-      "id": 1677960080684
-    },
-    {
-      "login": "Neko",
-      "email": "neko@ok.ua",
-      "password": "1234",
-      "id": 1678024618887
+      "id": 1678042868272
     }
   ]
 }

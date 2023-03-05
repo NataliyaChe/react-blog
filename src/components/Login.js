@@ -41,6 +41,7 @@ function Login() {
             initialValues={initialValues}
             validationSchema={signInSchema}
             onSubmit={() => {
+                localStorage.setItem('matchUser', JSON.stringify(matchUser));
                 window.location.href = './'; 
               }}>
                 {(formik) => {
