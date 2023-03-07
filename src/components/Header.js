@@ -1,19 +1,25 @@
-import React from 'react';
+import React, {useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Header() {
+    const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
+    const [isVisible, setIsVisible] = useState(true);
+
+    if(!authorizedUser) {
+        setIsVisible(!isVisible);
+    }
 
     return (
         <div className='header'>
-            <Link to='.' className="link">
-                Main
-            </Link>
-            <Link to='/registration' className="link">
-                Registration
-            </Link>
-            <Link to='/login' className="link">
-                Login
-            </Link>
+            <span className='header-title'>Blog</span>
+            <div>
+                <Link to='.' className={`link ${isVisible ? 'show' : 'hide'}`}>
+                    Posts
+                </Link>
+                <Link to='/users' className={`link ${isVisible ? 'show' : 'hide'}`}>
+                    Users
+                </Link>
+            </div>
         </div>
     );
 }

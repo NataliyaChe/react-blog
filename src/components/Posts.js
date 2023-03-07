@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import ReactPaginate from 'react-paginate';
+// import ReactPaginate from 'react-paginate';
 import Form from './Form';
 import Blog from './Blog';
 import DatePicker from './DatePicker';
-import Api from '../utils/Api'
+import Api from '../utils/Api';
+import Pagination from "./Pagination";
 
-function Main() {
+function Posts() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
-    const api = new Api('http://localhost:3004/posts');
+    const api = new Api('posts');
     
-    const matchUser = JSON.parse(localStorage.getItem('matchUser'));
+    const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
 
-    if(matchUser === null) {
-        window.location.href = './login'; 
+    if(!authorizedUser) {
+        window.location.href = './registration'; 
     }
 
     useEffect(() => {
         const fetchPosts = async () => { 
-            const posts = await api.getPostsByUser(matchUser.id)
+            const posts = await api.getPostsByUser(authorizedUser.id)
             setPosts(posts)
          }
             fetchPosts()
@@ -38,13 +39,29 @@ function Main() {
         setFirstPost(event.selected * postsPerPage)  
     }
     
-    function addPost(text) {
+    // function addPost(text) {
+    //     const post = {
+    //         text,
+    //         date: new Date(),
+    //         id: Date.now(),
+    //         likes: 0,
+    //         userId: authorizedUser.id
+    //     }
+        
+    //     api.post(post)
+    //     setPosts(
+    //         [...posts, post]
+    //     ) 
+    // }
+
+       
+    const addPost = (text) => {
         const post = {
             text,
             date: new Date(),
             id: Date.now(),
             likes: 0,
-            userId: matchUser.id
+            userId: authorizedUser.id
         }
         
         api.post(post)
@@ -53,9 +70,9 @@ function Main() {
         ) 
     }
 
+
     const onclickHandler = (event) => {
         const buttonId = event.target.dataset.id;
-        console.log('button', event.target);
         const newPosts = posts.map(post => {
             if(post.id === +buttonId) {
                 post.likes += 1
@@ -74,39 +91,40 @@ function Main() {
         api.delete(postId)
     }
 
-    const onclickSingOut = (event) => {
+    const onclickSingOut = () => {
         localStorage.removeItem('matchUser');
-        window.location.href = './login'; 
+        window.location.href = './registration'; 
     }
 
     return (
         <div className='main'>
             <div className='title-wrapper'>
-                <h1 className='main-title'>Hello {matchUser.login}!</h1>
+                <h1 className='main-title'>Hello {authorizedUser.login}!</h1>
                 <button className='button' onClick={onclickSingOut}>Sign out</button>
             </div>
             <div className='flex-wrapper'>
                 <Form onCreate={addPost}/>
                 <DatePicker posts={posts} setPosts={setPosts} allPosts={allPosts} setAllPosts={setAllPosts}/>
             </div>
-            {posts.length > 5 &&    
-            <ReactPaginate
-                breakLabel="..."
-                nextLabel="next >"
-                onPageChange={pageChangeHandler}
-                pageRangeDisplayed={5}
-                pageCount={totalPages}
-                previousLabel="< previous"
-                renderOnZeroPageCount={null}
-            />
-            }
             <Blog 
                 posts={posts.length > 5 ? paginatedPosts : posts} 
                 onclickHandler={onclickHandler}
                 onclickDelete={onclickDelete}
             />
+            {posts.length > 5 &&    
+            // <ReactPaginate
+            //     breakLabel="..."
+            //     nextLabel="next >"
+            //     onPageChange={pageChangeHandler}
+            //     pageRangeDisplayed={5}
+            //     pageCount={totalPages}
+            //     previousLabel="< previous"
+            //     renderOnZeroPageCount={null}
+            // />
+            <Pagination pageChangeHandler={pageChangeHandler} totalPages={totalPages}/>
+            }
         </div>
     );
 }
 
-export default Main;
+export default Posts;

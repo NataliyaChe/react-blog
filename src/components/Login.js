@@ -4,13 +4,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 function Login() {
-    const api = new Api('http://localhost:3004/users');
+    const api = new Api('users');
     const [matchUser, setMatchUser] = useState({})
     
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
             const user = await api.getUserByEmail(value)
-            console.log('user[0]', user[0]);
             setMatchUser(user[0])
             return user.length
           });
@@ -41,7 +40,7 @@ function Login() {
             initialValues={initialValues}
             validationSchema={signInSchema}
             onSubmit={() => {
-                localStorage.setItem('matchUser', JSON.stringify(matchUser));
+                localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
                 window.location.href = './'; 
               }}>
                 {(formik) => {
@@ -82,6 +81,11 @@ function Login() {
                             >
                                 Sign in
                             </button> 
+                            <div className="container signin">
+                                <p >
+                                    <a className="link login-link" href="./registration">New member?</a>
+                                </p>
+                            </div>
                         </Form>
                     );
                 }}   

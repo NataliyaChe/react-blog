@@ -1,8 +1,6 @@
-
-
 class Api {
-    constructor(link) {
-        this.link = link
+    constructor(query) {
+        this.link = `http://localhost:3004/${query}`
     }
     async get() {
         const data = await fetch(this.link)
