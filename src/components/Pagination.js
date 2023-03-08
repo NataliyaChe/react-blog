@@ -18,7 +18,7 @@ function Pagination(props) {
             activeLinkClassName="active-link"
             breakLabel="..."
             nextLabel="next >"
-            onPageChange={props.pageChangeHandler}
+            onPageChange={props.changePage}
             pageRangeDisplayed={5}
             pageCount={props.totalPages}
             previousLabel="< previous"

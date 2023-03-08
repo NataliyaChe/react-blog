@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 // import ReactPaginate from 'react-paginate';
-import Form from './Form';
-import Blog from './Blog';
-import DatePicker from './DatePicker';
+import Form from '../components/Form';
+import Blog from '../components/Blog';
+import DatePicker from '../components/DatePicker';
 import Api from '../utils/Api';
-import Pagination from "./Pagination";
+import Pagination from "../components/Pagination";
 
 function Posts() {
     const [allPosts, setAllPosts] = useState([]);
@@ -35,7 +35,7 @@ function Posts() {
 
     const totalPages = Math.ceil(posts.length / postsPerPage);
 
-    const pageChangeHandler = (event) => {
+    const changePage = (event) => {
         setFirstPost(event.selected * postsPerPage)  
     }
     
@@ -71,7 +71,7 @@ function Posts() {
     }
 
 
-    const onclickHandler = (event) => {
+    const addLike = (event) => {
         const buttonId = event.target.dataset.id;
         const newPosts = posts.map(post => {
             if(post.id === +buttonId) {
@@ -82,7 +82,7 @@ function Posts() {
         setPosts(newPosts)
     }
 
-    const onclickDelete = (event) => {
+    const deletePost = (event) => {
         const postId = +event.target.dataset.id;
         const filteredPosts = posts.filter(post => {
             return post.id !== postId;
@@ -91,7 +91,7 @@ function Posts() {
         api.delete(postId)
     }
 
-    const onclickSingOut = () => {
+    const signOut = () => {
         localStorage.removeItem('matchUser');
         window.location.href = './registration'; 
     }
@@ -100,7 +100,7 @@ function Posts() {
         <div className='main'>
             <div className='title-wrapper'>
                 <h1 className='main-title'>Hello {authorizedUser.login}!</h1>
-                <button className='button' onClick={onclickSingOut}>Sign out</button>
+                <button className='button' onClick={signOut}>Sign out</button>
             </div>
             <div className='flex-wrapper'>
                 <Form onCreate={addPost}/>
@@ -108,8 +108,8 @@ function Posts() {
             </div>
             <Blog 
                 posts={posts.length > 5 ? paginatedPosts : posts} 
-                onclickHandler={onclickHandler}
-                onclickDelete={onclickDelete}
+                addLike={addLike}
+                deletePost={deletePost}
             />
             {posts.length > 5 &&    
             // <ReactPaginate
@@ -121,7 +121,7 @@ function Posts() {
             //     previousLabel="< previous"
             //     renderOnZeroPageCount={null}
             // />
-            <Pagination pageChangeHandler={pageChangeHandler} totalPages={totalPages}/>
+            <Pagination changePage={changePage} totalPages={totalPages}/>
             }
         </div>
     );

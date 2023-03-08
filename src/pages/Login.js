@@ -2,32 +2,33 @@ import React, { useState, useEffect } from 'react';
 import Api from '../utils/Api';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import signInSchema from '../utils/validationSchemas/LoginValidation'
 
 function Login() {
     const api = new Api('users');
-    const [matchUser, setMatchUser] = useState({})
+    // const [matchUser, setMatchUser] = useState({})
     
-    Yup.addMethod(Yup.string, 'checkEmail', function(message) {
-        return this.test('checkEmail', message, async function (value) {
-            const user = await api.getUserByEmail(value)
-            setMatchUser(user[0])
-            return user.length
-          });
-    })
+    // Yup.addMethod(Yup.string, 'checkEmail', function(message) {
+    //     return this.test('checkEmail', message, async function (value) {
+    //         const user = await api.getUserByEmail(value)
+    //         setMatchUser(user[0])
+    //         return user.length
+    //       });
+    // })
 
-    Yup.addMethod(Yup.string, 'checkPassword', function(message) {
-        return this.test('checkPassword', message, async function (value) {
-            return matchUser.password === value
-          });
-    })
+    // Yup.addMethod(Yup.string, 'checkPassword', function(message) {
+    //     return this.test('checkPassword', message, async function (value) {
+    //         return matchUser.password === value
+    //       });
+    // })
 
-    const signInSchema = Yup.object().shape({
-        email: Yup.string().email('Invalid Email').checkEmail('Email not found').required("Email is required"),
-        password: Yup.string()
-          .required("Password is required")
-          .min(4, "Password is too short - should be 4 chars min")
-          .checkPassword('Wrong password'),
-    });
+    // const signInSchema = Yup.object().shape({
+    //     email: Yup.string().email('Invalid Email').checkEmail('Email not found').required("Email is required"),
+    //     password: Yup.string()
+    //       .required("Password is required")
+    //       .min(4, "Password is too short - should be 4 chars min")
+    //       .checkPassword('Wrong password'),
+    // });
 
     const initialValues = {
         email: '',
@@ -40,7 +41,7 @@ function Login() {
             initialValues={initialValues}
             validationSchema={signInSchema}
             onSubmit={() => {
-                localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
+                // localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
                 window.location.href = './'; 
               }}>
                 {(formik) => {

@@ -90,6 +90,20 @@
       "id": 1678219364570,
       "likes": 0,
       "userId": 1677584744456
+    },
+    {
+      "text": "today post",
+      "date": "2023-03-08T11:39:54.788Z",
+      "id": 1678275594788,
+      "likes": 0,
+      "userId": 1677584368997
+    },
+    {
+      "text": "today meow",
+      "date": "2023-03-08T12:04:46.545Z",
+      "id": 1678277086545,
+      "likes": 0,
+      "userId": 1677584744456
     }
   ],
   "comments": [],
@@ -117,24 +131,6 @@
       "email": "andriy@ok.ua",
       "password": "123456",
       "id": 1677851580663
-    },
-    {
-      "login": "Gintoki",
-      "email": "gintoki@ok.ua",
-      "password": "1234",
-      "id": 1678042868272
-    },
-    {
-      "login": "Maar",
-      "email": "maar@ok.ua",
-      "password": "1234",
-      "id": 1678049098251
-    },
-    {
-      "login": "Ichi",
-      "email": "ichi@ok.ua",
-      "password": "1234",
-      "id": 1678218217996
     }
   ]
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import {BrowserRouter,  Routes, Route} from 'react-router-dom';
 import Header from "./components/Header";
-import Posts from './components/Posts';
-import Registration from './components/Registration';
-import Login from './components/Login';
-import Users from "./components/Users";
+import Posts from './pages/Posts';
+import Registration from './pages/Registration';
+import Login from './pages/Login';
+import Users from "./pages/Users";
 
 function App() {
   return (
