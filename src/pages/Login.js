@@ -42,7 +42,8 @@ function Login() {
             validationSchema={signInSchema}
             onSubmit={() => {
                 // localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
-                window.location.href = './'; 
+                
+                // window.location.href = './'; 
               }}>
                 {(formik) => {
                     const {

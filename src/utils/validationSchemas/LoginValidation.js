@@ -2,19 +2,20 @@ import Api from '../Api';
 import * as Yup from "yup";
 
 const api = new Api('users');
-
+let matchUser 
 Yup.addMethod(Yup.string, 'checkEmail', function(message) {
     return this.test('checkEmail', message, async function (value) {
         const user = await api.getUserByEmail(value)
-        const matchUser = user[0];
+        matchUser = user[0];
         localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
-        return user.length
+        // return user.length
+        return matchUser
         });
 })
 
 Yup.addMethod(Yup.string, 'checkPassword', function(message) {
     return this.test('checkPassword', message, async function (value) {
-        const matchUser = JSON.parse(localStorage.getItem('authorizedUser'));
+        // const matchUser = JSON.parse(localStorage.getItem('authorizedUser'));
         return matchUser.password === value
         });
 })
