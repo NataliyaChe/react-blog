@@ -2,6 +2,7 @@ import Api from '../Api';
 import * as Yup from "yup";
 
 const api = new Api('users');
+// const [matchUser, setMatchUser] = useState({})
 
 Yup.addMethod(Yup.string, 'checkEmail', function(message) {
     return this.test('checkEmail', message, async function (value) {

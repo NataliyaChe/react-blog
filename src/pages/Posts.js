@@ -6,7 +6,7 @@ import DatePicker from '../components/DatePicker';
 import Api from '../utils/Api';
 import Pagination from "../components/Pagination";
 
-function Posts() {
+function Posts({ toggle }) {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
     const api = new Api('posts');
@@ -93,6 +93,7 @@ function Posts() {
 
     const signOut = () => {
         localStorage.removeItem('matchUser');
+        toggle();
         window.location.href = './registration'; 
     }
 

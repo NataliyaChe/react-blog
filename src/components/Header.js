@@ -1,15 +1,17 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import {HeaderContext} from '../utils/HeaderContext'
 
 function Header() {
-    const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
-    const [isVisible, setIsVisible] = useState(true);
 
-    useEffect(() => {
-        if(!authorizedUser) {
-            setIsVisible(!isVisible);
-        }
-    }, [authorizedUser]);
+    const isVisible = useContext(HeaderContext);
+    // const isVisible = useHeader()
+
+    // useEffect(() => {
+    //     if(!authorizedUser) {
+    //         setIsVisible(!isVisible);
+    //     }
+    // }, [authorizedUser]);
 
     // if(!authorizedUser) {
     //     setIsVisible(!isVisible);
@@ -22,7 +24,7 @@ function Header() {
                 <Link to='.' className={`link ${isVisible ? 'show' : 'hide'}`}>
                     Posts
                 </Link>
-                <Link to='/users' className={`link ${isVisible ? 'show' : 'hide'}`}>
+                <Link to='/users' className={`link ${isVisible ? 'hide' : 'show'}`}>
                     Users
                 </Link>
             </div>
