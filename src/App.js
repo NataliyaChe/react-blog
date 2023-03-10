@@ -5,29 +5,27 @@ import Posts from './pages/Posts';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Users from "./pages/Users";
-import {HeaderContext} from './utils/HeaderContext';
-// import {HeaderProvider} from './utils/HeaderContext'
+import {AuthContext} from './utils/AuthContext';
 
 function App() {
-  // const [authorizedUser, setAuthorizedUser] = useState()
-  const [isVisible, setIsVisible] = useState(false);
-  console.log('isVisible', isVisible);
-  const toggleIsVisible = () => {
-    setIsVisible(!isVisible)
+  const [isUser, setIsUser] = useState('null');
+
+  const toggleIsUser = ()=> {
+    setIsUser(!isUser)
   }
+
   return (
   
     <BrowserRouter> 
-    <HeaderContext.Provider value={isVisible}>
+    <AuthContext.Provider value={{isUser, setIsUser, toggleIsUser}}>
       <Header />
       <Routes>
-        <Route path='/' element={<Posts toggle={toggleIsVisible}/>} />
+        <Route path='/' element={<Posts />} />
         <Route path='/users' element={<Users />} />
         <Route path='/registration' element={<Registration />} />
-        <Route path='/login' element={<Login toggle={toggleIsVisible}/>} />
-        
+        <Route path='/login' element={<Login />} /> 
       </Routes> 
-      </HeaderContext.Provider> 
+      </AuthContext.Provider> 
     </BrowserRouter>
     
   );

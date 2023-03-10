@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const HeaderContext = React.createContext();
+export const AuthContext = React.createContext(null);
 
 // export const useHeader = () => {
 //     return useContext(HeaderContext)

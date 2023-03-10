@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-// import ReactPaginate from 'react-paginate';
+import React, { useState, useEffect, useContext } from 'react';
 import Form from '../components/Form';
 import Blog from '../components/Blog';
 import DatePicker from '../components/DatePicker';
 import Api from '../utils/Api';
 import Pagination from "../components/Pagination";
+import {AuthContext} from '../utils/AuthContext'
 
 function Posts({ toggle }) {
     const [allPosts, setAllPosts] = useState([]);
@@ -12,6 +12,9 @@ function Posts({ toggle }) {
     const api = new Api('posts');
     
     const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
+
+    const {isUser, setIsUser} = useContext(AuthContext);
+    console.log('login isUser', isUser);
 
     if(!authorizedUser) {
         window.location.href = './registration'; 
@@ -38,23 +41,7 @@ function Posts({ toggle }) {
     const changePage = (event) => {
         setFirstPost(event.selected * postsPerPage)  
     }
-    
-    // function addPost(text) {
-    //     const post = {
-    //         text,
-    //         date: new Date(),
-    //         id: Date.now(),
-    //         likes: 0,
-    //         userId: authorizedUser.id
-    //     }
-        
-    //     api.post(post)
-    //     setPosts(
-    //         [...posts, post]
-    //     ) 
-    // }
-
-       
+   
     const addPost = (text) => {
         const post = {
             text,
@@ -69,7 +56,6 @@ function Posts({ toggle }) {
             [...posts, post]
         ) 
     }
-
 
     const addLike = (event) => {
         const buttonId = event.target.dataset.id;
@@ -92,8 +78,8 @@ function Posts({ toggle }) {
     }
 
     const signOut = () => {
-        localStorage.removeItem('matchUser');
-        toggle();
+        localStorage.removeItem('authorizedUser');
+        setIsUser(null);
         window.location.href = './registration'; 
     }
 
@@ -113,15 +99,6 @@ function Posts({ toggle }) {
                 deletePost={deletePost}
             />
             {posts.length > 5 &&    
-            // <ReactPaginate
-            //     breakLabel="..."
-            //     nextLabel="next >"
-            //     onPageChange={pageChangeHandler}
-            //     pageRangeDisplayed={5}
-            //     pageCount={totalPages}
-            //     previousLabel="< previous"
-            //     renderOnZeroPageCount={null}
-            // />
             <Pagination changePage={changePage} totalPages={totalPages}/>
             }
         </div>

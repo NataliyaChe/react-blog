@@ -1,11 +1,12 @@
 import React, {useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import {HeaderContext} from '../utils/HeaderContext'
+import {AuthContext} from '../utils/AuthContext'
 
 function Header() {
 
-    const isVisible = useContext(HeaderContext);
-    // const isVisible = useHeader()
+    // const isVisible = useContext(HeaderContext);
+    const {isUser} = useContext(AuthContext);
+    console.log('isUser', isUser);
 
     // useEffect(() => {
     //     if(!authorizedUser) {
@@ -21,10 +22,11 @@ function Header() {
         <div className='header'>
             <span className='header-title'>Blog</span>
             <div>
-                <Link to='.' className={`link ${isVisible ? 'show' : 'hide'}`}>
+                {/* <div>{isUser}</div> */}
+                <Link to='.' className='link'>
                     Posts
                 </Link>
-                <Link to='/users' className={`link ${isVisible ? 'hide' : 'show'}`}>
+                <Link to='/users' className='link'>
                     Users
                 </Link>
             </div>
