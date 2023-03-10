@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 import Api from '../utils/Api';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -9,8 +10,11 @@ function Login() {
     const api = new Api('users');
     const [matchUser, setMatchUser] = useState({});
 
+    let navigate = useNavigate();
+
     const {isUser, setIsUser} = useContext(AuthContext);
     console.log('login isUser', isUser);
+
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
@@ -45,9 +49,9 @@ function Login() {
             initialValues={initialValues}
             validationSchema={signInSchema}
             onSubmit={() => {
-                // localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
+                localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
                 setIsUser(matchUser);
-                window.location.href = './'; 
+                navigate('/')
               }}>
                 {(formik) => {
                     const {

@@ -3,30 +3,25 @@ import { Link } from 'react-router-dom';
 import {AuthContext} from '../utils/AuthContext'
 
 function Header() {
-
-    // const isVisible = useContext(HeaderContext);
     const {isUser} = useContext(AuthContext);
-    console.log('isUser', isUser);
+    console.log('header isUser', isUser);
 
-    // useEffect(() => {
-    //     if(!authorizedUser) {
-    //         setIsVisible(!isVisible);
-    //     }
-    // }, [authorizedUser]);
+    const [isVisible, setIsVisible] = useState(false)
 
-    // if(!authorizedUser) {
-    //     setIsVisible(!isVisible);
-    // }
+    useEffect(() => {
+        if(isUser) {
+            setIsVisible(!isVisible);
+        }
+    }, [isUser]);
 
     return (
         <div className='header'>
             <span className='header-title'>Blog</span>
             <div>
-                {/* <div>{isUser}</div> */}
-                <Link to='.' className='link'>
+                <Link to='.' className={`link ${isVisible ? 'hide' : 'show'}`}>
                     Posts
                 </Link>
-                <Link to='/users' className='link'>
+                <Link to='/users' className={`link ${isVisible ? 'hide' : 'show'}`}>
                     Users
                 </Link>
             </div>

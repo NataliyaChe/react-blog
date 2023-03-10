@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 import Form from '../components/Form';
 import Blog from '../components/Blog';
 import DatePicker from '../components/DatePicker';
@@ -10,6 +11,8 @@ function Posts({ toggle }) {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
     const api = new Api('posts');
+
+    let navigate = useNavigate();
     
     const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
 
@@ -80,7 +83,7 @@ function Posts({ toggle }) {
     const signOut = () => {
         localStorage.removeItem('authorizedUser');
         setIsUser(null);
-        window.location.href = './registration'; 
+        navigate('./registration'); 
     }
 
     return (
