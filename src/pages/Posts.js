@@ -12,14 +12,14 @@ function Posts({ toggle }) {
     const [posts, setPosts] = useState([]);
     const api = new Api('posts');
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     
     const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
 
     const {user, setUser} = useContext(AuthContext);
 
     if(!authorizedUser) {
-        window.location.href = './registration'; 
+        navigate('./login');  
     }
 
     useEffect(() => {
@@ -81,8 +81,8 @@ function Posts({ toggle }) {
 
     const signOut = () => {
         localStorage.removeItem('authorizedUser');
-        setUser(!user);
-        navigate('./registration'); 
+        setUser(null);
+        navigate('./login'); 
     }
 
     return (

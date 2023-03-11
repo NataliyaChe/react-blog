@@ -10,9 +10,9 @@ function Login() {
     const api = new Api('users');
     const [matchUser, setMatchUser] = useState({});
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const {user, setUser} = useContext(AuthContext);
+    const {setUser} = useContext(AuthContext);
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
