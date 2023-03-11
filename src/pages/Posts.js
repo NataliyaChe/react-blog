@@ -16,8 +16,7 @@ function Posts({ toggle }) {
     
     const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
 
-    const {isUser, setIsUser} = useContext(AuthContext);
-    console.log('login isUser', isUser);
+    const {user, setUser} = useContext(AuthContext);
 
     if(!authorizedUser) {
         window.location.href = './registration'; 
@@ -82,7 +81,7 @@ function Posts({ toggle }) {
 
     const signOut = () => {
         localStorage.removeItem('authorizedUser');
-        setIsUser(null);
+        setUser(!user);
         navigate('./registration'); 
     }
 

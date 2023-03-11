@@ -8,16 +8,16 @@ import Users from "./pages/Users";
 import {AuthContext} from './utils/AuthContext';
 
 function App() {
-  const [isUser, setIsUser] = useState('null');
+  const [user, setUser] = useState(false);
 
-  const toggleIsUser = ()=> {
-    setIsUser(!isUser)
+  const toggleUser = ()=> {
+    setUser(!user)
   }
 
   return (
   
     <BrowserRouter> 
-    <AuthContext.Provider value={{isUser, setIsUser, toggleIsUser}}>
+    <AuthContext.Provider value={{user, setUser, toggleUser}}>
       <Header />
       <Routes>
         <Route path='/' element={<Posts />} />

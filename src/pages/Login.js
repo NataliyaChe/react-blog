@@ -12,9 +12,7 @@ function Login() {
 
     let navigate = useNavigate();
 
-    const {isUser, setIsUser} = useContext(AuthContext);
-    console.log('login isUser', isUser);
-
+    const {user, setUser} = useContext(AuthContext);
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
@@ -50,7 +48,7 @@ function Login() {
             validationSchema={signInSchema}
             onSubmit={() => {
                 localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
-                setIsUser(matchUser);
+                setUser(matchUser);
                 navigate('/')
               }}>
                 {(formik) => {
