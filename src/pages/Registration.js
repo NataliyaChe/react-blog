@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useNavigate, Link } from "react-router-dom";
 import Api from '../utils/Api'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 function Registration() {
     const api = new Api('users');
+
+    const navigate = useNavigate();
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
@@ -42,7 +45,7 @@ function Registration() {
                     id: Date.now()
                 }
                 api.post(newUser)
-                window.location.href = './login'; 
+                navigate('./login');
               }}>
                 {(formik) => {
                     const {
@@ -111,9 +114,9 @@ function Registration() {
                                 Register
                             </button>
                             <div className="container signin">
-                                <p >
-                                    <a className="link login-link" href="./login">Already registered? Sign in</a>
-                                </p>
+                                <Link to='./login' className='link login-link'>
+                                    Already registered? Sign in
+                                </Link>
                             </div>
                         </Form>
                     )

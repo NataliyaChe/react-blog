@@ -7,16 +7,14 @@ import Api from '../utils/Api';
 import Pagination from "../components/Pagination";
 import {AuthContext} from '../utils/AuthContext'
 
-function Posts({ toggle }) {
+function Posts() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
     const api = new Api('posts');
-
     const navigate = useNavigate();
-    
-    const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
 
-    const {user, setUser} = useContext(AuthContext);
+    const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
+    const {setUser} = useContext(AuthContext);
 
     if(!authorizedUser) {
         navigate('./login');  

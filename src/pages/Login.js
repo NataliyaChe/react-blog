@@ -1,9 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Api from '../utils/Api';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-// import signInSchema from '../utils/validationSchemas/LoginValidation'
 import {AuthContext} from '../utils/AuthContext'
 
 function Login() {
@@ -90,10 +89,9 @@ function Login() {
                                 Sign in
                             </button> 
                             <div className="container signin">
-                                {/* <button onClick={() => setIsVisible('true')}>setValue</button> */}
-                                <p >
-                                    <a className="link login-link" href="./registration">New member?</a>
-                                </p>
+                                <Link to='./registration' className='link login-link'>
+                                    New member?
+                                </Link>
                             </div>
                         </Form>
                     );
