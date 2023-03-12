@@ -22,10 +22,6 @@ function Posts() {
 
         }
     }
-    
-    // if(!authorizedUser) {
-    //     navigate('./login');  
-    // }
 
     useEffect(() => {
         if(!authorizedUser) {
@@ -37,11 +33,6 @@ function Posts() {
              }
                 fetchPosts()
         }
-        // const fetchPosts = async () => { 
-        //     const posts = await api.getPostsByUser(authorizedUser.id)
-        //     setPosts(posts)
-        //  }
-        //     fetchPosts()
     }, []);
 
     const postsPerPage = 5;

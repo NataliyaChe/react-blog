@@ -9,11 +9,7 @@ import {AuthContext} from './utils/AuthContext';
 
 function App() {
   const [user, setUser] = useState(null);
-
-  // const toggleUser = ()=> {
-  //   setUser(!user)
-  // }
-
+  
   return (
   
     <BrowserRouter> 
