@@ -1,13 +1,13 @@
 import React from 'react';
 import Post from './Post';
 
-function Blog(props) {
+function Blog({posts, addLike, deletePost}) {
 
     return (
         <div className='blog'>
             <ul className='posts'>
-                {props.posts.map(post => {
-                    return <Post post={post} key={post.id} addLike={props.addLike} deletePost={props.deletePost}/>
+                {posts.map(post => {
+                    return <Post post={post} key={post.id} addLike={addLike} deletePost={deletePost}/>
                 })}
             </ul>     
         </div>

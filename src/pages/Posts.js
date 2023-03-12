@@ -16,16 +16,32 @@ function Posts() {
     const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
     const {setUser} = useContext(AuthContext);
 
-    if(!authorizedUser) {
-        navigate('./login');  
+    let login 
+    const getLogin = () => {
+        if (!authorizedUser) {
+
+        }
     }
+    
+    // if(!authorizedUser) {
+    //     navigate('./login');  
+    // }
 
     useEffect(() => {
-        const fetchPosts = async () => { 
-            const posts = await api.getPostsByUser(authorizedUser.id)
-            setPosts(posts)
-         }
-            fetchPosts()
+        if(!authorizedUser) {
+            navigate('./login');  
+        } else {
+            const fetchPosts = async () => { 
+                const posts = await api.getPostsByUser(authorizedUser.id)
+                setPosts(posts)
+             }
+                fetchPosts()
+        }
+        // const fetchPosts = async () => { 
+        //     const posts = await api.getPostsByUser(authorizedUser.id)
+        //     setPosts(posts)
+        //  }
+        //     fetchPosts()
     }, []);
 
     const postsPerPage = 5;
@@ -86,7 +102,7 @@ function Posts() {
     return (
         <div className='main'>
             <div className='title-wrapper'>
-                <h1 className='main-title'>Hello {authorizedUser.login}!</h1>
+                <h1 className='main-title'>Hello {authorizedUser?.login}!</h1>
                 <button className='button' onClick={signOut}>Sign out</button>
             </div>
             <div className='flex-wrapper'>
