@@ -1,8 +1,7 @@
-
-
 body {
   margin: 0;
   padding: 0;
+  padding-bottom: 60px;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -16,10 +15,10 @@ code {
     monospace;
 }
 
-.wrapper {
+/* .wrapper {
   padding: 20px;
   margin: 0 auto;
-}
+} */
 
 .form {
   max-width: 550px;
@@ -28,9 +27,9 @@ code {
   padding: 20px 40px;
 }
 
-.form-field {
+/* .form-field {
   margin-bottom: 20px;
-}
+} */
 
 .button, .reset-btn {
   max-width: 150px;
@@ -48,6 +47,10 @@ code {
   list-style: none;
 }
 
+.blog {
+  margin-bottom: 40px;
+}
+
 .post-item {
   position: relative;
   max-width: 600px;
@@ -62,7 +65,7 @@ code {
 }
 
 .show {
-  display: block;
+  display: inline;
 }
 
 .hide {
@@ -78,6 +81,7 @@ code {
   border: none;
   background-image: url('./images/icons8-стрелка-67\ \(1\).png');
   background-size: contain;
+  background-color: white;
 }
 
 .show-btn {
@@ -87,6 +91,20 @@ code {
   border: none;
   background-image: url('./images/icons8-стрелка-67.png');
   background-size: contain;
+  background-color: white;
+}
+
+.title-wrapper {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin: 20px 40px;
+}
+
+.main-title {
+  font-size: 36px;
+  color: teal;
+  padding-top: 10px;
 }
 
 .flex-wrapper {
@@ -111,7 +129,9 @@ code {
 }
 
 .header {
-  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  height: 90px;
   background: teal;
   padding: 20px;
   margin: 0;
@@ -152,3 +172,73 @@ code {
   margin-bottom: 10px;
   color: tomato;
 }
+
+.input-error {
+  border-color: tomato;
+}
+
+.error {
+  color: tomato;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+}
+
+.disabled-btn {
+  cursor: not-allowed;
+  background: rgba(#1d3557, 0.8);
+}
+
+.login-link {
+  color: black;
+}
+
+.login-link:hover {
+  color: tomato
+}
+
+.header-title {
+  font-size: 60px;
+  font-weight: 500;
+  color: azure;
+  margin-left: 15px;
+}
+
+/* Pagination */
+
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  margin-left: 40px;
+}
+
+.page-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.page-item {
+  background-color: teal;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.active {
+  background-color: white;
+  border: 2px solid teal;
+}
+
+.active-link {
+  color: teal;
+}
+
+.previous-link, .next-link {
+  padding: 8px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Pagination end*/
+

@@ -1,13 +1,13 @@
 import React from 'react';
 import Post from './Post';
 
-function Blog({posts, onclickHandler, onclickDelete}) {
+function Blog({posts, addLike, deletePost}) {
 
     return (
-        <div className='blog-container'>
+        <div className='blog'>
             <ul className='posts'>
                 {posts.map(post => {
-                    return <Post post={post} key={post.id} onclickHandler={onclickHandler} onclickDelete={onclickDelete}/>
+                    return <Post post={post} key={post.id} addLike={addLike} deletePost={deletePost}/>
                 })}
             </ul>     
         </div>

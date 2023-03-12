@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import {AuthContext} from '../utils/AuthContext'
 
 function Header() {
-
+    const {user} = useContext(AuthContext);
+    
     return (
         <div className='header'>
-            <Link to='.' className="link">
-                Main
-            </Link>
-            <Link to='/registration' className="link">
-                Registration
-            </Link>
-            <Link to='/login' className="link">
-                Login
-            </Link>
+            <span className='header-title'>Blog</span>
+            <div>
+                <Link to='.' className={`link ${user ? 'show' : 'hide'}`}>
+                    Posts
+                </Link>
+                <Link to='/users' className={`link ${user ? 'show' : 'hide'}`}>
+                    Users
+                </Link>
+            </div>
         </div>
     );
 }

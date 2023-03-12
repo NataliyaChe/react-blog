@@ -1,37 +1,37 @@
 import React, { useState } from 'react';
 
-function Post({post, onclickHandler, onclickDelete}) {
-  const [isClass, setIsClass] = useState(true);
+function Post({post, addLike, deletePost}) {
+  const [isClose, setIsClose] = useState(true);
 
-  const onclickSpoiler = (event) => {
-    setIsClass(!isClass)  
+  const toggleSpoiler = () => {
+    setIsClose(!isClose)  
   };
 
   return (
     <li className='post-item'>   
       <p>{post.text}</p>
       <button 
-        className={`'button show-btn ${isClass ? 'show' : 'hide'}`}
-        onClick={onclickSpoiler}
+        className={`'button show-btn ${isClose ? 'show' : 'hide'}`}
+        onClick={toggleSpoiler}
         data-id={post.id} 
       />
-      <div className={isClass ? 'hide' : 'show'}>
+      <div className={isClose ? 'hide' : 'show'}>
         <p>{post.date.toLocaleString()}</p>
         <button 
           className='button' 
-          onClick={onclickHandler} 
+          onClick={addLike} 
           data-id={post.id}>
           Like
         </button>
         <span className='likes'>{post.likes}</span>  
         <button 
           className='button hide-btn'
-          onClick={onclickSpoiler} 
+          onClick={toggleSpoiler} 
         />
       </div>
       <button 
         className='button delete-btn'
-        onClick={onclickDelete}
+        onClick={deletePost}
         data-id={post.id}>
         Delete
       </button>  

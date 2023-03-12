@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {BrowserRouter,  Routes, Route} from 'react-router-dom';
 import Header from "./components/Header";
-import Main from './components/Main'
-import Registration from './components/Registration'
-import Login from './components/Login'
+import Posts from './pages/Posts';
+import Registration from './pages/Registration';
+import Login from './pages/Login';
+import Users from "./pages/Users";
+import {AuthContext} from './utils/AuthContext';
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  // const toggleUser = ()=> {
+  //   setUser(!user)
+  // }
+
   return (
-    <BrowserRouter>
+  
+    <BrowserRouter> 
+    <AuthContext.Provider value={{user, setUser}}>
       <Header />
       <Routes>
-        <Route path='/' element={<Main />} />
+        <Route path='/' element={<Posts />} />
+        <Route path='/users' element={<Users />} />
         <Route path='/registration' element={<Registration />} />
-        <Route path='/login' element={<Login />} />
-      </Routes>
+        <Route path='/login' element={<Login />} /> 
+      </Routes> 
+      </AuthContext.Provider> 
     </BrowserRouter>
+    
   );
 }
 

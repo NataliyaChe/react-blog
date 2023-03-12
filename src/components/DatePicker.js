@@ -14,7 +14,7 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
         setEndDate(event.target.value);
     }
 
-    const filterHandler = (event) => {
+    const filterHandler = () => {
         if(!allPosts.length && startDate && endDate) {
             const filteredPosts = posts.filter(post => {
                 return (Date.parse(post.date) >= Date.parse(new Date(startDate))) && (Date.parse(post.date) <= Date.parse(new Date(endDate))+ONE_DAY_IN_MS)
@@ -25,7 +25,7 @@ function DatePicker({posts, setPosts, allPosts, setAllPosts}) {
         }
     }
 
-    const resetHandler = (event) => {
+    const resetHandler = () => {
         setPosts(allPosts);
         setAllPosts([]);
         setIsOpen(!isOpen);
