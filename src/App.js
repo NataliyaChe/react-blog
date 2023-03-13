@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {BrowserRouter,  Routes, Route} from 'react-router-dom';
 import Header from "./components/Header";
 import Posts from './pages/Posts';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Users from "./pages/Users";
-import {AuthContext} from './utils/AuthContext';
+// import {AuthContext} from './utils/AuthContext';
+import {ProvideAuth} from './utils/AuthContext';
 
 function App() {
-  const [user, setUser] = useState(null);
-  
+  // const [user, setUser] = useState(null);
+
   return (
   
     <BrowserRouter> 
-    <AuthContext.Provider value={{user, setUser}}>
+    <ProvideAuth>
+    {/* <AuthContext.Provider value={{user, setUser}}> */}
       <Header />
       <Routes>
         <Route path='/' element={<Posts />} />
@@ -21,7 +23,8 @@ function App() {
         <Route path='/registration' element={<Registration />} />
         <Route path='/login' element={<Login />} /> 
       </Routes> 
-      </AuthContext.Provider> 
+      {/* </AuthContext.Provider>  */}
+      </ProvideAuth>
     </BrowserRouter>
     
   );

@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import {AuthContext} from '../utils/AuthContext'
+// import {AuthContext} from '../utils/AuthContext';
+import {useAuth} from '../utils/AuthContext';
 
 function Header() {
-    const {user} = useContext(AuthContext);
-    
+    // const {user} = useContext(AuthContext);
+    const { user } = useAuth()
+    console.log('header', user);
     return (
         <div className='header'>
             <span className='header-title'>Blog</span>

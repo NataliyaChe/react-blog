@@ -1,17 +1,24 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import Api from '../utils/Api';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import {AuthContext} from '../utils/AuthContext'
+// import {AuthContext} from '../utils/AuthContext'
+import {useAuth} from '../utils/AuthContext';
 
 function Login() {
     const api = new Api('users');
     const [matchUser, setMatchUser] = useState({});
-
     const navigate = useNavigate();
 
-    const {setUser} = useContext(AuthContext);
+    // const {setUser} = useContext(AuthContext);
+    const { saveUser } = useAuth()
+    // function useLogger(value) {
+    //     useEffect(() => {
+    //         console.log('value', value);
+    //     }, [value])
+    // }
+    // useLogger(matchUser)
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
@@ -46,9 +53,11 @@ function Login() {
             initialValues={initialValues}
             validationSchema={signInSchema}
             onSubmit={() => {
-                localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
-                setUser(matchUser);
-                navigate('/')
+                // localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
+                // setUser(matchUser);
+                saveUser(matchUser);
+                navigate('/');
+                console.log('click');
               }}>
                 {(formik) => {
                     const {

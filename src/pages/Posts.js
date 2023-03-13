@@ -1,27 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Form from '../components/Form';
 import Blog from '../components/Blog';
 import DatePicker from '../components/DatePicker';
 import Api from '../utils/Api';
 import Pagination from "../components/Pagination";
-import {AuthContext} from '../utils/AuthContext'
+// import {AuthContext} from '../utils/AuthContext';
+import {useAuth} from '../utils/AuthContext';
 
 function Posts() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
     const api = new Api('posts');
     const navigate = useNavigate();
+    
+    // const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
+    // const {setUser} = useContext(AuthContext);
+    const { getUser, removeUser } = useAuth()
+    const authorizedUser = getUser();
+    console.log('posts user', authorizedUser);
 
-    const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
-    const {setUser} = useContext(AuthContext);
-
-    let login 
-    const getLogin = () => {
-        if (!authorizedUser) {
-
-        }
-    }
 
     useEffect(() => {
         if(!authorizedUser) {
@@ -85,8 +83,9 @@ function Posts() {
     }
 
     const signOut = () => {
-        localStorage.removeItem('authorizedUser');
-        setUser(null);
+        // localStorage.removeItem('authorizedUser');
+        // setUser(null);
+        removeUser()
         navigate('./login'); 
     }
 
