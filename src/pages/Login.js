@@ -98,7 +98,7 @@ function Login() {
                                 Sign in
                             </button> 
                             <div className="container signin">
-                                <Link to='./registration' className='link login-link'>
+                                <Link to='/registration' className='link login-link'>
                                     New member?
                                 </Link>
                             </div>

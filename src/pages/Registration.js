@@ -114,7 +114,7 @@ function Registration() {
                                 Register
                             </button>
                             <div className="container signin">
-                                <Link to='./login' className='link login-link'>
+                                <Link to='/login' className='link login-link'>
                                     Already registered? Sign in
                                 </Link>
                             </div>
