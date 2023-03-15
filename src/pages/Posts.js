@@ -79,18 +79,16 @@ function Posts() {
         api.delete(postId)
     }
 
-    const signOut = () => {
-        // localStorage.removeItem('authorizedUser');
-        // setUser(null);
-        logout()
-        // navigate('./login'); 
-    }
+    // const signOut = () => {
+    //     logout()
+    //     navigate('./login'); 
+    // }
 
     return (
         <div className='main'>
             <div className='title-wrapper'>
                 <h1 className='main-title'>Hello {authorizedUser?.login}!</h1>
-                <button className='button' onClick={signOut}>Sign out</button>
+                <button className='button' onClick={logout}>Sign out</button>
             </div>
             <div className='flex-wrapper'>
                 <Form onCreate={addPost}/>

@@ -47,7 +47,6 @@ function Login() {
             onSubmit={() => {
                 login(matchUser);
                 navigate('/');
-                console.log('click');
               }}>
                 {(formik) => {
                     const {
