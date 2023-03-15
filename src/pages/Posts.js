@@ -5,7 +5,6 @@ import Blog from '../components/Blog';
 import DatePicker from '../components/DatePicker';
 import Api from '../utils/Api';
 import Pagination from "../components/Pagination";
-// import {AuthContext} from '../utils/AuthContext';
 import {useAuth} from '../utils/AuthContext';
 
 function Posts() {
@@ -14,23 +13,21 @@ function Posts() {
     const api = new Api('posts');
     const navigate = useNavigate();
     
-    // const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
-    // const {setUser} = useContext(AuthContext);
-    const { getUser, removeUser } = useAuth()
+    const { getUser, logout } = useAuth()
     const authorizedUser = getUser();
     console.log('posts user', authorizedUser);
 
 
     useEffect(() => {
-        if(!authorizedUser) {
-            navigate('./login');  
-        } else {
+        // if(!authorizedUser) {
+        //     navigate('./login');  
+        // } else {
             const fetchPosts = async () => { 
                 const posts = await api.getPostsByUser(authorizedUser.id)
                 setPosts(posts)
              }
                 fetchPosts()
-        }
+        // }
     }, []);
 
     const postsPerPage = 5;
@@ -85,8 +82,8 @@ function Posts() {
     const signOut = () => {
         // localStorage.removeItem('authorizedUser');
         // setUser(null);
-        removeUser()
-        navigate('./login'); 
+        logout()
+        // navigate('./login'); 
     }
 
     return (

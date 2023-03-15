@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 
-// export const AuthContext = React.createContext(null);
 const authContext = React.createContext();
 
 export function ProvideAuth({children}) {
@@ -16,7 +15,7 @@ export const useAuth = () => {
 function useProvideAuth() {
     const [user, setUser] = useState(null);
 
-    function saveUser(user) {
+    function login(user) {
         localStorage.setItem('authorizedUser', JSON.stringify(user));
         setUser(user);
     }
@@ -26,13 +25,15 @@ function useProvideAuth() {
         return authorizedUser
     }
     
-    function removeUser() {
+    function logout() {
         localStorage.removeItem('authorizedUser');
         setUser(null);
     }
 
     return {
-        user, saveUser, getUser, removeUser
+        user, login, getUser, logout
     }
 }
+
+
     

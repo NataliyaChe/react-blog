@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import Api from '../utils/Api';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-// import {AuthContext} from '../utils/AuthContext'
 import {useAuth} from '../utils/AuthContext';
 
 function Login() {
@@ -11,14 +10,7 @@ function Login() {
     const [matchUser, setMatchUser] = useState({});
     const navigate = useNavigate();
 
-    // const {setUser} = useContext(AuthContext);
-    const { saveUser } = useAuth()
-    // function useLogger(value) {
-    //     useEffect(() => {
-    //         console.log('value', value);
-    //     }, [value])
-    // }
-    // useLogger(matchUser)
+    const { login } = useAuth();
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
@@ -53,9 +45,7 @@ function Login() {
             initialValues={initialValues}
             validationSchema={signInSchema}
             onSubmit={() => {
-                // localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
-                // setUser(matchUser);
-                saveUser(matchUser);
+                login(matchUser);
                 navigate('/');
                 console.log('click');
               }}>
