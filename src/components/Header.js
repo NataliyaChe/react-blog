@@ -7,7 +7,7 @@ import {useAuth} from '../hooks/useAuth';
 function Header() {
     // const {user} = useContext(AuthContext);
     const { user } = useAuth()
-    console.log('header', user);
+   
     return (
         <div className='header'>
             <span className='header-title'>Blog</span>

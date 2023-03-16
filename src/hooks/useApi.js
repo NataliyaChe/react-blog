@@ -1,57 +1,33 @@
-import React from 'react';
+export const useApi = (route) => {
+    let link = `http://localhost:3004/${route}`;
 
-export const useApi = () => {
-    const link = `http://localhost:3004/${route}`;
-
-    const get = async () => { 
+    async function get() { 
         const data = await fetch(link)
         return await data.json(); 
     }
 
-    const getUserByEmail(params) = async () => { 
+    async function getUserByEmail(params) { 
         const data = await fetch(`${link}?email=${params}`)
         return await data.json();
     }
-
-    const getPostsByUser(params) = async () => { 
+    async function getPostsByUser(params) {
         const data = await fetch(`${link}?userId=${params}`)
         return await data.json(); 
     }
+    function postItem(newPost) {
+        fetch(link, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newPost)
+        })
+    }
+    function deleteItem(params) {
+        fetch(`${link}/${params}`, {
+            method: 'DELETE'
+        })
+    }
 
     return {
-        getUserByEmail, getPostsByUser
+        get, getUserByEmail, getPostsByUser, postItem, deleteItem
     }
 }
-
-
-// class Api {
-//     constructor(route) {
-//         this.link = `http://localhost:3004/${route}`
-//     }
-//     async get() {
-//         const data = await fetch(this.link)
-//         return await data.json(); 
-//     }
-//     async getUserByEmail(params) { 
-//         const data = await fetch(`${this.link}?email=${params}`)
-//         return await data.json();
-//     }
-//     async getPostsByUser(params) {
-//         const data = await fetch(`${this.link}?userId=${params}`)
-//         return await data.json(); 
-//     }
-//     post(newPost) {
-//         fetch(this.link, {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify(newPost)
-//         })
-//     }
-//     delete(params) {
-//         fetch(`${this.link}/${params}`, {
-//             method: 'DELETE'
-//         })
-//     }
-// }
-
-// export default Api;
