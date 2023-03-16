@@ -5,7 +5,8 @@ import Blog from '../components/Blog';
 import DatePicker from '../components/DatePicker';
 import Api from '../utils/Api';
 import Pagination from "../components/Pagination";
-import {useAuth} from '../utils/AuthContext';
+// import {useAuth} from '../utils/AuthContext';
+import {useAuth} from '../hooks/useAuth';
 
 function Posts() {
     const [allPosts, setAllPosts] = useState([]);
@@ -13,10 +14,8 @@ function Posts() {
     const api = new Api('posts');
     const navigate = useNavigate();
     
-    const { getUser, logout } = useAuth()
-    const authorizedUser = getUser();
-    console.log('posts user', authorizedUser);
-
+    const { user, logout } = useAuth()
+    const authorizedUser = user;
 
     useEffect(() => {
         // if(!authorizedUser) {
@@ -79,16 +78,16 @@ function Posts() {
         api.delete(postId)
     }
 
-    // const signOut = () => {
-    //     logout()
-    //     navigate('./login'); 
-    // }
+    const signOut = () => {
+        logout()
+        navigate('./login'); 
+    }
 
     return (
         <div className='main'>
             <div className='title-wrapper'>
                 <h1 className='main-title'>Hello {authorizedUser?.login}!</h1>
-                <button className='button' onClick={logout}>Sign out</button>
+                <button className='button' onClick={signOut}>Sign out</button>
             </div>
             <div className='flex-wrapper'>
                 <Form onCreate={addPost}/>

@@ -5,8 +5,8 @@ import Posts from './pages/Posts';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Users from "./pages/Users";
-import { ProvideAuth } from './utils/AuthContext';
-import { ProtectedRoute } from './utils/ProtectedRoute';
+import { ProvideAuth } from './context/AuthContext';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 function App() {
 
@@ -16,9 +16,9 @@ function App() {
     <ProvideAuth>
       <Header />
       <Routes>
-        {/* <Route path='/' element={<Posts />} /> */}
+        <Route path='/' element={<Posts />} />
         <Route element={<ProtectedRoute />}>
-          <Route path='/' element={<Posts />} />
+          {/* <Route path='/' element={<Posts />} /> */}
           <Route path='/users' element={<Users />} />  
         </Route>
         {/* <Route path='/users' element={<Users />} /> */}
