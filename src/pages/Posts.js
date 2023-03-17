@@ -12,7 +12,7 @@ function Posts() {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
 
-    const { getPostsByUser, postItem, deleteItem } = useApi('posts');
+    const { getPostsByUser, post, remove } = useApi('posts');
     
     const { user, logout } = useAuth();
     const authorizedUser = user;
@@ -40,7 +40,7 @@ function Posts() {
     }
    
     const addPost = (text) => {
-        const post = {
+        const postItem = {
             text,
             date: new Date(),
             id: Date.now(),
@@ -48,9 +48,9 @@ function Posts() {
             userId: authorizedUser.id
         }
         
-        postItem(post)
+        post(postItem)
         setPosts(
-            [...posts, post]
+            [...posts, postItem]
         ) 
     }
 
@@ -71,7 +71,7 @@ function Posts() {
             return post.id !== postId;
         })
         setPosts(filteredPosts);
-        deleteItem(postId)
+        remove(postId)
     }
 
     const signOut = () => {

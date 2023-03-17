@@ -14,20 +14,20 @@ export const useApi = (route) => {
         const data = await fetch(`${link}?userId=${params}`)
         return await data.json(); 
     }
-    function postItem(newPost) {
+    function post(newPost) {
         fetch(link, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newPost)
         })
     }
-    function deleteItem(params) {
+    function remove(params) {
         fetch(`${link}/${params}`, {
             method: 'DELETE'
         })
     }
 
     return {
-        get, getUserByEmail, getPostsByUser, postItem, deleteItem
+        get, getUserByEmail, getPostsByUser, post, remove
     }
 }
