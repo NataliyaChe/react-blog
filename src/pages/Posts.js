@@ -3,34 +3,30 @@ import { useNavigate } from "react-router-dom";
 import Form from '../components/Form';
 import Blog from '../components/Blog';
 import DatePicker from '../components/DatePicker';
-// import Api from '../utils/Api';
 import Pagination from "../components/Pagination";
-// import {useAuth} from '../utils/AuthContext';
 import {useAuth} from '../hooks/useAuth';
 import {useApi} from '../hooks/useApi';
 
 function Posts() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
-    // const api = new Api('posts');
     const navigate = useNavigate();
 
     const { getPostsByUser, postItem, deleteItem } = useApi('posts');
     
-    const { user, logout } = useAuth()
+    const { user, logout } = useAuth();
     const authorizedUser = user;
 
     useEffect(() => {
             const fetchPosts = async () => { 
-                // const posts = await api.getPostsByUser(authorizedUser.id)
-                const posts = await getPostsByUser(authorizedUser.id)
+                const posts = await getPostsByUser(authorizedUser.id);
                 setPosts(posts)
              }
                 fetchPosts()
     }, []);
 
     const postsPerPage = 5;
-    const [firstPost, setFirstPost] = useState(0)
+    const [firstPost, setFirstPost] = useState(0);
     const lastPost = firstPost + postsPerPage;
 
     const paginatedPosts = (posts.sort((a, b) => (
@@ -52,7 +48,6 @@ function Posts() {
             userId: authorizedUser.id
         }
         
-        // api.post(post)
         postItem(post)
         setPosts(
             [...posts, post]
@@ -76,12 +71,11 @@ function Posts() {
             return post.id !== postId;
         })
         setPosts(filteredPosts);
-        // api.delete(postId)
         deleteItem(postId)
     }
 
     const signOut = () => {
-        logout()
+        logout();
         navigate('./login'); 
     }
 

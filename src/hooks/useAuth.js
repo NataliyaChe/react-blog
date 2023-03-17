@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import {authContext} from '../context/AuthContext';
 
 export const useAuth = () => {
@@ -15,11 +15,6 @@ export const useProvideAuth = () => {
         localStorage.setItem('authorizedUser', JSON.stringify(user));
         setUser(user);
     }
-
-    // function getUser() {
-    //     const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
-    //     return authorizedUser
-    // }
 
     function logout() {
         localStorage.removeItem('authorizedUser');

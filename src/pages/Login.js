@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
-// import Api from '../utils/Api';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-// import {useAuth} from '../utils/AuthContext';
 import {useAuth} from '../hooks/useAuth';
 import {useApi} from '../hooks/useApi';
 
 function Login() {
-    // const api = new Api('users');
     const [matchUser, setMatchUser] = useState({});
     const navigate = useNavigate();
-
     const { login } = useAuth();
-
     const { getUserByEmail } = useApi('users');
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
-            // const user = await api.getUserByEmail(value);
             const user = await getUserByEmail(value);
             setMatchUser(user[0])
             return user.length
