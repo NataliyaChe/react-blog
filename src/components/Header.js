@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import {AuthContext} from '../utils/AuthContext'
+import { useAuth } from '../hooks/useAuth';
 
 function Header() {
-    const {user} = useContext(AuthContext);
-    
+    const { user } = useAuth();
+   
     return (
         <div className='header'>
             <span className='header-title'>Blog</span>
@@ -12,8 +12,8 @@ function Header() {
                 <Link to='.' className={`link ${user ? 'show' : 'hide'}`}>
                     Posts
                 </Link>
-                <Link to='/users' className={`link ${user ? 'show' : 'hide'}`}>
-                    Users
+                <Link to='/Statistics' className={`link ${user ? 'show' : 'hide'}`}>
+                    Statistics
                 </Link>
             </div>
         </div>

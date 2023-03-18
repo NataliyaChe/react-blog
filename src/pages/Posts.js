@@ -1,42 +1,32 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Form from '../components/Form';
 import Blog from '../components/Blog';
 import DatePicker from '../components/DatePicker';
-import Api from '../utils/Api';
 import Pagination from "../components/Pagination";
-import {AuthContext} from '../utils/AuthContext'
+import {useAuth} from '../hooks/useAuth';
+import {useApi} from '../hooks/useApi';
 
 function Posts() {
     const [allPosts, setAllPosts] = useState([]);
     const [posts, setPosts] = useState([]);
-    const api = new Api('posts');
     const navigate = useNavigate();
 
-    const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'));
-    const {setUser} = useContext(AuthContext);
-
-    let login 
-    const getLogin = () => {
-        if (!authorizedUser) {
-
-        }
-    }
+    const { getPostsByUser, post, remove } = useApi('posts');
+    
+    const { user, logout } = useAuth();
+    const authorizedUser = user;
 
     useEffect(() => {
-        if(!authorizedUser) {
-            navigate('./login');  
-        } else {
             const fetchPosts = async () => { 
-                const posts = await api.getPostsByUser(authorizedUser.id)
+                const posts = await getPostsByUser(authorizedUser.id);
                 setPosts(posts)
              }
                 fetchPosts()
-        }
     }, []);
 
     const postsPerPage = 5;
-    const [firstPost, setFirstPost] = useState(0)
+    const [firstPost, setFirstPost] = useState(0);
     const lastPost = firstPost + postsPerPage;
 
     const paginatedPosts = (posts.sort((a, b) => (
@@ -50,7 +40,7 @@ function Posts() {
     }
    
     const addPost = (text) => {
-        const post = {
+        const postItem = {
             text,
             date: new Date(),
             id: Date.now(),
@@ -58,17 +48,20 @@ function Posts() {
             userId: authorizedUser.id
         }
         
-        api.post(post)
+        post(postItem)
         setPosts(
-            [...posts, post]
+            [...posts, postItem]
         ) 
     }
 
     const addLike = (event) => {
         const buttonId = event.target.dataset.id;
-        const newPosts = posts.map(post => {
-            if(post.id === +buttonId) {
-                post.likes += 1
+        const newPosts = posts.map(postItem => {
+            if(postItem.id === +buttonId) {
+                postItem.likes += 1
+                post(postItem)
+                // post(++post.likes)
+                // console.log('add post.likes', post.likes);
             }
             return post
         })
@@ -81,17 +74,16 @@ function Posts() {
             return post.id !== postId;
         })
         setPosts(filteredPosts);
-        api.delete(postId)
+        remove(postId)
     }
 
     const signOut = () => {
-        localStorage.removeItem('authorizedUser');
-        setUser(null);
+        logout();
         navigate('./login'); 
     }
 
     return (
-        <div className='main'>
+        <div className='main wrapper'>
             <div className='title-wrapper'>
                 <h1 className='main-title'>Hello {authorizedUser?.login}!</h1>
                 <button className='button' onClick={signOut}>Sign out</button>

@@ -15,10 +15,10 @@ code {
     monospace;
 }
 
-/* .wrapper {
-  padding: 20px;
+.wrapper {
+  margin: 20px;
   margin: 0 auto;
-} */
+}
 
 .form {
   max-width: 550px;
@@ -188,6 +188,10 @@ code {
   background: rgba(#1d3557, 0.8);
 }
 
+.signin {
+  margin-top: 30px;
+}
+
 .login-link {
   color: black;
 }
@@ -242,3 +246,14 @@ code {
 
 /* Pagination end*/
 
+.statistics {
+  margin: 40px;
+}
+
+.statistics-title {
+  
+}
+
+.statistics-text {
+  font-size: 28px;
+}

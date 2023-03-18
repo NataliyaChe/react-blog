@@ -1,17 +1,16 @@
 import React from 'react';
 import { useNavigate, Link } from "react-router-dom";
-import Api from '../utils/Api'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import {useApi} from '../hooks/useApi';
 
 function Registration() {
-    const api = new Api('users');
-
+    const { getUserByEmail, postItem } = useApi('users')
     const navigate = useNavigate();
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
-            const user = await api.getUserByEmail(value)
+            const user = await getUserByEmail(value);
             return !user.length
           });
     })
@@ -44,8 +43,8 @@ function Registration() {
                     password: values.password,
                     id: Date.now()
                 }
-                api.post(newUser)
-                navigate('./login');
+                postItem(newUser);
+                navigate('/login');
               }}>
                 {(formik) => {
                     const {
@@ -114,7 +113,7 @@ function Registration() {
                                 Register
                             </button>
                             <div className="container signin">
-                                <Link to='./login' className='link login-link'>
+                                <Link to='/login' className='link login-link'>
                                     Already registered? Sign in
                                 </Link>
                             </div>

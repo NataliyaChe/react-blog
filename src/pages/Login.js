@@ -1,21 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
-import Api from '../utils/Api';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import {AuthContext} from '../utils/AuthContext'
+import {useAuth} from '../hooks/useAuth';
+import {useApi} from '../hooks/useApi';
 
 function Login() {
-    const api = new Api('users');
     const [matchUser, setMatchUser] = useState({});
-
     const navigate = useNavigate();
-
-    const {setUser} = useContext(AuthContext);
+    const { login } = useAuth();
+    const { getUserByEmail } = useApi('users');
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
-            const user = await api.getUserByEmail(value)
+            const user = await getUserByEmail(value);
             setMatchUser(user[0])
             return user.length
           });
@@ -46,9 +44,8 @@ function Login() {
             initialValues={initialValues}
             validationSchema={signInSchema}
             onSubmit={() => {
-                localStorage.setItem('authorizedUser', JSON.stringify(matchUser));
-                setUser(matchUser);
-                navigate('/')
+                login(matchUser);
+                navigate('/');
               }}>
                 {(formik) => {
                     const {
@@ -89,7 +86,7 @@ function Login() {
                                 Sign in
                             </button> 
                             <div className="container signin">
-                                <Link to='./registration' className='link login-link'>
+                                <Link to='/registration' className='link login-link'>
                                     New member?
                                 </Link>
                             </div>
