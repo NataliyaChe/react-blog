@@ -12,7 +12,7 @@ function Posts() {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
 
-    const { getPostsByUser, post, remove } = useApi('posts');
+    const { getPostsByUser, post, patch, remove } = useApi('posts');
     
     const { user, logout } = useAuth();
     const authorizedUser = user;
@@ -47,7 +47,7 @@ function Posts() {
             likes: 0,
             userId: authorizedUser.id
         }
-        
+        console.log('postItem', postItem);
         post(postItem)
         setPosts(
             [...posts, postItem]
@@ -55,13 +55,11 @@ function Posts() {
     }
 
     const addLike = (event) => {
-        const buttonId = event.target.dataset.id;
-        const newPosts = posts.map(postItem => {
-            if(postItem.id === +buttonId) {
-                postItem.likes += 1
-                post(postItem)
-                // post(++post.likes)
-                // console.log('add post.likes', post.likes);
+        const postId = +event.target.dataset.id;
+        const newPosts = posts.map(post => {
+            if(post.id === postId) {
+                post.likes += 1
+                patch(post.id, {likes: post.likes})
             }
             return post
         })

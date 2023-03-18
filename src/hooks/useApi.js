@@ -26,6 +26,15 @@ export const useApi = (route) => {
             body: JSON.stringify(newPost)
         })
     }
+
+    function patch(id, value) {
+        fetch(`${link}/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(value)
+        })
+    }
+
     function remove(params) {
         fetch(`${link}/${params}`, {
             method: 'DELETE'
@@ -33,6 +42,6 @@ export const useApi = (route) => {
     }
 
     return {
-        get, getUsers, getUserByEmail, getPostsByUser, post, remove
+        get, getUsers, getUserByEmail, getPostsByUser, post, patch, remove
     }
 }
