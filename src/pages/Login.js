@@ -9,11 +9,11 @@ function Login() {
     const [matchUser, setMatchUser] = useState({});
     const navigate = useNavigate();
     const { login } = useAuth();
-    const { getUserByEmail } = useApi('users');
+    const { getUserByEmail } = useApi();
 
     Yup.addMethod(Yup.string, 'checkEmail', function(message) {
         return this.test('checkEmail', message, async function (value) {
-            const user = await getUserByEmail(value);
+            const user = await getUserByEmail('users', value);
             setMatchUser(user[0])
             return user.length
           });

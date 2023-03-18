@@ -12,14 +12,14 @@ function Posts() {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
 
-    const { getPostsByUser, post, patch, remove } = useApi('posts');
+    const { getPostsByUser, post, patch, remove } = useApi();
     
     const { user, logout } = useAuth();
     const authorizedUser = user;
 
     useEffect(() => {
             const fetchPosts = async () => { 
-                const posts = await getPostsByUser(authorizedUser.id);
+                const posts = await getPostsByUser('posts', authorizedUser.id);
                 setPosts(posts)
              }
                 fetchPosts()
@@ -48,7 +48,7 @@ function Posts() {
             userId: authorizedUser.id
         }
         console.log('postItem', postItem);
-        post(postItem)
+        post('posts', postItem)
         setPosts(
             [...posts, postItem]
         ) 
@@ -59,7 +59,7 @@ function Posts() {
         const newPosts = posts.map(post => {
             if(post.id === postId) {
                 post.likes += 1
-                patch(post.id, {likes: post.likes})
+                patch('posts', post.id, {likes: post.likes})
             }
             return post
         })
@@ -72,7 +72,7 @@ function Posts() {
             return post.id !== postId;
         })
         setPosts(filteredPosts);
-        remove(postId)
+        remove('posts', postId)
     }
 
     const signOut = () => {

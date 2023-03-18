@@ -1,47 +1,43 @@
 export const useApi = (route) => {
-    let link = `http://localhost:3004/${route}`;
+    // let link = `http://localhost:3004/${route}`;
+    let link = 'http://localhost:3004/';
 
-    async function get() { 
-        const data = await fetch(link)
+    async function get(route) { 
+        const data = await fetch(`${link}${route}`)
         return await data.json(); 
     }
 
-    async function getUsers() { 
-        const data = await fetch(link)
-        return await data.json(); 
-    }
-
-    async function getUserByEmail(params) { 
-        const data = await fetch(`${link}?email=${params}`)
+    async function getUserByEmail(route, params) { 
+        const data = await fetch(`${link}${route}?email=${params}`)
         return await data.json();
     }
-    async function getPostsByUser(params) {
-        const data = await fetch(`${link}?userId=${params}`)
+    async function getPostsByUser(route, params) {
+        const data = await fetch(`${link}${route}?userId=${params}`)
         return await data.json(); 
     }
-    function post(newPost) {
-        fetch(link, {
+    function post(route, newPost) {
+        fetch(`${link}${route}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newPost)
         })
     }
 
-    function patch(id, value) {
-        fetch(`${link}/${id}`, {
+    function patch(route, id, value) {
+        fetch(`${link}${route}/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(value)
         })
     }
 
-    function remove(params) {
-        fetch(`${link}/${params}`, {
+    function remove(route, params) {
+        fetch(`${link}${route}/${params}`, {
             method: 'DELETE'
         })
     }
 
     return {
-        get, getUsers, getUserByEmail, getPostsByUser, post, patch, remove
+        get, getUserByEmail, getPostsByUser, post, patch, remove
     }
 }
