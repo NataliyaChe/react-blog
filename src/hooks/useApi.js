@@ -1,5 +1,4 @@
-export const useApi = (route) => {
-    // let link = `http://localhost:3004/${route}`;
+export const useApi = () => {
     let link = 'http://localhost:3004/';
 
     async function get(route) { 
