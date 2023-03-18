@@ -56,9 +56,12 @@ function Posts() {
 
     const addLike = (event) => {
         const buttonId = event.target.dataset.id;
-        const newPosts = posts.map(post => {
-            if(post.id === +buttonId) {
-                post.likes += 1
+        const newPosts = posts.map(postItem => {
+            if(postItem.id === +buttonId) {
+                postItem.likes += 1
+                post(postItem)
+                // post(++post.likes)
+                // console.log('add post.likes', post.likes);
             }
             return post
         })
@@ -80,7 +83,7 @@ function Posts() {
     }
 
     return (
-        <div className='main'>
+        <div className='main wrapper'>
             <div className='title-wrapper'>
                 <h1 className='main-title'>Hello {authorizedUser?.login}!</h1>
                 <button className='button' onClick={signOut}>Sign out</button>

@@ -6,6 +6,11 @@ export const useApi = (route) => {
         return await data.json(); 
     }
 
+    async function getUsers() { 
+        const data = await fetch(link)
+        return await data.json(); 
+    }
+
     async function getUserByEmail(params) { 
         const data = await fetch(`${link}?email=${params}`)
         return await data.json();
@@ -28,6 +33,6 @@ export const useApi = (route) => {
     }
 
     return {
-        get, getUserByEmail, getPostsByUser, post, remove
+        get, getUsers, getUserByEmail, getPostsByUser, post, remove
     }
 }

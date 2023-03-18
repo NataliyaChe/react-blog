@@ -12,8 +12,8 @@ function Header() {
                 <Link to='.' className={`link ${user ? 'show' : 'hide'}`}>
                     Posts
                 </Link>
-                <Link to='/users' className={`link ${user ? 'show' : 'hide'}`}>
-                    Users
+                <Link to='/Statistics' className={`link ${user ? 'show' : 'hide'}`}>
+                    Statistics
                 </Link>
             </div>
         </div>
