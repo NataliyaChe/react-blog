@@ -12,14 +12,14 @@ function Posts() {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
 
-    const { getPostsByUser, post, remove } = useApi('posts');
+    const { getPostsByUser, post, patch, remove } = useApi();
     
     const { user, logout } = useAuth();
     const authorizedUser = user;
 
     useEffect(() => {
             const fetchPosts = async () => { 
-                const posts = await getPostsByUser(authorizedUser.id);
+                const posts = await getPostsByUser('posts', authorizedUser.id);
                 setPosts(posts)
              }
                 fetchPosts()
@@ -47,21 +47,19 @@ function Posts() {
             likes: 0,
             userId: authorizedUser.id
         }
-        
-        post(postItem)
+        console.log('postItem', postItem);
+        post('posts', postItem)
         setPosts(
             [...posts, postItem]
         ) 
     }
 
     const addLike = (event) => {
-        const buttonId = event.target.dataset.id;
-        const newPosts = posts.map(postItem => {
-            if(postItem.id === +buttonId) {
-                postItem.likes += 1
-                post(postItem)
-                // post(++post.likes)
-                // console.log('add post.likes', post.likes);
+        const postId = +event.target.dataset.id;
+        const newPosts = posts.map(post => {
+            if(post.id === postId) {
+                post.likes += 1
+                patch('posts', post.id, {likes: post.likes})
             }
             return post
         })
@@ -74,7 +72,7 @@ function Posts() {
             return post.id !== postId;
         })
         setPosts(filteredPosts);
-        remove(postId)
+        remove('posts', postId)
     }
 
     const signOut = () => {
