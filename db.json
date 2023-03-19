@@ -167,6 +167,20 @@
       "id": 1679173918528,
       "likes": 0,
       "userId": 1677584368997
+    },
+    {
+      "text": "test post",
+      "date": "2023-03-19T21:03:55.067Z",
+      "id": 1679259835067,
+      "likes": 0,
+      "userId": 1677584368997
+    },
+    {
+      "text": "sdgsdgss",
+      "date": "2023-03-19T21:14:04.036Z",
+      "id": 1679260444036,
+      "likes": 0,
+      "userId": 1677584368997
     }
   ],
   "comments": [],
@@ -175,49 +189,73 @@
       "login": "Nata",
       "email": "nata@ok.ua",
       "password": "qwer",
-      "id": 1677584368997
+      "id": 1677584368997,
+      "securityBreaches": 0,
+      "ban": false
     },
     {
       "login": "Tilda",
       "email": "tilda@ok.ua",
       "password": "qwer",
-      "id": 1677584744456
+      "id": 1677584744456,
+      "securityBreaches": 0,
+      "ban": false
     },
     {
       "login": "Max",
       "email": "max@ok.ua",
       "password": "qwer",
-      "id": 1677584806834
+      "id": 1677584806834,
+      "securityBreaches": 0,
+      "ban": false
     },
     {
       "name": "Andriy",
       "email": "andriy@ok.ua",
       "password": "123456",
-      "id": 1677851580663
+      "id": 1677851580663,
+      "securityBreaches": 0,
+      "ban": false
     },
     {
       "login": "gin",
       "email": "gin@ok.ua",
       "password": "qwer",
-      "id": 1679043859664
+      "id": 1679043859664,
+      "securityBreaches": 0,
+      "ban": false
     },
     {
       "login": "ichi",
       "email": "ichi@ok.ua",
       "password": "qwer",
-      "id": 1679045802713
+      "id": 1679045802713,
+      "securityBreaches": 0,
+      "ban": false
     },
     {
       "login": "Maar",
       "email": "maar@ok.ua",
       "password": "qwer",
-      "id": 1679045961381
+      "id": 1679045961381,
+      "securityBreaches": 0,
+      "ban": false
     },
     {
       "login": "hello",
       "email": "hello@ok.ua",
       "password": "qwer",
-      "id": 1679046675049
+      "id": 1679046675049,
+      "securityBreaches": 0,
+      "ban": false
+    },
+    {
+      "login": "Maar",
+      "email": "maar1@ok.ua",
+      "password": "qwer",
+      "id": 1679260638161,
+      "securityBreaches": 0,
+      "ban": false
     }
   ]
 }

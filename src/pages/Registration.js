@@ -28,7 +28,7 @@ function Registration() {
         username: '',
         email: '',
         password: '',
-        password_rpt: ''
+        password_rpt: '',
       };
 
     return (
@@ -41,7 +41,9 @@ function Registration() {
                     login: values.username,
                     email: values.email,
                     password: values.password,
-                    id: Date.now()
+                    id: Date.now(),
+                    securityBreaches: 0,
+                    ban: false
                 }
                 post('users', newUser);
                 navigate('/login');

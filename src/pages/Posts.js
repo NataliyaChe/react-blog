@@ -6,6 +6,7 @@ import DatePicker from '../components/DatePicker';
 import Pagination from "../components/Pagination";
 import {useAuth} from '../hooks/useAuth';
 import {useApi} from '../hooks/useApi';
+import {useWarning} from '../hooks/useWarning';
 
 function Posts() {
     const [allPosts, setAllPosts] = useState([]);
@@ -16,6 +17,8 @@ function Posts() {
     
     const { user, logout } = useAuth();
     const authorizedUser = user;
+
+    const { warning } = useWarning()
 
     useEffect(() => {
             const fetchPosts = async () => { 
@@ -39,19 +42,38 @@ function Posts() {
         setFirstPost(event.selected * postsPerPage)  
     }
    
+    const regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/
+
     const addPost = (text) => {
-        const postItem = {
-            text,
-            date: new Date(),
-            id: Date.now(),
-            likes: 0,
-            userId: authorizedUser.id
+        if(!text.match(regex)) {
+            const postItem = {
+                text,
+                date: new Date(),
+                id: Date.now(),
+                likes: 0,
+                userId: authorizedUser.id
+            }
+            console.log('postItem', postItem);
+            post('posts', postItem)
+            setPosts(
+                [...posts, postItem]
+            ) 
+        } else {
+            console.log('warning', warning);
+            // useWarning()
         }
-        console.log('postItem', postItem);
-        post('posts', postItem)
-        setPosts(
-            [...posts, postItem]
-        ) 
+        // const postItem = {
+        //     text,
+        //     date: new Date(),
+        //     id: Date.now(),
+        //     likes: 0,
+        //     userId: authorizedUser.id
+        // }
+        // console.log('postItem', postItem);
+        // post('posts', postItem)
+        // setPosts(
+        //     [...posts, postItem]
+        // ) 
     }
 
     const addLike = (event) => {
