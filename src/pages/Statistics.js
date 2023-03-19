@@ -14,8 +14,7 @@ function Statistics() {
     const fetchPosts = async () => { 
         const users = await get('users');
         const posts = await get('posts');
-        let likes = 0
-        posts.map(post => likes += post.likes);
+        const likes = posts.reduce((sum, current) => sum + current.likes, 0);
         setTotal({
           totalUsers: users.length,
           totalPosts: posts.length,
