@@ -18,7 +18,7 @@ function Posts() {
     const { user, logout } = useAuth();
     const authorizedUser = user;
 
-    const { warning, getBan } = useWarning()
+    const { warning, time, isTimer, warningText, getBan } = useWarning()
 
     useEffect(() => {
             const fetchPosts = async () => { 
@@ -108,6 +108,9 @@ function Posts() {
                 <h1 className='main-title'>Hello {authorizedUser?.login}!</h1>
                 <button className='button' onClick={signOut}>Sign out</button>
             </div>
+            <span className={`warning ${isTimer ? 'show' : 'hide'}`}>
+                {warningText}
+            </span>
             <div className='flex-wrapper'>
                 <Form onCreate={addPost}/>
                 <DatePicker posts={posts} setPosts={setPosts} allPosts={allPosts} setAllPosts={setAllPosts}/>

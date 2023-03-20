@@ -257,3 +257,9 @@ code {
 .statistics-text {
   font-size: 28px;
 }
+
+.warning {
+  font-size: 28px;
+  
+  margin-left: 40px;
+}
