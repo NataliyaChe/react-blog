@@ -18,7 +18,7 @@ function Posts() {
     const { user, logout } = useAuth();
     const authorizedUser = user;
 
-    const { warning } = useWarning()
+    const { warning, getBan } = useWarning()
 
     useEffect(() => {
             const fetchPosts = async () => { 
@@ -60,7 +60,7 @@ function Posts() {
             ) 
         } else {
             console.log('warning', warning);
-            // useWarning()
+            getBan(warning)
         }
         // const postItem = {
         //     text,

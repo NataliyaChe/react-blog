@@ -181,6 +181,13 @@
       "id": 1679260444036,
       "likes": 0,
       "userId": 1677584368997
+    },
+    {
+      "text": "my post",
+      "date": "2023-03-19T22:21:38.295Z",
+      "id": 1679264498295,
+      "likes": 2,
+      "userId": 1679260638161
     }
   ],
   "comments": [],
@@ -190,7 +197,7 @@
       "email": "nata@ok.ua",
       "password": "qwer",
       "id": 1677584368997,
-      "securityBreaches": 0,
+      "securityBreaches": 1,
       "ban": false
     },
     {
@@ -222,7 +229,7 @@
       "email": "gin@ok.ua",
       "password": "qwer",
       "id": 1679043859664,
-      "securityBreaches": 0,
+      "securityBreaches": 2,
       "ban": false
     },
     {
@@ -254,7 +261,7 @@
       "email": "maar1@ok.ua",
       "password": "qwer",
       "id": 1679260638161,
-      "securityBreaches": 0,
+      "securityBreaches": 3,
       "ban": false
     }
   ]
