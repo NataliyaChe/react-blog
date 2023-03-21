@@ -7,6 +7,7 @@ import Pagination from "../components/Pagination";
 import {useAuth} from '../hooks/useAuth';
 import {useApi} from '../hooks/useApi';
 import {useWarning} from '../hooks/useWarning';
+// import {useAccept} from '../hooks/useAccept';
 
 function Posts() {
     const [allPosts, setAllPosts] = useState([]);
@@ -18,7 +19,8 @@ function Posts() {
     const { user, logout } = useAuth();
     const authorizedUser = user;
 
-    const { warning, time, isTimer, warningText, getBan } = useWarning()
+    const { warning, isTimer, warningText, getBanCase, compareDate } = useWarning();
+    // const { warning, isTimer, warningText, getBanCase } = useAccept();
 
     useEffect(() => {
             const fetchPosts = async () => { 
@@ -41,11 +43,11 @@ function Posts() {
     const changePage = (event) => {
         setFirstPost(event.selected * postsPerPage)  
     }
-   
+
     const regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/
 
     const addPost = (text) => {
-        if(!text.match(regex)) {
+        // if(!text.match(regex)) {
             const postItem = {
                 text,
                 date: new Date(),
@@ -53,27 +55,16 @@ function Posts() {
                 likes: 0,
                 userId: authorizedUser.id
             }
-            console.log('postItem', postItem);
             post('posts', postItem)
             setPosts(
                 [...posts, postItem]
             ) 
-        } else {
-            console.log('warning', warning);
-            getBan(warning)
-        }
-        // const postItem = {
-        //     text,
-        //     date: new Date(),
-        //     id: Date.now(),
-        //     likes: 0,
-        //     userId: authorizedUser.id
-        // }
-        // console.log('postItem', postItem);
-        // post('posts', postItem)
-        // setPosts(
-        //     [...posts, postItem]
-        // ) 
+        // } else {
+        //     // text.preventDefault();
+        //     console.log('event.preventDefault();');
+        //     getBanCase(warning);
+
+        // } 
     }
 
     const addLike = (event) => {
@@ -108,11 +99,13 @@ function Posts() {
                 <h1 className='main-title'>Hello {authorizedUser?.login}!</h1>
                 <button className='button' onClick={signOut}>Sign out</button>
             </div>
-            <span className={`warning ${isTimer ? 'show' : 'hide'}`}>
+            {/* <span className={`warning ${isTimer ? 'show' : 'hide'}`}>
                 {warningText}
-            </span>
-            <div className='flex-wrapper'>
-                <Form onCreate={addPost}/>
+            </span> */}
+            <div className='flex-wrapper'> 
+                <Form 
+                onCreate={addPost} 
+                />
                 <DatePicker posts={posts} setPosts={setPosts} allPosts={allPosts} setAllPosts={setAllPosts}/>
             </div>
             <Blog 

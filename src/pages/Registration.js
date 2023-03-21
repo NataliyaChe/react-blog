@@ -43,7 +43,8 @@ function Registration() {
                     password: values.password,
                     id: Date.now(),
                     securityBreaches: 0,
-                    ban: false
+                    ban: false,
+                    banEndDate: null
                 }
                 post('users', newUser);
                 navigate('/login');

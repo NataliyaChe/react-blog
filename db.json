@@ -176,18 +176,32 @@
       "userId": 1677584368997
     },
     {
-      "text": "sdgsdgss",
-      "date": "2023-03-19T21:14:04.036Z",
-      "id": 1679260444036,
-      "likes": 0,
-      "userId": 1677584368997
-    },
-    {
       "text": "my post",
       "date": "2023-03-19T22:21:38.295Z",
       "id": 1679264498295,
       "likes": 2,
       "userId": 1679260638161
+    },
+    {
+      "text": "march post",
+      "date": "2023-03-21T18:07:01.672Z",
+      "id": 1679422021672,
+      "likes": 0,
+      "userId": 1677584368997
+    },
+    {
+      "text": "maar post",
+      "date": "2023-03-21T19:07:14.125Z",
+      "id": 1679425634125,
+      "likes": 0,
+      "userId": 1679260638161
+    },
+    {
+      "text": "test",
+      "date": "2023-03-21T21:26:51.930Z",
+      "id": 1679434011930,
+      "likes": 0,
+      "userId": 1677584368997
     }
   ],
   "comments": [],
@@ -198,7 +212,8 @@
       "password": "qwer",
       "id": 1677584368997,
       "securityBreaches": 1,
-      "ban": false
+      "ban": false,
+      "banEndDate": null
     },
     {
       "login": "Tilda",
@@ -206,7 +221,8 @@
       "password": "qwer",
       "id": 1677584744456,
       "securityBreaches": 0,
-      "ban": false
+      "ban": false,
+      "banEndDate": null
     },
     {
       "login": "Max",
@@ -214,7 +230,8 @@
       "password": "qwer",
       "id": 1677584806834,
       "securityBreaches": 0,
-      "ban": false
+      "ban": false,
+      "banEndDate": null
     },
     {
       "name": "Andriy",
@@ -222,7 +239,8 @@
       "password": "123456",
       "id": 1677851580663,
       "securityBreaches": 0,
-      "ban": false
+      "ban": false,
+      "banEndDate": null
     },
     {
       "login": "gin",
@@ -230,7 +248,8 @@
       "password": "qwer",
       "id": 1679043859664,
       "securityBreaches": 2,
-      "ban": false
+      "ban": false,
+      "banEndDate": null
     },
     {
       "login": "ichi",
@@ -238,7 +257,8 @@
       "password": "qwer",
       "id": 1679045802713,
       "securityBreaches": 0,
-      "ban": false
+      "ban": false,
+      "banEndDate": null
     },
     {
       "login": "Maar",
@@ -246,7 +266,8 @@
       "password": "qwer",
       "id": 1679045961381,
       "securityBreaches": 0,
-      "ban": false
+      "ban": false,
+      "banEndDate": null
     },
     {
       "login": "hello",
@@ -254,7 +275,8 @@
       "password": "qwer",
       "id": 1679046675049,
       "securityBreaches": 0,
-      "ban": false
+      "ban": false,
+      "banEndDate": null
     },
     {
       "login": "Maar",
@@ -262,7 +284,8 @@
       "password": "qwer",
       "id": 1679260638161,
       "securityBreaches": 3,
-      "ban": false
+      "ban": false,
+      "banEndDate": null
     }
   ]
 }
