@@ -7,7 +7,6 @@ import Pagination from "../components/Pagination";
 import {useAuth} from '../hooks/useAuth';
 import {useApi} from '../hooks/useApi';
 import {useWarning} from '../hooks/useWarning';
-// import {useAccept} from '../hooks/useAccept';
 
 function Posts() {
     const [allPosts, setAllPosts] = useState([]);
@@ -20,7 +19,6 @@ function Posts() {
     const authorizedUser = user;
 
     const { warning, isTimer, warningText, getBanCase, compareDate } = useWarning();
-    // const { warning, isTimer, warningText, getBanCase } = useAccept();
 
     useEffect(() => {
             const fetchPosts = async () => { 
@@ -47,7 +45,6 @@ function Posts() {
     const regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/
 
     const addPost = (text) => {
-        // if(!text.match(regex)) {
             const postItem = {
                 text,
                 date: new Date(),
@@ -59,12 +56,6 @@ function Posts() {
             setPosts(
                 [...posts, postItem]
             ) 
-        // } else {
-        //     // text.preventDefault();
-        //     console.log('event.preventDefault();');
-        //     getBanCase(warning);
-
-        // } 
     }
 
     const addLike = (event) => {

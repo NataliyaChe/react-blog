@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { THIRTY_MIN_IN_MILLISECONDS } from '../constants';
 import {useAuth} from './useAuth';
 import {useApi} from './useApi';
 
-// const { user } = useAuth();
-
 export const useWarning = () => {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const authorizedUser = user;
     const warning = authorizedUser.securityBreaches;
     const [time, setTime] = useState(10);
@@ -14,6 +13,7 @@ export const useWarning = () => {
     const [ warningText, setWarningText ] = useState('');
     const [users, setUsers] = useState([]);
     const { get, post, patch } = useApi();
+    const navigate = useNavigate();
   
     useEffect(() => {
         const fetchUsers = async () => { 
@@ -54,12 +54,17 @@ export const useWarning = () => {
             case 1: 
                 console.log('case warning 1', warning);
                 setIsTimer(true);
-                setWarningText('Вы нарушили правила, вы не сможете отправлять посты тридцать минут');
+                setWarningText('Вы не можете публиковать ссылки на сторонние ресурсы. Вы нарушили правила, вы не сможете отправлять посты тридцать минут');
                 console.log('time ban', time);
-                getBan()
+                getBan();
                 break;
             case 2: 
                 console.log('case warning 2', warning);
+                setIsTimer(true);
+                setWarningText('Вы не можете публиковать ссылки на сторонние ресурсы. Вы нарушили правила, вы не сможете отправлять посты тридцать минут');
+                console.log('time ban', time);
+                getBan();
+                
                 break;
             case 3: 
                 console.log('case warning 3', warning);
@@ -71,24 +76,40 @@ export const useWarning = () => {
         const currentDate = Date.now();
         const finishBanDate = authorizedUser.banEndDate
         console.log('authorizedUser.banEndDate', finishBanDate, currentDate);
+        
         if(finishBanDate - currentDate > 0) {
-            console.log('if(finishBanDate - currentDate > 0)', (finishBanDate - currentDate) / (60 * 1000));
+            console.log('if > 0', Math.ceil((finishBanDate - currentDate) / (60 * 1000)));
+            const timeLeft = Math.ceil((finishBanDate - currentDate) / (60 * 1000))
             setIsTimer(true);
-            setWarningText('Бан не закончился');
+            setWarningText(`Возможность опубликовать новый пост будет доступна через ${timeLeft} минут.`);
         } else {
             console.log('ban ended');
             user.banEndDate = null;
+            user.securityBreaches += 1;
             const bannedUser = users.map(user => {
                 if(user.id === authorizedUser.id) {
-                    patch('users', user.id, {"banEndDate": null})
+                    patch('users', user.id, {"banEndDate": null, "securityBreaches": +1})
                 }
                 return post
             })
             console.log('user', authorizedUser);
-
-        }
-        console.log('compareDate', finishBanDate > currentDate);
+        }   
         
+        // switch(true) {
+        //     case (finishBanDate - currentDate > 0) :
+        //         console.log('if > 0', (finishBanDate - currentDate) / (60 * 1000));
+        //         setIsTimer(true);
+        //         setWarningText('Бан не закончился');
+        //         break;
+        //     case (finishBanDate - currentDate <= 0) :
+        //         user.banEndDate = null;
+        //         const bannedUser = users.map(user => {
+        //             if(user.id === authorizedUser.id) {
+        //                 patch('users', user.id, {"banEndDate": null})
+        //             }
+        //             return post
+        //         })
+        // }
     }
     return {
         warning, time, isTimer, warningText, getBanCase, compareDate
@@ -96,26 +117,5 @@ export const useWarning = () => {
 }
 
 export const useAccept = () => {
-    // const { user } = useAuth();
-    // const authorizedUser = JSON.parse(localStorage.getItem('authorizedUser'))
-
-    // function compareDate() {
-    //     const currentDate = Date.now();
-    //     const finishBanDate = authorizedUser.banEndDate
-    //     console.log('authorizedUser.banEndDate', finishBanDate, currentDate);
-    //     if(finishBanDate - currentDate > 0) {
-    //         console.log('if(finishBanDate - currentDate > 0)', (finishBanDate - currentDate) / (60 * 1000));
-            
-    //     } else {
-    //         console.log('ban ended');
-
-    //     }
-    //     console.log('compareDate', finishBanDate > currentDate);
-        
-    // }
-
-    // return {
-    //     compareDate
-    // }
 
 }
