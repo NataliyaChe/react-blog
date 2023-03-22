@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import {authContext} from '../context/AuthContext';
 
 export const useAuth = () => {
@@ -7,6 +7,7 @@ export const useAuth = () => {
 
 export const useProvideAuth = () => {
     const [user, setUser] = useState(null);
+
     if (!user && localStorage.getItem('authorizedUser')) {
         setUser(JSON.parse(localStorage.getItem('authorizedUser')));
     } 

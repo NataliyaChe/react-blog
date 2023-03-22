@@ -9,17 +9,18 @@ function Form({ onCreate }) {
     const { user } = useAuth();
     const authorizedUser = user;
 
-    const { warning, isTimer, warningText, getBanCase, compareDate } = useWarning();
-    // const { compareDate } = useAccept();
+    const { warning, isTimer, setIsTimer, warningText, getBanCase, compareDate } = useWarning();
 
     const regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/
 
 
     function submitHandler(event) {
         event.preventDefault();
-        if(authorizedUser.banEndDate) {
+        if(authorizedUser.banEndDate !== null) {
+            console.log('banEndDate', authorizedUser.banEndDate);
             compareDate();
         } else if(!value.trim().match(regex)) {
+            console.log('regex valid');
             onCreate(value)
             setValue('')
         } else {
@@ -32,7 +33,8 @@ function Form({ onCreate }) {
         // }
     }
 
-    console.log('authorizedUser', authorizedUser);
+    // console.log('user', authorizedUser);
+
     return (
         <div className='form-container'>
             <span className={`warning ${isTimer ? 'show' : 'hide'}`}>
@@ -54,7 +56,6 @@ function Form({ onCreate }) {
                     onChange={event => setValue(event.target.value)}>         
                 </textarea>                
                 <button className='button' type='submit' onClick={useAccept}
-                // disabled={authorizedUser.banEndDate ? true : false}
                 >Send post</button>
             </form>   
         </div>

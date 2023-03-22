@@ -6,7 +6,6 @@ import DatePicker from '../components/DatePicker';
 import Pagination from "../components/Pagination";
 import {useAuth} from '../hooks/useAuth';
 import {useApi} from '../hooks/useApi';
-import {useWarning} from '../hooks/useWarning';
 
 function Posts() {
     const [allPosts, setAllPosts] = useState([]);
@@ -17,8 +16,6 @@ function Posts() {
     
     const { user, logout } = useAuth();
     const authorizedUser = user;
-
-    const { warning, isTimer, warningText, getBanCase, compareDate } = useWarning();
 
     useEffect(() => {
             const fetchPosts = async () => { 
@@ -42,7 +39,7 @@ function Posts() {
         setFirstPost(event.selected * postsPerPage)  
     }
 
-    const regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/
+    // const regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/
 
     const addPost = (text) => {
             const postItem = {
