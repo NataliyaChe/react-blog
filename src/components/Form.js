@@ -1,45 +1,35 @@
 import React, { useState } from 'react';
 import {useAccept} from '../hooks/useWarning';
 import {useAuth} from '../hooks/useAuth';
-import {useApi} from '../hooks/useApi';
-import {useWarning} from '../hooks/useWarning';
+import Warning from '../components/Warning';
 
 function Form({ onCreate }) {
     const [value, setValue] = useState('');
     const { user } = useAuth();
     const authorizedUser = user;
 
-    const { warning, isTimer, setIsTimer, warningText, getBanCase, compareDate } = useWarning();
+    const [state, setState] = useState(false);
+    const renderWarning = () => {
+        setState(true);
+        // setCounter(10)
+    }
 
     const regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/
 
-
     function submitHandler(event) {
         event.preventDefault();
-        if(authorizedUser.banEndDate !== null) {
-            console.log('banEndDate', authorizedUser.banEndDate);
-            compareDate();
-        } else if(!value.trim().match(regex)) {
-            console.log('regex valid');
+        if (value.trim()) {
             onCreate(value)
             setValue('')
-        } else {
-            console.log('getBanCase');
-            getBanCase(warning);
-        } 
-        // if (value.trim()) {
-        //     onCreate(value)
-        //     setValue('')
-        // }
+        }
     }
-
-    // console.log('user', authorizedUser);
 
     return (
         <div className='form-container'>
-            <span className={`warning ${isTimer ? 'show' : 'hide'}`}>
-                {warningText}
-            </span>
+            {state &&
+                <Warning state={state}/> 
+            }
+            <button onClick={renderWarning}>Start</button>   
             <form className='form' 
             onSubmit={submitHandler}
             >

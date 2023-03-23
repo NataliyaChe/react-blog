@@ -6,6 +6,7 @@ import DatePicker from '../components/DatePicker';
 import Pagination from "../components/Pagination";
 import {useAuth} from '../hooks/useAuth';
 import {useApi} from '../hooks/useApi';
+import Warning from '../components/Warning';
 
 function Posts() {
     const [allPosts, setAllPosts] = useState([]);
@@ -16,6 +17,7 @@ function Posts() {
     
     const { user, logout } = useAuth();
     const authorizedUser = user;
+    console.log('user', authorizedUser);
 
     useEffect(() => {
             const fetchPosts = async () => { 
@@ -87,9 +89,7 @@ function Posts() {
                 <h1 className='main-title'>Hello {authorizedUser?.login}!</h1>
                 <button className='button' onClick={signOut}>Sign out</button>
             </div>
-            {/* <span className={`warning ${isTimer ? 'show' : 'hide'}`}>
-                {warningText}
-            </span> */}
+            <Warning />
             <div className='flex-wrapper'> 
                 <Form 
                 onCreate={addPost} 
