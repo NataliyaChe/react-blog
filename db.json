@@ -174,20 +174,6 @@
       "id": 1679259835067,
       "likes": 0,
       "userId": 1677584368997
-    },
-    {
-      "text": "dfs",
-      "date": "2023-03-22T14:16:20.234Z",
-      "id": 1679494580234,
-      "likes": 0,
-      "userId": 1677584368997
-    },
-    {
-      "text": "v",
-      "date": "2023-03-22T14:17:03.755Z",
-      "id": 1679494623755,
-      "likes": 0,
-      "userId": 1677584368997
     }
   ],
   "comments": [],
@@ -197,9 +183,9 @@
       "email": "nata@ok.ua",
       "password": "qwer",
       "id": 1677584368997,
-      "securityBreaches": 0,
+      "securityBreaches": 5,
       "ban": false,
-      "banEndDate": null
+      "banEndDate": 1679667984891
     },
     {
       "login": "Tilda",

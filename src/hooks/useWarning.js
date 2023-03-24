@@ -57,7 +57,7 @@ export const useWarning = () => {
         users.map(user => {
             if(user.id === authorizedUser.id) {
                 localStorage.setItem('authorizedUser', JSON.stringify(authorizedUser));
-                patch('users', user.id, {"banEndDate": finishBanDate})
+                patch('users', user.id, {banEndDate: finishBanDate})
             }
             return authorizedUser
         })
