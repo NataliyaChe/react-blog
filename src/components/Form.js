@@ -7,7 +7,7 @@ import { THIRTY_MIN_IN_MILLISECONDS } from '../constants';
 function Form({ onCreate }) {
     const [text, setText] = useState('');
     const { user, updateUser } = useAuth();
-    const [authorizedUser, setAuthorizedUser] = useState(user);
+    const [timeLeft, setTimeLeft] = useState(null);
     const { patch } = useApi();
 
     const [isWarningShown, setIsWarningShown] = useState(false);
@@ -18,46 +18,50 @@ function Form({ onCreate }) {
 
     function submitHandler(event) {
         event.preventDefault();
-        // const currentDate = new Date();
-       if(!text.trim().match(regex)) {
+        const currentDate = new Date();
+        const finishBanDate = user.banEndDate
+        console.log('authorizedUser.banEndDate', finishBanDate, currentDate);
+        if(finishBanDate - currentDate > 0) {
+            console.log('banned');
+            console.log('if > 0', Math.ceil((finishBanDate - currentDate) / (60 * 1000)));
+            setIsWarningShown(true);
+            setTimeLeft(Math.ceil((finishBanDate - currentDate) / (60 * 1000)));
+
+        } else if(!text.trim().match(regex)) {
             console.log('regex valid');
-            onCreate(text)
-            setText('')
+            const updatedUser = {
+                ...user,
+                banEndDate: null
+            }
+            updateUser(updatedUser);
+            onCreate(text);
+            setText('');
         } else {
             console.log('warning');
             setIsWarningShown(true);
             getBan() 
         }
-        // if (text.trim()) {
-        //     onCreate(text)
-        //     setValue('')
-        // }
     }
 
     function getBan() {
         const currentDate = new Date();
         const finishBanDate = new Date(currentDate.getTime() + THIRTY_MIN_IN_MILLISECONDS);
         console.log('date finish', currentDate, finishBanDate.getTime());
-        // localStorage.setItem('authorizedUser', JSON.stringify(authorizedUser));
-        // setAuthorizedUser({
-        //     login: authorizedUser.login,
-        //     email: authorizedUser.email,
-        //     password: authorizedUser.password,
-        //     id: authorizedUser.id,
-        //     securityBreaches: ++authorizedUser.securityBreaches,
-        //     ban: authorizedUser.ban,
-        //     banEndDate: finishBanDate.getTime()
-        // })
-        patch('users', authorizedUser.id, {securityBreaches: ++authorizedUser.securityBreaches, banEndDate: finishBanDate.getTime()});
-        updateUser( ++authorizedUser.securityBreaches, finishBanDate.getTime())
-        // updateUser(authorizedUser.securityBreaches, authorizedUser.banEndDate)
-        console.log('form getBan authorizedUser', authorizedUser);
+     
+        const updatedUser = {
+            ...user,
+            securityBreaches: user.securityBreaches+1,
+            banEndDate: finishBanDate.getTime()
+        }
+  
+        updateUser(updatedUser)
     }
 
     return (
         <div className='form-container'>
             {isWarningShown &&
                 <Warning setIsWarningShown={setIsWarningShown}
+                    timeLeft={timeLeft}
                 /> 
             }
             <form className='form' 
