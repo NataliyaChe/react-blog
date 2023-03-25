@@ -14,26 +14,22 @@ function Form({ onCreate }) {
 
     const regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/;
 
-    
-
     function submitHandler(event) {
         event.preventDefault();
         const currentDate = new Date();
-        const finishBanDate = user.banEndDate
-        console.log('authorizedUser.banEndDate', finishBanDate, currentDate);
+        const finishBanDate = user.banEndDateж
         if(finishBanDate - currentDate > 0) {
             console.log('banned');
             console.log('if > 0', Math.ceil((finishBanDate - currentDate) / (60 * 1000)));
             setIsWarningShown(true);
             setTimeLeft(Math.ceil((finishBanDate - currentDate) / (60 * 1000)));
-
         } else if(!text.trim().match(regex)) {
             console.log('regex valid');
-            const updatedUser = {
-                ...user,
-                banEndDate: null
-            }
-            updateUser(updatedUser);
+            // const updatedUser = {
+            //     ...user,
+            //     banEndDate: null
+            // }
+            // updateUser(updatedUser);
             onCreate(text);
             setText('');
         } else {
@@ -46,7 +42,6 @@ function Form({ onCreate }) {
     function getBan() {
         const currentDate = new Date();
         const finishBanDate = new Date(currentDate.getTime() + THIRTY_MIN_IN_MILLISECONDS);
-        console.log('date finish', currentDate, finishBanDate.getTime());
      
         const updatedUser = {
             ...user,
