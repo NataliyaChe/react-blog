@@ -1,62 +1,60 @@
 import React, { useState } from 'react';
 import {useAuth} from '../hooks/useAuth';
-import {useApi} from '../hooks/useApi';
+// import {useApi} from '../hooks/useApi';
 import Warning from '../components/Warning';
-import { THIRTY_MIN_IN_MILLISECONDS } from '../constants';
+// import { THIRTY_MIN_IN_MILLISECONDS } from '../constants';
+import {isTextValid} from '../utils/PostValidation'
+import {getBanEndDate, getBanTimeLeft} from '../utils/BanDateHelper'
 
 function Form({ onCreate }) {
     const [text, setText] = useState('');
     const { user, updateUser } = useAuth();
-    const [timeLeft, setTimeLeft] = useState(null);
-    const { patch } = useApi();
+    const [banTime, setBanTime] = useState(null);
 
     const [isWarningShown, setIsWarningShown] = useState(false);
-
-    const regex = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/;
-
+    
     function submitHandler(event) {
         event.preventDefault();
-        const currentDate = new Date();
-        const finishBanDate = user.banEndDateж
-        if(finishBanDate - currentDate > 0) {
+        setBanTime(null);
+        // const currentDate = new Date();
+        // const banTimeLeft = Math.ceil((user.banEndDate - currentDate.getTime()) / (THIRTY_MIN_IN_MILLISECONDS))
+        const banTimeLeft = getBanTimeLeft(user.banEndDate)
+        console.log('banTimeLeft', banTimeLeft);
+        if(banTimeLeft > 0) {
             console.log('banned');
-            console.log('if > 0', Math.ceil((finishBanDate - currentDate) / (60 * 1000)));
             setIsWarningShown(true);
-            setTimeLeft(Math.ceil((finishBanDate - currentDate) / (60 * 1000)));
-        } else if(!text.trim().match(regex)) {
+            setBanTime(getBanTimeLeft());
+        } else if(isTextValid(text)) {
             console.log('regex valid');
-            // const updatedUser = {
-            //     ...user,
-            //     banEndDate: null
-            // }
-            // updateUser(updatedUser);
             onCreate(text);
             setText('');
         } else {
             console.log('warning');
+            updateUserBreaches();
             setIsWarningShown(true);
-            getBan() 
         }
     }
 
-    function getBan() {
-        const currentDate = new Date();
-        const finishBanDate = new Date(currentDate.getTime() + THIRTY_MIN_IN_MILLISECONDS);
-     
+    function updateUserBreaches() {
         const updatedUser = {
             ...user,
             securityBreaches: user.securityBreaches+1,
-            banEndDate: finishBanDate.getTime()
+            banEndDate: getBanEndDate()
         }
-  
         updateUser(updatedUser)
     }
+
+    // function getBanEndDate() {
+    //     const currentDate = new Date();
+    //     const finishBanDate = new Date(currentDate.getTime() + THIRTY_MIN_IN_MILLISECONDS);
+    //     return finishBanDate.getTime()
+    // }
 
     return (
         <div className='form-container'>
             {isWarningShown &&
                 <Warning setIsWarningShown={setIsWarningShown}
-                    timeLeft={timeLeft}
+                banTime={banTime}
                 /> 
             }
             <form className='form' 
