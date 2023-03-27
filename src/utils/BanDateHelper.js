@@ -1,13 +1,13 @@
 import { THIRTY_MIN_IN_MILLISECONDS } from '../constants';
 
-const currentDate = new Date();
-
 export function getBanEndDate() {
+    const currentDate = new Date();
     const finishBanDate = new Date(currentDate.getTime() + THIRTY_MIN_IN_MILLISECONDS);
     return finishBanDate.getTime()
 }
 
 export function getBanTimeLeft(banEndDate) {
-    const banTimeLeft = Math.ceil((banEndDate - currentDate.getTime()) / (THIRTY_MIN_IN_MILLISECONDS))
-    return banTimeLeft
+    const currentDate = new Date();
+    const banTimeLeft = Math.ceil((banEndDate - currentDate) / (THIRTY_MIN_IN_MILLISECONDS))
+    return banTimeLeft > 0 ? banTimeLeft : null
 }

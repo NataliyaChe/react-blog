@@ -12,18 +12,17 @@ function Form({ onCreate }) {
     const [banTime, setBanTime] = useState(null);
 
     const [isWarningShown, setIsWarningShown] = useState(false);
-    
+
     function submitHandler(event) {
         event.preventDefault();
         setBanTime(null);
-        // const currentDate = new Date();
         // const banTimeLeft = Math.ceil((user.banEndDate - currentDate.getTime()) / (THIRTY_MIN_IN_MILLISECONDS))
-        const banTimeLeft = getBanTimeLeft(user.banEndDate)
-        console.log('banTimeLeft', banTimeLeft);
-        if(banTimeLeft > 0) {
+        const finishBanDate = user.banEndDate
+        const banTimeLeft = getBanTimeLeft(finishBanDate)
+        if(banTimeLeft) {
             console.log('banned');
             setIsWarningShown(true);
-            setBanTime(getBanTimeLeft());
+            setBanTime(banTimeLeft);
         } else if(isTextValid(text)) {
             console.log('regex valid');
             onCreate(text);
