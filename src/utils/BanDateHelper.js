@@ -9,5 +9,5 @@ export function getBanEndDate() {
 export function getBanTimeLeft(banEndDate) {
     const currentDate = new Date();
     const banTimeLeft = Math.ceil((banEndDate - currentDate) / (THIRTY_MIN_IN_MILLISECONDS))
-    return banTimeLeft > 0 ? banTimeLeft : null
+    return banTimeLeft
 }

@@ -16,10 +16,9 @@ function Form({ onCreate }) {
     function submitHandler(event) {
         event.preventDefault();
         setBanTime(null);
-        // const banTimeLeft = Math.ceil((user.banEndDate - currentDate.getTime()) / (THIRTY_MIN_IN_MILLISECONDS))
         const finishBanDate = user.banEndDate
         const banTimeLeft = getBanTimeLeft(finishBanDate)
-        if(banTimeLeft) {
+        if(banTimeLeft > 0) {
             console.log('banned');
             setIsWarningShown(true);
             setBanTime(banTimeLeft);
@@ -42,12 +41,6 @@ function Form({ onCreate }) {
         }
         updateUser(updatedUser)
     }
-
-    // function getBanEndDate() {
-    //     const currentDate = new Date();
-    //     const finishBanDate = new Date(currentDate.getTime() + THIRTY_MIN_IN_MILLISECONDS);
-    //     return finishBanDate.getTime()
-    // }
 
     return (
         <div className='form-container'>
