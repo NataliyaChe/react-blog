@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {useAuth} from '../hooks/useAuth';
 
-function Warning({setIsWarningShown, banTime}) {
+function Warning({setIsWarningShown, banTime, securityBreaches}) {
     const [counter, setCounter] = useState(10);
-    const { user } = useAuth();
     const [ warningText, setWarningText ] = useState('');
 
     function getWarningText() {
@@ -11,7 +9,7 @@ function Warning({setIsWarningShown, banTime}) {
     }
 
     function setWarning() {
-        switch(user.securityBreaches) {
+        switch(securityBreaches) {
             case 1: 
                 console.log('case warning 1');
                 setWarningText(`Вы не можете публиковать ссылки на сторонние ресурсы. Вы нарушили правила, вы не сможете отправлять посты тридцать минут`);
@@ -28,7 +26,7 @@ function Warning({setIsWarningShown, banTime}) {
     } 
         
     function setNotification() {
-        switch(user.securityBreaches) {
+        switch(securityBreaches) {
             case 1:
                 setWarningText(`Возможность опубликовать новый пост будет доступна через ${banTime} минут`);
                 break;

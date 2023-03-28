@@ -10,7 +10,7 @@ import { getBanTimeLeft } from '../utils/BanDateHelper'
 function Login() {
     const [matchUser, setMatchUser] = useState({});
     const navigate = useNavigate();
-    const { login, user } = useAuth();
+    const { login } = useAuth();
     const { getUserByEmail } = useApi();
     const [isWarningShown, setIsWarningShown] = useState(false);
     const [banTime, setBanTime] = useState(null);
@@ -43,37 +43,32 @@ function Login() {
     };
 
     function getNotification() {
-        // login(matchUser);
         const banTimeLeft = getBanTimeLeft(matchUser.banEndDate);
         if(banTimeLeft > 0) {
             setIsWarningShown(true);
             setBanTime(banTimeLeft);
         } else {
-            navigate('/');
+            getLogin()
         }
     }
 
     function getLogin() {
-        // login(matchUser);
+        login(matchUser);
         navigate('/');
     }
 
-    console.log('matchUser', matchUser);
     return (
     <div className='container'>
         {isWarningShown &&
             <Warning setIsWarningShown={setIsWarningShown}
-            banTime={banTime}
+            banTime={banTime} securityBreaches={matchUser.securityBreaches}
             /> 
         }
         <Formik
         initialValues={initialValues}
         validationSchema={signInSchema}
         onSubmit={() => {
-            login(matchUser);
             matchUser.securityBreaches === 2 ? getNotification() : getLogin()
-            // login(matchUser);
-            // navigate('/');
             }}>
             {(formik) => {
                 const {
