@@ -28,8 +28,14 @@ function Warning({setIsWarningShown, banTime}) {
     } 
         
     function setNotification() {
-        setWarningText(`Возможность опубликовать новый пост будет доступна через ${banTime} минут`);
-    
+        switch(user.securityBreaches) {
+            case 1:
+                setWarningText(`Возможность опубликовать новый пост будет доступна через ${banTime} минут`);
+                break;
+            case 2:
+                setWarningText(`Возможность войти будет доступна через ${banTime} минут`);
+                break;
+        }
     }
 
     useEffect(() => {

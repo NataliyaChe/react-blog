@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import {useAuth} from '../hooks/useAuth';
 // import {useApi} from '../hooks/useApi';
 import Warning from '../components/Warning';
-// import { THIRTY_MIN_IN_MILLISECONDS } from '../constants';
 import {isTextValid} from '../utils/PostValidation'
 import {getBanEndDate, getBanTimeLeft} from '../utils/BanDateHelper'
 
 function Form({ onCreate }) {
     const [text, setText] = useState('');
-    const { user, updateUser } = useAuth();
+    const { user, updateUser, logout } = useAuth();
+    // const { banEndDate, securityBreaches } = user;
     const [banTime, setBanTime] = useState(null);
+    const navigate = useNavigate();
 
     const [isWarningShown, setIsWarningShown] = useState(false);
 
     function submitHandler(event) {
         event.preventDefault();
         setBanTime(null);
-        const finishBanDate = user.banEndDate
-        const banTimeLeft = getBanTimeLeft(finishBanDate)
+        const banTimeLeft = getBanTimeLeft(user.banEndDate)
         if(banTimeLeft > 0) {
             console.log('banned');
             setIsWarningShown(true);
@@ -28,18 +29,28 @@ function Form({ onCreate }) {
             setText('');
         } else {
             console.log('warning');
-            updateUserBreaches();
             setIsWarningShown(true);
+            updateUserBreaches();
+            console.log('user.securityBreaches', user.securityBreaches);
+            if(user.securityBreaches === 2) {
+                setTimeout(signOut, 10000);
+            }
         }
     }
 
     function updateUserBreaches() {
+        console.log('updated');
         const updatedUser = {
             ...user,
             securityBreaches: user.securityBreaches+1,
             banEndDate: getBanEndDate()
         }
         updateUser(updatedUser)
+    }
+    console.log('user form', user);
+    const signOut = () => {
+        logout();
+        navigate('./login'); 
     }
 
     return (
