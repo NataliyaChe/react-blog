@@ -5,13 +5,15 @@ import Warning from '../components/Warning';
 import {isTextValid} from '../utils/PostValidation';
 import {getBanEndDate, getBanTimeLeft} from '../utils/BanDateHelper';
 import { TEN_SECONDS } from '../constants';
+import {useApi} from '../hooks/useApi';
 
 function Form({ onCreate }) {
     const [text, setText] = useState('');
     const { user, updateUser, logout } = useAuth();
-    const { banEndDate, securityBreaches } = user;
+    const { banEndDate, securityBreaches, id, email } = user;
     const [banTime, setBanTime] = useState(null);
     const navigate = useNavigate();
+    const { post, remove } = useApi();
 
     const [isWarningShown, setIsWarningShown] = useState(false);
 
@@ -42,6 +44,9 @@ function Form({ onCreate }) {
         }
         if(updatedUser.securityBreaches === 2) {
             setTimeout(signOut, TEN_SECONDS);
+        } else if(updatedUser.securityBreaches === 3) {
+            setTimeout(deleteUser, TEN_SECONDS);
+
         }
         updateUser(updatedUser)
     }
@@ -49,6 +54,16 @@ function Form({ onCreate }) {
     const signOut = () => {
         logout();
         navigate('./login'); 
+    }
+
+    function deleteUser() {
+        const newBannedEmail = {
+            email: email,
+            id: Date.now(),
+        }
+        post('bannedEmail', newBannedEmail);
+        remove('users', id);
+        signOut();
     }
 
     return (

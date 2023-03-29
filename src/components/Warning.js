@@ -37,7 +37,7 @@ function Warning({setIsWarningShown, banTime, securityBreaches}) {
     }
 
     useEffect(() => {
-        getWarningText()
+        getWarningText();
         const timer =
             counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
         if(!timer) {

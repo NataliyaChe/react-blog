@@ -14,6 +14,7 @@ export const useApi = () => {
         const data = await fetch(`${link}${route}?userId=${params}`)
         return await data.json(); 
     }
+
     function post(route, newPost) {
         fetch(`${link}${route}`, {
             method: 'POST',
