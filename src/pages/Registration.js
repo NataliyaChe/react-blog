@@ -15,9 +15,16 @@ function Registration() {
           });
     })
 
+    Yup.addMethod(Yup.string, 'checkBannedEmail', function(message) {
+        return this.test('checkBannedEmail', message, async function (value) {
+            const bannedEmail = await getUserByEmail('bannedEmail', value);
+            return !bannedEmail.length
+          });
+    })
+
     const signInSchema = Yup.object().shape({
         username: Yup.string().matches(/^[a-zA-Z]+$/, 'Invalid Login').required("Login is required"),
-        email: Yup.string().email('Invalid Email').checkEmail('Email already exist').required("Email is required"),
+        email: Yup.string().email('Invalid Email').checkEmail('Email already exist').checkBannedEmail('This email banned').required("Email is required"),
         password: Yup.string()
           .required("Password is required")
           .min(4, "Password is too short - should be 4 chars min"),
@@ -28,7 +35,7 @@ function Registration() {
         username: '',
         email: '',
         password: '',
-        password_rpt: ''
+        password_rpt: '',
       };
 
     return (
@@ -41,7 +48,10 @@ function Registration() {
                     login: values.username,
                     email: values.email,
                     password: values.password,
-                    id: Date.now()
+                    id: Date.now(),
+                    securityBreaches: 0,
+                    ban: false,
+                    banEndDate: null
                 }
                 post('users', newUser);
                 navigate('/login');

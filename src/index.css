@@ -27,10 +27,6 @@ code {
   padding: 20px 40px;
 }
 
-/* .form-field {
-  margin-bottom: 20px;
-} */
-
 .button, .reset-btn {
   max-width: 150px;
   padding: 10px 14px;
@@ -250,10 +246,20 @@ code {
   margin: 40px;
 }
 
-.statistics-title {
-  
-}
-
 .statistics-text {
   font-size: 28px;
+}
+
+/* .warning {
+  font-size: 28px;
+  
+  margin-left: 40px;
+} */
+
+.timer {
+  max-width: 700px;
+  font-size: 24px;
+  margin-left: 40px;
+  color: tomato;
+  margin-top: 20px;
 }

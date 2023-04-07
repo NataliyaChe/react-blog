@@ -109,7 +109,7 @@
       "text": "spring post",
       "date": "2023-03-11T17:03:03.424Z",
       "id": 1678554183424,
-      "likes": 3,
+      "likes": 0,
       "userId": 1677584368997
     },
     {
@@ -175,49 +175,51 @@
       "login": "Nata",
       "email": "nata@ok.ua",
       "password": "qwer",
-      "id": 1677584368997
+      "id": 1677584368997,
+      "securityBreaches": 0,
+      "banEndDate": 1680026139373
     },
     {
       "login": "Tilda",
       "email": "tilda@ok.ua",
       "password": "qwer",
-      "id": 1677584744456
+      "id": 1677584744456,
+      "securityBreaches": 0,
+      "banEndDate": null
     },
     {
       "login": "Max",
       "email": "max@ok.ua",
       "password": "qwer",
-      "id": 1677584806834
+      "id": 1677584806834,
+      "securityBreaches": 0,
+      "banEndDate": null
     },
     {
       "name": "Andriy",
       "email": "andriy@ok.ua",
       "password": "123456",
-      "id": 1677851580663
-    },
-    {
-      "login": "gin",
-      "email": "gin@ok.ua",
-      "password": "qwer",
-      "id": 1679043859664
-    },
-    {
-      "login": "ichi",
-      "email": "ichi@ok.ua",
-      "password": "qwer",
-      "id": 1679045802713
+      "id": 1677851580663,
+      "securityBreaches": 0,
+      "banEndDate": null
     },
     {
       "login": "Maar",
       "email": "maar@ok.ua",
       "password": "qwer",
-      "id": 1679045961381
+      "id": 1679045961381,
+      "securityBreaches": 0,
+      "banEndDate": null
+    }
+  ],
+  "bannedEmail": [
+    {
+      "email": "ichi@ok.ua",
+      "id": 1679043859664
     },
     {
-      "login": "hello",
-      "email": "hello@ok.ua",
-      "password": "qwer",
-      "id": 1679046675049
+      "email": "gin@ok.ua",
+      "id": 1680083128026
     }
   ]
 }

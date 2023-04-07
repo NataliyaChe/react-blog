@@ -38,20 +38,19 @@ function Posts() {
     const changePage = (event) => {
         setFirstPost(event.selected * postsPerPage)  
     }
-   
+
     const addPost = (text) => {
-        const postItem = {
-            text,
-            date: new Date(),
-            id: Date.now(),
-            likes: 0,
-            userId: authorizedUser.id
-        }
-        console.log('postItem', postItem);
-        post('posts', postItem)
-        setPosts(
-            [...posts, postItem]
-        ) 
+            const postItem = {
+                text,
+                date: new Date(),
+                id: Date.now(),
+                likes: 0,
+                userId: authorizedUser.id
+            }
+            post('posts', postItem)
+            setPosts(
+                [...posts, postItem]
+            ) 
     }
 
     const addLike = (event) => {
@@ -86,8 +85,10 @@ function Posts() {
                 <h1 className='main-title'>Hello {authorizedUser?.login}!</h1>
                 <button className='button' onClick={signOut}>Sign out</button>
             </div>
-            <div className='flex-wrapper'>
-                <Form onCreate={addPost}/>
+            <div className='flex-wrapper'> 
+                <Form 
+                onCreate={addPost} 
+                />
                 <DatePicker posts={posts} setPosts={setPosts} allPosts={allPosts} setAllPosts={setAllPosts}/>
             </div>
             <Blog 
